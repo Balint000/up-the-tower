@@ -72,8 +72,4 @@ Minden komplex entitásnak legyen saját scene-je:
 
 ## Csapat
 
-Egyetemi projekt - [Add meg a csapat tagjait]
-
-## Licenc
-
-[Add meg a licencet]
+Egyetemi projekt - [Erdei Bálint] [Tóth Gábor] [Mogyorósi István]
