@@ -1,6 +1,6 @@
 # Up The Tower 🗼
 
-Platformer játék készítve Godot 4.6-ban egyetemi projekthez.
+Platformer játék készítve Godot 4.6-ban egyetemi projekthez (Modern szoftverfejlesztési eszközök tárgy, 2025/2026 tavaszi félév).
 
 ## Projekt Struktúra
 
@@ -55,21 +55,12 @@ Minden komplex entitásnak legyen saját scene-je:
 - `scenes/entities/player/player.tscn` + `scripts/entities/player/player.gd`
 - `scenes/entities/enemies/flying_enemy.tscn` + `scripts/entities/enemies/flying_enemy.gd`
 
-## Következő Lépések
-
-1. Implementáld a alapvető player controller-t
-2. Készítsd el az első teszt pályát
-3. Add hozzá a alap ellenség AI-t
-4. Implementáld az UI-t (HUD, menük)
-5. Hang és zene integráció
-
 ## Technológia
 
 - **Engine**: Godot 4.6
-- **Physics**: Jolt Physics
 - **Rendering**: D3D12 (Windows)
 - **Scripting**: GDScript
 
 ## Csapat
 
-Egyetemi projekt - [Erdei Bálint] [Tóth Gábor] [Mogyorósi István]
+Egyetemi projekt - [Erdei Bálint], [Tóth Gábor], [Mogyorósi István]
