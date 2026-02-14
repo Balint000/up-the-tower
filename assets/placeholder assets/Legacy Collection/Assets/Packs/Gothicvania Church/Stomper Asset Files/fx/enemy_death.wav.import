@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dxjpa3k0y8d6l"
+path="res://.godot/imported/enemy_death.wav-d5a488a09eb7b29136dbd1e4e8dabeb0.sample"
+
+[deps]
+
+source_file="res://assets/placeholder assets/Legacy Collection/Assets/Packs/Gothicvania Church/Stomper Asset Files/fx/enemy_death.wav"
+dest_files=["res://.godot/imported/enemy_death.wav-d5a488a09eb7b29136dbd1e4e8dabeb0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

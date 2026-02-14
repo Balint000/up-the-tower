@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dxsj7xfuvcjun"
+path="res://.godot/imported/break.wav-130e4b3a1cb4eeb78d7200a0a7d9e41d.sample"
+
+[deps]
+
+source_file="res://assets/placeholder assets/Legacy Collection/Assets/Packs/Meta data assets files/sounds/fx/break.wav"
+dest_files=["res://.godot/imported/break.wav-130e4b3a1cb4eeb78d7200a0a7d9e41d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
