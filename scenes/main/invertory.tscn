@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://oaf3n43edhr7"]
 
+[ext_resource type="Script" uid="uid://cf2ody38i1jo0" path="res://scenes/main/invertory.gd" id="1_bcquy"]
+
 [node name="Invertory" type="Control" unique_id=691607760]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +9,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bcquy")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1457035176]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back_btn" type="Button" parent="." unique_id=267940863]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=24879271]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer" unique_id=142133894]
+layout_mode = 2
+
+[node name="CheckButton2" type="CheckButton" parent="VBoxContainer" unique_id=1294519452]
+layout_mode = 2
+
+[connection signal="pressed" from="back_btn" to="." method="_on_back_btn_pressed"]
