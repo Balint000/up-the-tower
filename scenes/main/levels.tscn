@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://b2vxarwugbkx6"]
 
+[ext_resource type="Script" uid="uid://ctv7t8n1wcd1m" path="res://scenes/main/levels.gd" id="1_8j6jv"]
+[ext_resource type="Texture2D" uid="uid://b3duwpm886dej" path="res://assets/placeholder assets/nanobanana/lvl1.jpg" id="1_o5wen"]
+
 [node name="Levels" type="Control" unique_id=1177878014]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +10,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8j6jv")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1103153003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=892408314]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="level1_btn" type="TextureButton" parent="VBoxContainer" unique_id=907847994]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_o5wen")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="level2_btn" type="TextureButton" parent="VBoxContainer" unique_id=2085759172]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_o5wen")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="level3_btn" type="TextureButton" parent="VBoxContainer" unique_id=785298629]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture_normal = ExtResource("1_o5wen")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="back_btn" type="Button" parent="." unique_id=1837570892]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[connection signal="pressed" from="back_btn" to="." method="_on_back_btn_pressed"]
