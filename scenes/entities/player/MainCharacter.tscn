@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bji7ey60ilwk7"]
+
+[ext_resource type="Texture2D" uid="uid://di0oh4ubnh5qk" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="1_35h0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khe1o"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_663wv"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq2fo"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq4va"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsap8"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arq4a"]
+atlas = ExtResource("1_35h0d")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxuga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khe1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_663wv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq2fo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq4va")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsap8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arq4a")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wf3kh"]
+radius = 5.0
+height = 14.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=832308272]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1719260629]
+sprite_frames = SubResource("SpriteFrames_pxuga")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.993161
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
+shape = SubResource("CapsuleShape2D_wf3kh")
