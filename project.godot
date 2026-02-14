@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="up-the-tower"
+run/main_scene="uid://cuysyqnl2kypp"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GitGodot/plugin.cfg")
 
 [physics]
 
