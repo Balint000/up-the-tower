@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cuysyqnl2kypp"]
+
+[ext_resource type="Script" uid="uid://bds7ekn7ntdbl" path="res://scenes/main/main.gd" id="1_hyk8p"]
+
+[node name="Main" type="Control" unique_id=1400215831]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hyk8p")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1750699430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1166052576]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="play_btn" type="Button" parent="VBoxContainer" unique_id=714191871]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Play"
+
+[node name="invertory_btn" type="Button" parent="VBoxContainer" unique_id=1230821618]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Invertory"
+
+[node name="exit_btn" type="Button" parent="VBoxContainer" unique_id=1964181973]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/invertory_btn" to="." method="_on_invertory_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/exit_btn" to="." method="_on_exit_btn_pressed"]
