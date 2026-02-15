@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     # Ez a konténer tartalmazza a Godot-ot és a szükséges linuxos függőségeket
     container:
-      image: barichello/godot-ci:4.3 # Figyelj a verziószámra! Ha 4.2-t használsz, írd át.
+      image: barichello/godot-ci:4.6 # Figyelj a verziószámra! Ha 4.2-t használsz, írd át.
 
     steps:
       # 1. A kód letöltése
