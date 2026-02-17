@@ -1,0 +1,17 @@
+{
+  "dirs": ["res://tests/unit/", "res://tests/integration/"],
+  "should_exit": true,
+  "should_maximize": false,
+  "compact_mode": false,
+  "log_level": 1,
+  "ignore_pause": true,
+  "hide_orphans": true,
+  "junit_xml_file": "res://.gut_editor.xml",
+  "junit_xml_timestamp": false,
+  "double_strategy": "partial",
+  "pre_run_script": "",
+  "post_run_script": "",
+  "color_output": true,
+  "yield_between_tests": true,
+  "disable_strict_datatype_checks": false
+}
