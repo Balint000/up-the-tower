@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://cuysyqnl2kypp"]
 
-[ext_resource type="Script" uid="uid://bds7ekn7ntdbl" path="res://scenes/main/main.gd" id="1_hyk8p"]
-
 [node name="Main" type="Control" unique_id=1400215831]
 layout_mode = 3
 anchors_preset = 15
@@ -9,7 +7,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hyk8p")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1750699430]
 layout_mode = 1
