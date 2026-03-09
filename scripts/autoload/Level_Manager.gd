@@ -1,51 +1,150 @@
 extends Node
 class_name LevelManager
+# Autoload singleton, registered as "LevelManager" in Project Settings.
+# Handles level loading, unlocked levels, and fade transitions.
+#
+# Other scripts that use this:
+#   - main.gd           : calls has_save_data() to show/hide the Level Select button
+#   - levels.gd         : calls load_level(index) when the player picks a level,
+#                         and is_unlocked(index) to grey out locked levels
+#   - GameManager.gd    : calls load_next_level() on goal reached,
+#                         reload_current_level() on game over
+#   - SaveSystem.gd     : calls restore_unlocked_levels() after loading a save file,
+#                         reads get_unlocked_levels() before writing a save file
 
-## Levels of the game (set in the editor)
+
+## Levels in play order. Drag Level_01.tscn, Level_02.tscn ... here in the editor.
 @export var levels: Array[PackedScene] = []
 
-## Index of the currently loaded level (0 = first level)
-var current_level_index: int = 0
+## The main menu scene. Drag scenes/main/main.tscn here in the editor.
+@export var main_menu_scene: PackedScene = null
 
-## Reference to the currently loaded level node
-var current_level: Node = null
+## Fade duration in seconds (black-out between scene changes).
+@export var fade_duration: float = 0.4
+
+
+var current_level_index: int = -1  # -1 = we are on the main menu
+
+# Level 0 is always unlocked. More are added by unlock_level().
+var _unlocked_levels: Array[int] = [0]
+
+# Fade overlay nodes, created once in _ready().
+var _fade_overlay: ColorRect = null
+var _fade_canvas: CanvasLayer = null
 
 
 func _ready() -> void:
-	# Do NOT auto-load a level here,
-	# because the main menu should appear first.
-	# Levels will be loaded from main menu / level select.
-	pass
+	_build_fade_overlay()
 
 
-## Load a specific level by index
+# ---------------------------------------------------------------------------
+# Level loading
+# ---------------------------------------------------------------------------
+
+## Load a level by index. Plays a fade transition around the scene swap.
 func load_level(index: int) -> void:
 	if index < 0 or index >= levels.size():
-		push_error("LevelManager: Invalid level index: %d" % index)
+		push_error("LevelManager: invalid level index %d" % index)
 		return
-	
-	# Remove current level if it exists
-	if current_level != null:
-		current_level.queue_free()
-		await current_level.tree_exited
-	
-	var scene: PackedScene = levels[index]
-	var instance: Node = scene.instantiate()
-	
-	add_child(instance)
-	
-	current_level = instance
+
+	await _fade_out()
+	get_tree().change_scene_to_packed(levels[index])
 	current_level_index = index
-	
-	print("LevelManager: Loaded level index =", index)
+	await _fade_in()
 
 
-## Load the next level in sequence
+## Load the level that comes after the current one.
+## Unlocks it first, then loads it. Returns to main menu if there is no next level.
 func load_next_level() -> void:
-	var next_index := current_level_index + 1
-	load_level(next_index)
+	var next: int = current_level_index + 1
+
+	if next >= levels.size():
+		await return_to_main_menu()
+		return
+
+	unlock_level(next)
+	await load_level(next)
 
 
-## Reload the current level (useful for restart)
+## Restart the current level (called on game over / player death).
 func reload_current_level() -> void:
-	load_level(current_level_index)
+	await load_level(current_level_index)
+
+
+## Go back to the main menu.
+func return_to_main_menu() -> void:
+	if main_menu_scene == null:
+		push_error("LevelManager: main_menu_scene is not set in the editor!")
+		return
+
+	await _fade_out()
+	get_tree().change_scene_to_packed(main_menu_scene)
+	current_level_index = -1
+	await _fade_in()
+
+
+# ---------------------------------------------------------------------------
+# Unlock system
+# ---------------------------------------------------------------------------
+
+## Unlock a level by index so it appears in Level Select.
+func unlock_level(index: int) -> void:
+	if not _unlocked_levels.has(index):
+		_unlocked_levels.append(index)
+
+
+## Returns true if the level at index has been unlocked.
+## levels.gd uses this to decide what to show on each level select button.
+func is_unlocked(index: int) -> bool:
+	return _unlocked_levels.has(index)
+
+
+## Returns true if any level beyond the first has been unlocked.
+## main.gd uses this to show or hide the Level Select button.
+func has_save_data() -> bool:
+	return _unlocked_levels.size() > 1
+
+
+## Returns the full unlocked list. SaveSystem calls this before writing a save.
+func get_unlocked_levels() -> Array[int]:
+	return _unlocked_levels.duplicate()
+
+
+## Restores the unlocked list from a save file. SaveSystem calls this on load.
+func restore_unlocked_levels(saved: Array[int]) -> void:
+	_unlocked_levels = saved
+	# Make sure level 0 is always accessible even if the save file is broken.
+	if not _unlocked_levels.has(0):
+		_unlocked_levels.append(0)
+
+
+# ---------------------------------------------------------------------------
+# Fade helpers
+# ---------------------------------------------------------------------------
+
+# Creates a black full-screen rect on a high CanvasLayer.
+# It starts transparent and is animated by _fade_out / _fade_in.
+func _build_fade_overlay() -> void:
+	_fade_canvas = CanvasLayer.new()
+	_fade_canvas.layer = 128  # On top of everything.
+	add_child(_fade_canvas)
+
+	_fade_overlay = ColorRect.new()
+	_fade_overlay.color = Color(0, 0, 0, 0)  # Transparent to start.
+	_fade_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_fade_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_fade_canvas.add_child(_fade_overlay)
+
+
+# Animate alpha from 0 to 1 (screen goes black).
+func _fade_out() -> void:
+	var t: Tween = create_tween()
+	t.tween_property(_fade_overlay, "color:a", 1.0, fade_duration)
+	await t.finished
+
+
+# Animate alpha from 1 to 0 (screen reveals the new scene).
+func _fade_in() -> void:
+	var t: Tween = create_tween()
+	t.tween_property(_fade_overlay, "color:a", 0.0, fade_duration)
+	await t.finished
