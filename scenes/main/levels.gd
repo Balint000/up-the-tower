@@ -1,17 +1,28 @@
 extends Control
 
+# Level select screen.
+# Shows the 3 level buttons and disables any that are still locked.
+# Relies on LevelManager (autoload) for unlock state and scene loading.
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	# Disable buttons for levels the player hasn't unlocked yet.
+	# LevelManager.is_unlocked(index) returns false until that level is beaten.
+	$VBoxContainer/level1_btn.disabled = not LevelManager.is_unlocked(0)
+	$VBoxContainer/level2_btn.disabled = not LevelManager.is_unlocked(1)
+	$VBoxContainer/level3_btn.disabled = not LevelManager.is_unlocked(2)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_level1_btn_pressed() -> void:
+	LevelManager.load_level(0)
 
-func go_back():
-	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
+
+func _on_level2_btn_pressed() -> void:
+	LevelManager.load_level(1)
+
+
+func _on_level3_btn_pressed() -> void:
+	LevelManager.load_level(2)
+
 
 func _on_back_btn_pressed() -> void:
-	go_back()# Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/main/main.tscn")

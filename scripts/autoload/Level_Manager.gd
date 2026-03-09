@@ -1,17 +1,16 @@
+## Autoload singleton, registered as "LevelManager" in Project Settings.
+## Handles level loading, unlocked levels, and fade transitions.
+##
+## Other scripts that use this:
+##   - main.gd           : calls has_save_data() to show/hide the Level Select button
+##   - levels.gd         : calls load_level(index) when the player picks a level,
+##                         and is_unlocked(index) to grey out locked levels
+##   - GameManager.gd    : calls load_next_level() on goal reached,
+##                         reload_current_level() on game over
+##   - SaveSystem.gd     : calls restore_unlocked_levels() after loading a save file,
+##                         reads get_unlocked_levels() before writing a save file
+class_name Level_Manager
 extends Node
-class_name LevelManager
-# Autoload singleton, registered as "LevelManager" in Project Settings.
-# Handles level loading, unlocked levels, and fade transitions.
-#
-# Other scripts that use this:
-#   - main.gd           : calls has_save_data() to show/hide the Level Select button
-#   - levels.gd         : calls load_level(index) when the player picks a level,
-#                         and is_unlocked(index) to grey out locked levels
-#   - GameManager.gd    : calls load_next_level() on goal reached,
-#                         reload_current_level() on game over
-#   - SaveSystem.gd     : calls restore_unlocked_levels() after loading a save file,
-#                         reads get_unlocked_levels() before writing a save file
-
 
 ## Levels in play order. Drag Level_01.tscn, Level_02.tscn ... here in the editor.
 @export var levels: Array[PackedScene] = []
@@ -22,13 +21,14 @@ class_name LevelManager
 ## Fade duration in seconds (black-out between scene changes).
 @export var fade_duration: float = 0.4
 
+## Current level index stored (helper). 
+## -1 means we are on the main menu
+var current_level_index: int = -1 
 
-var current_level_index: int = -1  # -1 = we are on the main menu
-
-# Level 0 is always unlocked. More are added by unlock_level().
+## Level 0 is always unlocked. More are added by unlock_level().
 var _unlocked_levels: Array[int] = [0]
 
-# Fade overlay nodes, created once in _ready().
+## Fade overlay nodes, created once in _ready().
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
 
@@ -122,8 +122,8 @@ func restore_unlocked_levels(saved: Array[int]) -> void:
 # Fade helpers
 # ---------------------------------------------------------------------------
 
-# Creates a black full-screen rect on a high CanvasLayer.
-# It starts transparent and is animated by _fade_out / _fade_in.
+## Creates a black full-screen rect on a high CanvasLayer.
+## It starts transparent and is animated by _fade_out / _fade_in.
 func _build_fade_overlay() -> void:
 	_fade_canvas = CanvasLayer.new()
 	_fade_canvas.layer = 128  # On top of everything.
@@ -136,14 +136,14 @@ func _build_fade_overlay() -> void:
 	_fade_canvas.add_child(_fade_overlay)
 
 
-# Animate alpha from 0 to 1 (screen goes black).
+## Animate alpha from 0 to 1 (screen goes black).
 func _fade_out() -> void:
 	var t: Tween = create_tween()
 	t.tween_property(_fade_overlay, "color:a", 1.0, fade_duration)
 	await t.finished
 
 
-# Animate alpha from 1 to 0 (screen reveals the new scene).
+## Animate alpha from 1 to 0 (screen reveals the new scene).
 func _fade_in() -> void:
 	var t: Tween = create_tween()
 	t.tween_property(_fade_overlay, "color:a", 0.0, fade_duration)
