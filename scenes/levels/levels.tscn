@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2vxarwugbkx6"]
 
-[ext_resource type="Script" uid="uid://ctv7t8n1wcd1m" path="res://scenes/main/levels.gd" id="1_8j6jv"]
-[ext_resource type="Texture2D" uid="uid://b3duwpm886dej" path="res://assets/placeholder assets/nanobanana/lvl1.jpg" id="1_o5wen"]
+[ext_resource type="Script" uid="uid://ctv7t8n1wcd1m" path="res://scripts/levels/levels.gd" id="1_8j6jv"]
+[ext_resource type="Texture2D" path="res://assets/placeholder assets/nanobanana/lvl1.jpg" id="1_o5wen"]
 
 [node name="Levels" type="Control" unique_id=1177878014]
 layout_mode = 3

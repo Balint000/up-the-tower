@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://oaf3n43edhr7"]
 
-[ext_resource type="Script" uid="uid://cf2ody38i1jo0" path="res://scenes/main/invertory.gd" id="1_bcquy"]
+[ext_resource type="Script" uid="uid://cf2ody38i1jo0" path="res://scripts/inventory/inventory.gd" id="1_bcquy"]
 
 [node name="Invertory" type="Control" unique_id=691607760]
 layout_mode = 3
