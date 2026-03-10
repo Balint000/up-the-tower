@@ -1,66 +1,180 @@
 # Up The Tower 🗼
 
-Platformer játék készítve Godot 4.6-ban egyetemi projekthez (Modern szoftverfejlesztési eszközök tárgy, 2025/2026 tavaszi félév).
+A vertical platformer game where players climb an ever-rising tower, facing increasing challenges and obstacles. Built with Godot 4.6 as a university project for the Modern Software Development Tools course (Spring Semester 2025/2026).
 
-## Projekt Struktúra
+## 🎮 About The Game
+
+**Up The Tower** is a 2D platformer focused on vertical progression. Players navigate through challenging levels filled with enemies, hazards, and puzzles while ascending a mysterious tower. The game emphasizes precise movement, quick reflexes, and strategic progression.
+
+### Key Features (Planned)
+
+- 🧗 Vertical platformer gameplay with climbing mechanics
+- 🎯 Multiple levels with increasing difficulty
+- 👾 Various enemy types and environmental hazards
+- 💎 Collectibles
+- 💾 Checkpoint system
+- 🎨 Pixel art style
+- 🎵 Audio system
+
+## 📋 Table of Contents
+
+- [About The Game](#-about-the-game)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Project Structure](#-project-structure)
+- [Development Guidelines](#-development-guidelines)
+- [Development Environment](#️-development-environment)
+- [Controls](#-controls)
+- [Roadmap](#️-roadmap)
+- [Contributing](#-contributing)
+- [Team](#-team)
+- [License](#-license)
+
+## 🔧 Prerequisites
+
+### Required Software
+
+- **Godot Engine 4.6** or later
+  - Download from [godotengine.org](https://godotengine.org/download)
+  - Choose version 4.6 or higher
+- **Git** for version control
+  - Download from [git-scm.com](https://git-scm.com)
+
+### Recommended Tools
+
+- **Visual Studio Code** with GDScript extension (optional, for external editing)
+- **Aseprite** or **GIMP** for sprite editing (if contributing art assets)
+- **Audacity** or **Reaper** or **Bandlab** for audio editing (if contributing sound assets)
+
+### Supported Operating Systems
+
+- ✅ **Windows 11** (Primary development platform)
+- ✅ **Fedora 43 Wayland** (Primary development platform)
+- ✅ **macOS** (should work, but not actively tested)
+- ✅ **Other Linux distributions** (should work with Godot installed)
+
+## 📦 Installation
+
+### For Players (Coming Soon)
+
+*Game releases will be available on the [Releases](https://github.com/Balint000/up-the-tower/releases) page when ready.*
+
+### For Developers
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Balint000/up-the-tower.git
+   cd up-the-tower
+
+2. **Open the project in Godot:**
+
+        Launch Godot Engine 4.6
+        Click Import
+        Navigate to the cloned repository folder
+        Select the project.godot file
+        Click Import & Edit
+
+4. **Install Git integration (optional):**
+- The project uses the GitGodot plugin for version control integration within the editor. It should be automatically enabled when you open the project.
+4. **Run the game:**
+- Press F5 in the Godot editor to run the project
+- Or click the Play button in the top-right corner
+
+
+
+📁 **Project Structure**
 
 ```
 up-the-tower/
-├── assets/                 # Vizuális és audio asset-ek
-│   ├── audio/             # Hangok és zenék
-│   ├── fonts/             # Betűtípusok
-│   ├── sprites/           # 2D sprite-ok és animációk
-│   ├── textures/          # Textúrák és tilesetek
-│   └── shaders/           # Shader fájlok
+├── assets/                 # Visual and audio assets
+│   ├── audio/             # Sounds and music
+│   ├── fonts/             # Font files
+│   ├── sprites/           # 2D sprites and animations
+│   ├── textures/          # Textures and tilesets
+│   └── shaders/           # Shader files
 │
-├── scenes/                # Godot scene fájlok
-│   ├── main/              # Főmenü és scene kezelés
-│   ├── levels/            # Játékpályák
-│   ├── entities/          # Játékos, ellenségek, tárgyak
-│   ├── environment/       # Környezeti elemek
-│   └── ui/                # Felhasználói felület
+├── scenes/                # Godot scene files (.tscn)
+│   ├── main/              # Main menu and scene management
+│   ├── levels/            # Game levels
+│   ├── entities/          # Player, enemies, items
+│   ├── environment/       # Environmental elements (platforms, hazards)
+│   └── ui/                # User interface elements
 │
-├── scripts/               # GDScript fájlok
-│   ├── autoload/          # Singleton scriptek
-│   ├── entities/          # Entitás logika
-│   ├── ui/                # UI scriptek
-│   └── utils/             # Segédfüggvények
+├── scripts/               # GDScript files (.gd)
+│   ├── autoload/          # Singleton scripts (managers)
+│   ├── entities/          # Entity logic
+│   ├── ui/                # UI scripts
+│   └── utils/             # Helper functions and utilities
 │
-├── resources/             # Godot resource fájlok
-│   ├── themes/            # UI témák
-│   └── materials/         # Anyagok és shader materials
+├── resources/             # Godot resource files
+│   ├── themes/            # UI themes
+│   └── materials/         # Materials and shader materials
 │
-└── docs/                  # Dokumentáció
+├── docs/                  # Documentation
+│
+├── .editorconfig          # Editor configuration
+├── .gitattributes         # Git attributes
+├── .gitignore             # Git ignore rules
+├── icon.svg               # Project icon
+├── project.godot          # Godot project configuration
+└── README.md              # This file
 ```
 
-## Fejlesztési Irányelvek
+**Scene Organization Philosophy**
 
-### Mappastruktúra Használata
+We follow a modular approach where each major entity has its own scene file:
 
-- **assets/**: Minden nyers asset (kép, hang, font) ide kerül
-- **scenes/**: Scene-eket funkció szerint csoportosítsd (entities, levels, ui)
-- **scripts/**: Ugyanolyan struktúrát követ mint a scenes/, könnyű párosítás
-- **autoload/**: Globális manager-ek (GameManager, AudioManager, stb.)
+    scenes/entities/player/player.tscn + scripts/entities/player/player.gd
+    scenes/entities/enemies/flying_enemy.tscn + scripts/entities/enemies/flying_enemy.gd
 
-### Elnevezési Konvenciók
+This structure makes it easy for multiple team members to work on different features simultaneously without conflicts.
 
-- **Fájlok**: snake_case (pl. `player_controller.gd`, `level_01.tscn`)
-- **Class-ok**: PascalCase (pl. `class_name PlayerController`)
-- **Változók/függvények**: snake_case (pl. `var jump_speed`, `func handle_input()`)
-- **Konstansok**: UPPER_SNAKE_CASE (pl. `const MAX_SPEED = 300`)
+🛠️ **Development Guidelines**
+Folder Structure Usage
 
-### Scene Struktúra
+    assets/: All raw assets (images, sounds, fonts) go here
+    scenes/: Organize scenes by function (entities, levels, ui)
+    scripts/: Mirror the structure of scenes/ for easy pairing
+    autoload/: Global managers (GameManager, AudioManager, etc.)
 
-Minden komplex entitásnak legyen saját scene-je:
-- `scenes/entities/player/player.tscn` + `scripts/entities/player/player.gd`
-- `scenes/entities/enemies/flying_enemy.tscn` + `scripts/entities/enemies/flying_enemy.gd`
+🖥️ **Development Environment**
 
-## Technológia
+This project is actively developed on:
+Windows 11
 
-- **Engine**: Godot 4.6
-- **Rendering**: D3D12 (Windows)
-- **Scripting**: GDScript
+    Godot 4.6 with D3D12 renderer (configured in project.godot)
+    Git for Windows
+    Visual Studio Code with GDScript syntax highlighting
 
-## Csapat
+Fedora 43 Wayland
 
-Egyetemi projekt - [Erdei Bálint], [Tóth Gábor], [Mogyorósi István]
+    Godot 4.6 running natively on Wayland
+    Git for version control
+    Native Wayland support for smooth editor experience
+
+🎮 **Controls**
+
+Controls will be finalized during development. Planned default controls:
+
+    Move Left: A / Left Arrow
+    Move Right: D / Right Arrow
+    Jump: Space / W / Up Arrow
+    Dash (if implemented): Shift
+    Interact: E
+    Pause: Escape
+
+👥 **Team**
+
+This game is being developed as a university project for the Modern Software Development Tools course at the University of Győr.
+Development Team
+
+    Erdei Bálint - @Balint000
+    Tóth Gábor - @gabortoth55
+    Mogyorósi István - @Mogyi13
+
+Course Information
+
+    Institution: University of Győr (Széchenyi István University)
+    Course: Modern Software Development Tools (Modern szoftverfejlesztési eszközök)
+    Semester: Spring 2025/2026
