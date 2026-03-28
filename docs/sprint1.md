@@ -1,8 +1,8 @@
 # Sprint 1 – Összefoglaló
 
-**Projekt:** Up The Tower  
-**Csapat:** BoMoGa Games  
-**Sprint időtartama:** 2026. február – 2026. március 10.  
+**Projekt:** Up The Tower
+**Csapat:** BoMoGa Games 
+**Sprint időtartama:** 2026. február – 2026. március 28. 
 **Sprint célja:** Dokumentáció elkészítése, GitHub repository beüzemelése, projekt alapstruktúra felállítása
 
 ---

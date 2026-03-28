@@ -37,9 +37,9 @@ a verziókezelés a [Semantic Versioning](https://semver.org/spec/v2.0.0.html) e
   - `scenes/entities/enemies/knightEnemy.tscn` – lovag ellenség (animált sprite-okkal)
 - Script struktúra kialakítása (autoload singleton-ok: `Game_Manager`, `Save_Manager`, `Audio_Manager`)
 - Placeholder asset-ek integrálása (Tiny RPG Character Pack, Legacy Collection)
-- GUT unit teszt framework integrálása (`tests/unit/test_example.gd`)
+- GUT unit teszt framework integrálása (beta) (`tests/unit/test_example.gd`)
 - GitHub Actions CI/CD pipeline beállítása (`.github/workflows/godot-test.yml`)
-- GitGodot és ToGoDot editor plugin-ok hozzáadása
+- GitGodot plugin-ok hozzáadása
 - `.gitignore` és `.gitattributes` konfigurálása
 - `docs/` mappa létrehozása a specifikáció tárolásához
 
@@ -49,7 +49,7 @@ a verziókezelés a [Semantic Versioning](https://semver.org/spec/v2.0.0.html) e
 
 ### Infrastruktúra
 - GitHub repository létrehozása: [github.com/Balint000/up-the-tower](https://github.com/Balint000/up-the-tower)
-- Branch stratégia: `main` / `master` védett ág, feature branch-ek PR-on keresztül
+- Branch stratégia: `master` védett ág, feature branch-ek PR-on keresztül
 - Fejlesztői környezetek: Windows 11 (D3D12) és Fedora 43 (Wayland)
 
 ---
@@ -67,6 +67,3 @@ A verziószámok jelentése: `MAJOR.MINOR.PATCH`
 - **PATCH** – hibajavítások, kisebb módosítások
 
 ---
-
-[Unreleased]: https://github.com/Balint000/up-the-tower/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Balint000/up-the-tower/releases/tag/v0.1.0
