@@ -12,12 +12,23 @@ func _process(delta: float) -> void:
 
 
 func _on_play_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/levels.tscn")
-
+	GameManager.go_to_levelmenu()
 
 func _on_invertory_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/invertory.tscn")
-
+	GameManager.go_to_inventorymenu()
 
 func _on_exit_btn_pressed() -> void:
-	get_tree().quit()
+	GameManager.quit_game()
+
+func _on_demo_save_pressed() -> void:
+	GameManager.save_game()
+
+func _on_demo_load_pressed() -> void:
+	GameManager.load_game()
+	
+	$VBoxContainer/Label.text = " Level: %s \n XP: %s \n Inventory: %s \n Kills: %s" % [
+		GameManager.runtime_data[GameManager.KEY_LEVEL],
+		GameManager.runtime_data[GameManager.KEY_XP],
+		GameManager.runtime_data[GameManager.KEY_INVENTORY][0],
+		GameManager.runtime_data[GameManager.KEY_STATISTICS][GameManager.KEY_KILLS]
+	]
