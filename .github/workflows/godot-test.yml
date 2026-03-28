@@ -1,0 +1,34 @@
+name: Godot Tests Runner
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  unit-test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    # Ez a konténer tartalmazza a Godot-ot és a szükséges linuxos függőségeket
+    container:
+      image: barichello/godot-ci:4.6 # Figyelj a verziószámra! Ha 4.2-t használsz, írd át.
+
+    steps:
+      # 1. A kód letöltése
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Projekt beállítások importálása (opcionális, de ajánlott első futtatásnál)
+      - name: Godot Import
+        run: godot --headless --verbose --editor --quit
+
+      # 3. Tesztek futtatása a GUT segítségével
+      - name: Run GUT Tests
+        # Magyarázat a flagekhez:
+        # --headless: Grafikus felület nélkül fut (szerveren kötelező)
+        # --script addons/gut/gut_cmdln.gd: A GUT parancssori indítója
+        # -gexit: Kilép a futás után (fontos, hogy a CI megálljon)
+        # -gdir: A tesztek mappája
+        run: |
+          godot --headless --script addons/gut/gut_cmdln.gd -gexit -gdir=res://test/unit
