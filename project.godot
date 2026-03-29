@@ -15,6 +15,10 @@ run/main_scene="uid://cuysyqnl2kypp"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+LevelManager="*uid://de425r3pg717m"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GitGodot/plugin.cfg")

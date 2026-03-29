@@ -14,5 +14,4 @@ func go_back():
 	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
 
 
-func _on_back_btn_pressed() -> void:
-	go_back()
+# GameManager: go_to_mainmenu()
