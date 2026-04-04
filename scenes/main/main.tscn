@@ -9,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hyk8p")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1750699430]
 layout_mode = 1
