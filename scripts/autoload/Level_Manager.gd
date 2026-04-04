@@ -47,6 +47,7 @@ func load_level(index: int) -> void:
 		return
 
 	await _fade_out()
+	get_tree().change_scene_to_file("res://scenes/levels/level0.tscn")
 	GameManager.set_state(GameManager.GameState.IN_GAME)
 	current_level_index = index
 	await _fade_in()
