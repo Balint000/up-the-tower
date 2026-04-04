@@ -13,3 +13,8 @@ func _process(delta: float) -> void:
 
 func _on_back_btn_pressed() -> void:
 	GameManager.go_to_mainmenu()
+
+
+func _on_level_1_btn_pressed() -> void:
+	LevelManager.load_level(0)
+	print("Pressed")

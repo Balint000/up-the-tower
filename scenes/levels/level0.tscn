@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cfsujpehcf4n2"]
+
+[ext_resource type="PackedScene" uid="uid://bji7ey60ilwk7" path="res://scenes/entities/player/MainCharacter.tscn" id="1_o8kyb"]
+[ext_resource type="PackedScene" uid="uid://b6t15auv12l0v" path="res://scenes/entities/enemies/knightEnemy.tscn" id="2_cperm"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o8kyb"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cperm"]
+distance = -51.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hghvf"]
+
+[node name="Level0" type="Node2D" unique_id=295547098]
+
+[node name="CharacterBody2D" parent="." unique_id=832308272 instance=ExtResource("1_o8kyb")]
+position = Vector2(0, -7)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1561391476]
+zoom = Vector2(2.5, 2.5)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=102225228]
+position = Vector2(-11, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2127563214]
+position = Vector2(11, 7)
+shape = SubResource("WorldBoundaryShape2D_o8kyb")
+
+[node name="SoldierEnemy" parent="." unique_id=561237851 instance=ExtResource("2_cperm")]
+position = Vector2(102, -16)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1859112928]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1166824826]
+position = Vector2(100.275, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_cperm")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=258524288]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=822681318]
+position = Vector2(-100, 0)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_hghvf")

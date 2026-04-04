@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b6t15auv12l0v"]
 
+[ext_resource type="Script" uid="uid://b0x7mdyk07cig" path="res://scripts/entities/enemies/knight_enemy.gd" id="1_cvcjg"]
 [ext_resource type="Texture2D" uid="uid://dydlykho821x6" path="res://assets/placeholder assets/Legacy Collection/Assets/Characters/Terrible Knight/atlas.png" id="1_f5i2k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvcjg"]
@@ -230,6 +231,7 @@ animations = [{
 radius = 11.0
 
 [node name="SoldierEnemy" type="CharacterBody2D" unique_id=561237851]
+script = ExtResource("1_cvcjg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=831473788]
 position = Vector2(0, -33)
@@ -241,3 +243,9 @@ frame_progress = 0.67201906
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=348877878]
 shape = SubResource("CapsuleShape2D_y2lx5")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=166096210]
+target_position = Vector2(18, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1828440349]
+target_position = Vector2(-24, 0)
