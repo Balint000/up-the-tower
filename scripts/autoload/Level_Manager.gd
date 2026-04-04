@@ -59,7 +59,7 @@ func load_next_level() -> void:
 	var next: int = current_level_index + 1
 
 	if next >= levels.size():
-		# GameManager: await go_to_mainmenu()
+		await return_to_main_menu()
 		return
 
 	unlock_level(next)
@@ -69,6 +69,19 @@ func load_next_level() -> void:
 ## Restart the current level (called on game over / player death).
 func reload_current_level() -> void:
 	await load_level(current_level_index)
+
+
+## Go back to the main menu.
+func return_to_main_menu() -> void:
+	if main_menu_scene == null:
+		push_error("LevelManager: main_menu_scene is not set in the editor!")
+		return
+
+	await _fade_out()
+	get_tree().change_scene_to_packed(main_menu_scene)
+	current_level_index = -1
+	await _fade_in()
+
 
 # ---------------------------------------------------------------------------
 # Unlock system
