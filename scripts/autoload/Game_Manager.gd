@@ -113,7 +113,7 @@ func go_to_mainmenu() -> void:
 ## change scene --> LevelMenu
 func go_to_levelmenu() -> void:
 	set_state(GameState.LEVEL_SELECT)
-	get_tree().change_scene_to_file("res://scenes/levels/levels.tscn")
+	get_tree().change_scene_to_file("res://scenes/level_menu/level_menu.tscn")
 
 ## change scene --> InventoryMenu
 func go_to_inventorymenu() -> void:
