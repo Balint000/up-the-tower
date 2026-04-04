@@ -48,10 +48,10 @@ A vertical platformer game where players climb an ever-rising tower, facing incr
 
 ### Supported Operating Systems
 
-- ✅ **Windows 11** (Primary development platform)
-- ✅ **Fedora 43 Wayland** (Primary development platform)
-- ✅ **macOS** (should work, but not actively tested)
-- ✅ **Other Linux distributions** (should work with Godot installed)
+- **Windows 11** (Primary development platform)
+- **Fedora 43 Wayland** (Primary development platform)
+- **macOS** (should work, but not actively tested)
+- **Other Linux distributions** (should work with Godot installed)
 
 ## 📦 Installation
 
@@ -80,46 +80,6 @@ A vertical platformer game where players climb an ever-rising tower, facing incr
 4. **Run the game:**
 - Press F5 in the Godot editor to run the project
 - Or click the Play button in the top-right corner
-
-
-
-📁 **Project Structure**
-
-```
-up-the-tower/
-├── assets/                 # Visual and audio assets
-│   ├── audio/             # Sounds and music
-│   ├── fonts/             # Font files
-│   ├── sprites/           # 2D sprites and animations
-│   ├── textures/          # Textures and tilesets
-│   └── shaders/           # Shader files
-│
-├── scenes/                # Godot scene files (.tscn)
-│   ├── main/              # Main menu and scene management
-│   ├── levels/            # Game levels
-│   ├── entities/          # Player, enemies, items
-│   ├── environment/       # Environmental elements (platforms, hazards)
-│   └── ui/                # User interface elements
-│
-├── scripts/               # GDScript files (.gd)
-│   ├── autoload/          # Singleton scripts (managers)
-│   ├── entities/          # Entity logic
-│   ├── ui/                # UI scripts
-│   └── utils/             # Helper functions and utilities
-│
-├── resources/             # Godot resource files
-│   ├── themes/            # UI themes
-│   └── materials/         # Materials and shader materials
-│
-├── docs/                  # Documentation
-│
-├── .editorconfig          # Editor configuration
-├── .gitattributes         # Git attributes
-├── .gitignore             # Git ignore rules
-├── icon.svg               # Project icon
-├── project.godot          # Godot project configuration
-└── README.md              # This file
-```
 
 **Scene Organization Philosophy**
 
