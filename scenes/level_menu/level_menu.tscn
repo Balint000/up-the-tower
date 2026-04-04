@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2vxarwugbkx6"]
 
-[ext_resource type="Script" uid="uid://ctv7t8n1wcd1m" path="res://scripts/level_menu/levels.gd" id="1_8j6jv"]
-[ext_resource type="Texture2D" uid="uid://b3duwpm886dej" path="res://assets/placeholder assets/nanobanana/lvl1.jpg" id="1_o5wen"]
+[ext_resource type="Script" uid="uid://ctv7t8n1wcd1m" path="res://scripts/level_menu/level_menu.gd" id="1_ikv47"]
+[ext_resource type="Texture2D" uid="uid://b3duwpm886dej" path="res://assets/placeholder assets/nanobanana/lvl1.jpg" id="2_hcm4l"]
 
 [node name="Levels" type="Control" unique_id=1177878014]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_8j6jv")
+script = ExtResource("1_ikv47")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1103153003]
 layout_mode = 1
@@ -33,7 +33,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
 size_flags_horizontal = 4
-texture_normal = ExtResource("1_o5wen")
+texture_normal = ExtResource("2_hcm4l")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -42,7 +42,7 @@ custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("1_o5wen")
+texture_normal = ExtResource("2_hcm4l")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -51,7 +51,7 @@ custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-texture_normal = ExtResource("1_o5wen")
+texture_normal = ExtResource("2_hcm4l")
 ignore_texture_size = true
 stretch_mode = 0
 

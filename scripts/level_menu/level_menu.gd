@@ -10,7 +10,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func go_back():
-	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
 
-# GameManager: go_to_mainmenu()
+func _on_back_btn_pressed() -> void:
+	GameManager.go_to_mainmenu()
