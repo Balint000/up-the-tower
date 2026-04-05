@@ -33,6 +33,8 @@ signal game_paused()
 signal game_resumed()
 #signal lose()
 #signal victory()
+signal player_died       # emitted when the player's HP reaches 0
+signal level_completed   # emitted when the player touches the Goal
 
 ## Runtime Data
 var runtime_data := {
@@ -123,3 +125,17 @@ func go_to_inventorymenu() -> void:
 ## change scene --> Quit Game
 func quit_game():
 	get_tree().quit()
+
+func on_player_death() -> void:
+	runtime_data[KEY_STATISTICS][KEY_DEATHS] += 1
+	player_died.emit()
+	set_state(GameState.GAME_OVER)
+	# Short pause so the death animation plays before we reload.
+	await get_tree().create_timer(1.2).timeout
+	LevelManager.reload_current_level()
+ 
+## Called when the player touches the Goal object.
+func on_level_complete() -> void:
+	level_completed.emit()
+	set_state(GameState.IN_GAME)
+	await LevelManager.load_next_level()
