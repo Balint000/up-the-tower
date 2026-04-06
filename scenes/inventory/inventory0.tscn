@@ -1,0 +1,839 @@
+[gd_scene format=3 uid="uid://b4js8qrojeog1"]
+
+[node name="Inventory" type="Control" unique_id=149970375]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=435925932]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.036, 0.02, 1)
+
+[node name="MainMargin" type="MarginContainer" parent="." unique_id=441679921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainHBox" type="HBoxContainer" parent="MainMargin" unique_id=1969696583]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="CharacterSelectorStrip" type="PanelContainer" parent="MainMargin/MainHBox" unique_id=714502855]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+
+[node name="StripVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharacterSelectorStrip" unique_id=1900707357]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharBtn_Knight" type="Button" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox" unique_id=1622710272]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Knight"
+
+[node name="CharIcon_Knight" type="TextureRect" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox/CharBtn_Knight" unique_id=1814794128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Mage" type="Button" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox" unique_id=1546316693]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Mage"
+
+[node name="CharIcon_Mage" type="TextureRect" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox/CharBtn_Mage" unique_id=153724432]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Archer" type="Button" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox" unique_id=203730676]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Archer"
+
+[node name="CharIcon_Archer" type="TextureRect" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox/CharBtn_Archer" unique_id=1893229684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Thief" type="Button" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox" unique_id=756597408]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Thief"
+
+[node name="CharIcon_Thief" type="TextureRect" parent="MainMargin/MainHBox/CharacterSelectorStrip/StripVBox/CharBtn_Thief" unique_id=62530019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharInfoPanel" type="PanelContainer" parent="MainMargin/MainHBox" unique_id=1709893257]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.7
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel" unique_id=574760768]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CharacterName" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1972720417]
+layout_mode = 2
+text = "KNIGHT"
+horizontal_alignment = 1
+
+[node name="NameSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=999745288]
+layout_mode = 2
+
+[node name="DisplayRow" type="HBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=586904308]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="CharacterGraphicPanel" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=1172146416]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CharacterSprite" type="TextureRect" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=407784069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EquipmentSlots" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=246485820]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HelmetSlot" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=55343619]
+layout_mode = 2
+
+[node name="HelmetBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot" unique_id=1228458228]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+tooltip_text = "Click to select helmet"
+text = "🪖   Helmet     — Empty —"
+
+[node name="HelmetDropdown" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot" unique_id=604858447]
+visible = false
+layout_mode = 2
+
+[node name="HelmetDropdownVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown" unique_id=895742606]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HelmetDropHeader" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown/HelmetDropdownVBox" unique_id=205053114]
+layout_mode = 2
+text = "SELECT HELMET"
+
+[node name="HelmetOpt_IronHelm" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown/HelmetDropdownVBox" unique_id=1127236564]
+layout_mode = 2
+text = "🪖  Iron Helm  [Common]"
+
+[node name="HelmetOpt_SteelCrown" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown/HelmetDropdownVBox" unique_id=940200751]
+layout_mode = 2
+text = "👑  Steel Crown  [Rare]"
+
+[node name="HelmetOpt_MythicHalo" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown/HelmetDropdownVBox" unique_id=994643138]
+layout_mode = 2
+text = "✨  Mythic Halo  [Mythic]"
+
+[node name="HelmetOpt_Remove" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/HelmetSlot/HelmetDropdown/HelmetDropdownVBox" unique_id=1923847670]
+layout_mode = 2
+text = "✕  Remove"
+
+[node name="WeaponSlot" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=897765609]
+layout_mode = 2
+
+[node name="WeaponBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot" unique_id=1034663844]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+tooltip_text = "Click to select weapon"
+text = "⚔   Weapon   — Empty —"
+
+[node name="WeaponDropdown" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot" unique_id=1047341928]
+visible = false
+layout_mode = 2
+
+[node name="WeaponDropdownVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown" unique_id=2114073090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponDropHeader" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown/WeaponDropdownVBox" unique_id=700876573]
+layout_mode = 2
+text = "SELECT WEAPON"
+
+[node name="WeaponOpt_ShortSword" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown/WeaponDropdownVBox" unique_id=1091162104]
+layout_mode = 2
+text = "🗡  Short Sword  [Common]"
+
+[node name="WeaponOpt_RunedBlade" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown/WeaponDropdownVBox" unique_id=2096651355]
+layout_mode = 2
+text = "⚔  Runed Blade  [Rare]"
+
+[node name="WeaponOpt_SoulReaver" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown/WeaponDropdownVBox" unique_id=1360321942]
+layout_mode = 2
+text = "🔱  Soul Reaver  [Mythic]"
+
+[node name="WeaponOpt_Remove" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponSlot/WeaponDropdown/WeaponDropdownVBox" unique_id=1635501263]
+layout_mode = 2
+text = "✕  Remove"
+
+[node name="BootsSlot" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=134860758]
+layout_mode = 2
+
+[node name="BootsBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot" unique_id=679266982]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+tooltip_text = "Click to select boots"
+text = "👢   Boots      — Empty —"
+
+[node name="BootsDropdown" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot" unique_id=162542711]
+visible = false
+layout_mode = 2
+
+[node name="BootsDropdownVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown" unique_id=1679522475]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BootsDropHeader" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown/BootsDropdownVBox" unique_id=1814781606]
+layout_mode = 2
+text = "SELECT BOOTS"
+
+[node name="BootsOpt_LeatherBoots" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown/BootsDropdownVBox" unique_id=2085644416]
+layout_mode = 2
+text = "👢  Leather Boots  [Common]"
+
+[node name="BootsOpt_SwiftTreads" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown/BootsDropdownVBox" unique_id=1830433061]
+layout_mode = 2
+text = "⚡  Swift Treads  [Rare]"
+
+[node name="BootsOpt_WingedSabatons" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown/BootsDropdownVBox" unique_id=1687872264]
+layout_mode = 2
+text = "🪶  Winged Sabatons  [Mythic]"
+
+[node name="BootsOpt_Remove" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsSlot/BootsDropdown/BootsDropdownVBox" unique_id=1929491677]
+layout_mode = 2
+text = "✕  Remove"
+
+[node name="StatsSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=2036253896]
+layout_mode = 2
+
+[node name="StatsContainer" type="HBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1030387122]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Stat_HP" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer" unique_id=2085918455]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HpLabel" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_HP" unique_id=119962728]
+layout_mode = 2
+text = "HP"
+horizontal_alignment = 1
+
+[node name="HpValue" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_HP" unique_id=2091963622]
+layout_mode = 2
+text = "5"
+horizontal_alignment = 1
+
+[node name="Stat_Damage" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer" unique_id=1681465772]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DmgLabel" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_Damage" unique_id=1255394126]
+layout_mode = 2
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="DmgValue" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_Damage" unique_id=541122397]
+layout_mode = 2
+text = "2"
+horizontal_alignment = 1
+
+[node name="Stat_Speed" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer" unique_id=235862604]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpdLabel" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_Speed" unique_id=728880327]
+layout_mode = 2
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="SpdValue" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/StatsContainer/Stat_Speed" unique_id=852533543]
+layout_mode = 2
+text = "2"
+horizontal_alignment = 1
+
+[node name="InventoryPanel" type="PanelContainer" parent="MainMargin/MainHBox" unique_id=1041117563]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InvVBox" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel" unique_id=565289007]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="InventoryTitle" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=626729064]
+layout_mode = 2
+text = "ITEMS"
+horizontal_alignment = 1
+
+[node name="InvTitleSep" type="HSeparator" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=1842634094]
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=1728387235]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Slot_Apple" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1107797697]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Apple" unique_id=1132817842]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Apple/SlotLayout" unique_id=1226257372]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Apple/SlotLayout" unique_id=2072560105]
+layout_mode = 2
+text = "Apple"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Apple/SlotLayout" unique_id=1681220428]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_Beer" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1230145232]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Beer" unique_id=1037902376]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Beer/SlotLayout" unique_id=290190359]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Beer/SlotLayout" unique_id=1647829198]
+layout_mode = 2
+text = "Beer"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Beer/SlotLayout" unique_id=250804648]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_Cake" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1272226809]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Cake" unique_id=1801826011]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Cake/SlotLayout" unique_id=101293013]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Cake/SlotLayout" unique_id=258600355]
+layout_mode = 2
+text = "Cake"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Cake/SlotLayout" unique_id=1965927910]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_HealingPotion" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=600396384]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HealingPotion" unique_id=1019112274]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HealingPotion/SlotLayout" unique_id=223975888]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HealingPotion/SlotLayout" unique_id=1831498312]
+layout_mode = 2
+text = "Heal Pot"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HealingPotion/SlotLayout" unique_id=377056552]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_SwiftnessPotion" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1251110382]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_SwiftnessPotion" unique_id=239762456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_SwiftnessPotion/SlotLayout" unique_id=1748503882]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_SwiftnessPotion/SlotLayout" unique_id=194835440]
+layout_mode = 2
+text = "Swift Pot"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_SwiftnessPotion/SlotLayout" unique_id=1457130314]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_Key" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1565152360]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Key" unique_id=468028270]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Key/SlotLayout" unique_id=1283303748]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Key/SlotLayout" unique_id=436684656]
+layout_mode = 2
+text = "Key"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_Key/SlotLayout" unique_id=1230589421]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_HelmetBag" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=1619583984]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+tooltip_text = "Helmet Bag - open to receive a helmet (70% Common, 20% Rare, 10% Mythic)"
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HelmetBag" unique_id=1621087243]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HelmetBag/SlotLayout" unique_id=1146661112]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HelmetBag/SlotLayout" unique_id=1719802492]
+layout_mode = 2
+text = "Helm Bag"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_HelmetBag/SlotLayout" unique_id=279590728]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_WeaponBag" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=788685964]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+tooltip_text = "Weapon Bag - open to receive a weapon (70% Common, 20% Rare, 10% Mythic)"
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_WeaponBag" unique_id=850616373]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_WeaponBag/SlotLayout" unique_id=2022063998]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_WeaponBag/SlotLayout" unique_id=2109159439]
+layout_mode = 2
+text = "Wpn Bag"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_WeaponBag/SlotLayout" unique_id=1420663306]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Slot_BootsBag" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid" unique_id=400056170]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+tooltip_text = "Boots Bag - open to receive boots (70% Common, 20% Rare, 10% Mythic)"
+
+[node name="SlotLayout" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_BootsBag" unique_id=900139383]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_BootsBag/SlotLayout" unique_id=1329001600]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemName" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_BootsBag/SlotLayout" unique_id=208774860]
+layout_mode = 2
+text = "Boot Bag"
+horizontal_alignment = 1
+
+[node name="ItemCount" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid/Slot_BootsBag/SlotLayout" unique_id=1266864252]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="QuickSlotsArea" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=1198786288]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="QuickSlotsSeparator" type="HSeparator" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea" unique_id=1609136908]
+layout_mode = 2
+
+[node name="QuickSlotsLabel" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea" unique_id=1395312179]
+layout_mode = 2
+text = "QUICK USE"
+horizontal_alignment = 1
+
+[node name="QuickSlotsRow" type="HBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea" unique_id=160980731]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="QuickSlot_1" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=210616141]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Quick slot 1 — assign an item from the backpack (first 2 rows)"
+
+[node name="QSIcon_1" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_1" unique_id=595848277]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QSKeyLabel_1" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_1" unique_id=1186704098]
+layout_mode = 1
+offset_right = 16.0
+offset_bottom = 16.0
+text = "1"
+
+[node name="QuickSlot_2" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=75523978]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Quick slot 2 — assign an item from the backpack (first 2 rows)"
+
+[node name="QSIcon_2" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_2" unique_id=464906734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QSKeyLabel_2" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_2" unique_id=1102679513]
+layout_mode = 1
+offset_right = 16.0
+offset_bottom = 16.0
+text = "2"
+
+[node name="QuickSlot_3" type="Panel" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=1328959186]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Quick slot 3 — assign an item from the backpack (first 2 rows)"
+
+[node name="QSIcon_3" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_3" unique_id=1359108116]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QSKeyLabel_3" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/QuickSlot_3" unique_id=1632367869]
+layout_mode = 1
+offset_right = 16.0
+offset_bottom = 16.0
+text = "3"
+
+[node name="QuickSlotPickerOverlay" type="Control" parent="." unique_id=222028707]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="OverlayDimmer" type="ColorRect" parent="QuickSlotPickerOverlay" unique_id=1725608615]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="PickerPanel" type="Panel" parent="QuickSlotPickerOverlay" unique_id=1392616024]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -155.0
+offset_right = 150.0
+offset_bottom = 155.0
+
+[node name="PickerMargin" type="MarginContainer" parent="QuickSlotPickerOverlay/PickerPanel" unique_id=1475637492]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="PickerVBox" type="VBoxContainer" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin" unique_id=849275620]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PickerTitle" type="Label" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox" unique_id=1424764859]
+layout_mode = 2
+text = "ASSIGN QUICKSLOT"
+horizontal_alignment = 1
+
+[node name="PickerSep" type="HSeparator" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox" unique_id=2067007248]
+layout_mode = 2
+
+[node name="PickerGrid" type="GridContainer" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox" unique_id=1575670911]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="PickerItem_Apple" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=338238544]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Apple"
+
+[node name="PickerItem_Beer" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=676958484]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Beer"
+
+[node name="PickerItem_Cake" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=364252578]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Cake"
+
+[node name="PickerItem_HealingPotion" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=1482481947]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Healing Potion"
+
+[node name="PickerItem_SwiftnessPotion" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=563456431]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Swiftness Potion"
+
+[node name="PickerItem_Key" type="Panel" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox/PickerGrid" unique_id=454839181]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Key"
+
+[node name="PickerClearBtn" type="Button" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox" unique_id=1989153382]
+layout_mode = 2
+text = "✕   Clear Slot"
+
+[node name="PickerCloseBtn" type="Button" parent="QuickSlotPickerOverlay/PickerPanel/PickerMargin/PickerVBox" unique_id=1948759404]
+layout_mode = 2
+text = "Close"
