@@ -210,4 +210,4 @@ func _update_animation() -> void:
 func _on_died() -> void:
 	_set_state(State.DEAD)
 	set_collision_layer_value(1, false)
-	GameManager.on_player_death()
+	LevelManager.on_player_death()
