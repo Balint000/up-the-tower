@@ -23,10 +23,12 @@ func _on_back_btn_pressed() -> void:
 
 func _on_level_1_btn_pressed() -> void:
 	LevelManager.load_level(0)
-	print("Pressed")
+	print("Pressed Lvl 1")
 
 func _on_level_2_btn_pressed() -> void:
-	pass
+	LevelManager.load_level(1)
+	print("Pressed Lvl 2")
 	
 func _on_level_3_btn_pressed() -> void:
-	pass
+	LevelManager.load_level(2)
+	print("Pressed Lvl 3")
