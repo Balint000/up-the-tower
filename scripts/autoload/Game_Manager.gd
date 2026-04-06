@@ -33,15 +33,13 @@ signal game_paused()
 signal game_resumed()
 #signal lose()
 #signal victory()
-signal player_died       # emitted when the player's HP reaches 0
-signal level_completed   # emitted when the player touches the Goal
 
 ## Runtime Data
 var runtime_data := {
 	KEY_LEVEL: 1,
 	KEY_XP: 10,
 	
-	KEY_INVENTORY: ["alap_kard"],
+	KEY_INVENTORY: ["basic_sword"],
 	
 	KEY_SELECTED_CHARACTER: "knight",
 	
@@ -79,7 +77,7 @@ func load_game() -> void:
 	var loaded_data := SaveManager.load_player_data_json()
 
 	if loaded_data.is_empty():
-		print("Nincs mentés: default runtime_data marad")
+		print("No save: default runtime_data")
 		return
 
 	runtime_data = loaded_data
@@ -94,7 +92,7 @@ func set_state(new_state: GameState):
 	var old_state = current_state
 	current_state = new_state
 	
-	print("Állapotváltás: ", GameState.keys()[old_state], " -> ", GameState.keys()[new_state])
+	print("State changing: ", GameState.keys()[old_state], " -> ", GameState.keys()[new_state])
 	state_changed.emit(new_state)
 	
 	# Állapot-specifikus műveletek
@@ -125,17 +123,3 @@ func go_to_inventorymenu() -> void:
 ## change scene --> Quit Game
 func quit_game():
 	get_tree().quit()
-
-func on_player_death() -> void:
-	runtime_data[KEY_STATISTICS][KEY_DEATHS] += 1
-	player_died.emit()
-	set_state(GameState.GAME_OVER)
-	# Short pause so the death animation plays before we reload.
-	await get_tree().create_timer(1.2).timeout
-	LevelManager.reload_current_level()
- 
-## Called when the player touches the Goal object.
-func on_level_complete() -> void:
-	level_completed.emit()
-	set_state(GameState.IN_GAME)
-	await LevelManager.load_next_level()
