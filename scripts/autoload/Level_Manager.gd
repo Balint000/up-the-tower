@@ -9,11 +9,10 @@
 ##                         reload_current_level() on game over
 ##   - SaveSystem.gd     : calls restore_unlocked_levels() after loading a save file,
 ##                         reads get_unlocked_levels() before writing a save file
-class_name Level_Manager
 extends Node
 
 ## Levels in play order. Drag Level_01.tscn, Level_02.tscn ... here in the editor.
-@export var levels: Array[PackedScene] = []
+@export var levels: Array = ["res://scenes/levels/level0.tscn"]
 
 ## The main menu scene. Drag scenes/main/main.tscn here in the editor.
 @export var main_menu_scene: PackedScene = null
@@ -32,6 +31,9 @@ var _unlocked_levels: Array[int] = [0]
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
 
+signal player_died       # emitted when the player's HP reaches 0
+signal level_completed   # emitted when the player touches the Goal
+
 
 func _ready() -> void:
 	_build_fade_overlay()
@@ -48,10 +50,10 @@ func load_level(index: int) -> void:
 		return
 
 	await _fade_out()
-	get_tree().change_scene_to_packed(levels[index])
+	get_tree().change_scene_to_file(levels[index])
+	GameManager.set_state(GameManager.GameState.IN_GAME)
 	current_level_index = index
 	await _fade_in()
-
 
 ## Load the level that comes after the current one.
 ## Unlocks it first, then loads it. Returns to main menu if there is no next level.
@@ -59,28 +61,22 @@ func load_next_level() -> void:
 	var next: int = current_level_index + 1
 
 	if next >= levels.size():
-		await return_to_main_menu()
+		GameManager.go_to_mainmenu()
 		return
 
 	unlock_level(next)
 	await load_level(next)
 
-
 ## Restart the current level (called on game over / player death).
 func reload_current_level() -> void:
 	await load_level(current_level_index)
 
-
 ## Go back to the main menu.
 func return_to_main_menu() -> void:
-	if main_menu_scene == null:
-		push_error("LevelManager: main_menu_scene is not set in the editor!")
-		return
 
 	await _fade_out()
-	get_tree().change_scene_to_packed(main_menu_scene)
-	current_level_index = -1
-	await _fade_in()
+	GameManager.go_to_mainmenu()
+	await _fade_in() # elvileg nem fut le
 
 
 # ---------------------------------------------------------------------------
@@ -148,3 +144,17 @@ func _fade_in() -> void:
 	var t: Tween = create_tween()
 	t.tween_property(_fade_overlay, "color:a", 0.0, fade_duration)
 	await t.finished
+
+func on_player_death() -> void:
+	# GameManager.runtime_data[KEY_STATISTICS][KEY_DEATHS] += 1 ; ha lesz ilyen statisztika, akkor valami hasonlót kell berakni
+	player_died.emit()
+	GameManager.set_state(GameManager.GameState.GAME_OVER)
+	# Short pause so the death animation plays before we reload.
+	await get_tree().create_timer(1.2).timeout
+	LevelManager.reload_current_level()
+ 
+## Called when the player touches the Goal object.
+func on_level_complete() -> void:
+	level_completed.emit()
+	GameManager.set_state(GameManager.GameState.IN_GAME)
+	await LevelManager.load_next_level()

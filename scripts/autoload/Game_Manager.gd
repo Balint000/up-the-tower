@@ -39,7 +39,7 @@ var runtime_data := {
 	KEY_LEVEL: 1,
 	KEY_XP: 10,
 	
-	KEY_INVENTORY: ["alap_kard"],
+	KEY_INVENTORY: ["basic_sword"],
 	
 	KEY_SELECTED_CHARACTER: "knight",
 	
@@ -77,7 +77,7 @@ func load_game() -> void:
 	var loaded_data := SaveManager.load_player_data_json()
 
 	if loaded_data.is_empty():
-		print("Nincs mentés: default runtime_data marad")
+		print("No save: default runtime_data")
 		return
 
 	runtime_data = loaded_data
@@ -92,7 +92,7 @@ func set_state(new_state: GameState):
 	var old_state = current_state
 	current_state = new_state
 	
-	print("Állapotváltás: ", GameState.keys()[old_state], " -> ", GameState.keys()[new_state])
+	print("State changing: ", GameState.keys()[old_state], " -> ", GameState.keys()[new_state])
 	state_changed.emit(new_state)
 	
 	# Állapot-specifikus műveletek
