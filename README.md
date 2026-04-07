@@ -28,7 +28,6 @@ A vertical platformer game where players climb an ever-rising tower, facing incr
 - [Roadmap](#️-roadmap)
 - [Contributing](#-contributing)
 - [Team](#-team)
-- [License](#-license)
 
 ## 🔧 Prerequisites
 
@@ -120,7 +119,7 @@ Controls will be finalized during development. Planned default controls:
     Move Left: A / Left Arrow
     Move Right: D / Right Arrow
     Jump: Space / W / Up Arrow
-    Dash (if implemented): Shift
+    Attack: Z
     Interact: E
     Pause: Escape
 
