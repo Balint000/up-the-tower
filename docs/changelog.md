@@ -9,13 +9,36 @@ a verziókezelés a [Semantic Versioning](https://semver.org/spec/v2.0.0.html) e
 
 ## [Unreleased]
 
-### Tervezett – Sprint 2
-- Játékos mozgás és fizika (CharacterBody2D)
-- Ugrás mechanika gravitációval
-- Animáció vezérlő (idle, walk, jump, hurt, death)
-- Első pálya (TileMap alapú) vázlatos felépítése
-- Ellenség alap AI (patrol mozgás)
-- Ütközésdetektálás játékos–ellenség között
+Jelenleg nincs dokumentált változás.
+
+---
+
+## [0.2.0] – 2026-04-07 — Sprint 2: Játékos, ellenség és Level0 skeleton
+
+### Hozzáadva
+
+- `scripts/entities/player/player.gd` – univerzális játékos alaposztály, amelyből a konkrét karakterek (pl. lovag) öröklődnek.  
+- `scripts/entities/player/playerKnight.gd` – lovag játékos állapotgéppel (IDLE, RUN, JUMP, FALL, ATTACK, HURT, DEAD), mozgással, ugrással, támadás és életkezeléssel.  
+- `scripts/entities/enemies/knight_enemy.gd` – lovag ellenség AI state machine-nel (PATROL → AGGRO → ATTACK → HURT → DEAD), távolság alapú aggro és támadás időzítéssel.  
+- `scripts/autoload/Game_Manager.gd` – `player_died` és `level_completed` szignálok, `on_player_death()` és `on_level_complete()` callbackek; halálkor a jelenlegi pálya reload, level complete után a következő szint betöltése.  
+- `scripts/autoload/Level_Manager.gd` – szintbetöltés, reload, következő szintre léptetés és szint unlock logika (pl. Level2/3 gombok engedélyezése a level menüben).  
+- `scripts/environment/goal.gd` – pályacél trigger, amely játékos ütközéskor jelzi a GameManager felé a szint teljesítését.  
+- `scenes/levels/level0.tscn` – első játszható tesztpálya lovag játékossal és lovag ellenséggel, TileMap alapú elrendezéssel.  
+- `assets/` bővítése – sprite-ok, texture-ök és placeholder assetek szervezett mappastruktúrája (`assets/sprites`, `assets/textures`, `assets/placeholder assets`, stb.).  
+- HUD scene váz: `scenes/hud/hud.tscn` – `Hud` Node2D, a későbbi élet- és státuszkijelzés alapja.  
+
+### Tesztelés
+
+- `tests/unit/test_level_manager.gd` – Level_Manager viselkedésének unit tesztje (level betöltés, léptetés, unlock logika).  
+- `tests/unit/test_save_manager.gd` – Save_Manager mentési/betöltési logikájának unit tesztje.  
+- `tests/unit/test_smoke.gd` – smoke test, amely ellenőrzi, hogy a projekt alap szinten betölthető és futtatható.  
+- GitHub Actions workflow: `.github/workflows/godot-test.yml` – GUT unit tesztek automatikus futtatása push/PR eseményeknél.  
+
+### Módosítva
+
+- Level menü script: `scripts/level_menu/level_menu.gd` – Level2 és Level3 gombok bekötése scriptből, lock/unlock logika a Level_Manager alapján.  
+- Level menü scene: `scenes/level_menu/level_menu.tscn` – kisebb fixek a gombokhoz és layout-hoz a skeleton flow támogatására.  
+- Főmenü scene: `scenes/main/main.tscn` – navigáció finomhangolása a Level menü és a játék között (Play → Level select → Level0).  
 
 ---
 
