@@ -1,213 +1,185 @@
 ## playerKnight.gd
-## Replaces the stub movement script on MainCharacter.tscn.
-## Health lives here as a plain variable — a proper HealthComponent node
-## will be wired up in the full phase once it's added to the scene.
+## ==========================================================================
+## Lovag karakter – a BasePlayer konkrét implementációja.
 ##
-## Input actions used (must exist in Project Settings → Input Map):
-##   move_left   ← Left arrow / A
-##   move_right  → Right arrow / D
-##   jump        ↑ Up arrow / W / Space
-##   attack      Z  (add this manually in the Input Map)
+## Felülírt metódusok:
+##   _on_ready()           – lovag-specifikus értékek, GameManager stat skálázás
+##   _do_attack()          – hatótávolság-alapú közelharc + knockback
+##   _handle_action_input()– Shift = dash képesség
+##   _get_animation_name() – animáció nevek mappelés
+##   _on_took_damage()     – sebzés flash effekt (sprite villogás)
+##   _on_died()            – halál → LevelManager értesítés
+##
+## Scene: scenes/entities/player/MainCharacter.tscn
+##   CharacterBody2D   ← ez a script csatolva
+##   ├── AnimatedSprite2D
+##   └── CollisionShape2D
+## ==========================================================================
 
-extends CharacterBody2D
-
-# ---------------------------------------------------------------------------
-# Tunables
-# ---------------------------------------------------------------------------
-
-const BASE_SPEED: float        = 120.0
-const BASE_JUMP_VELOCITY: float = -300.0
-const BASE_HEALTH: int          = 100
-const BASE_DAMAGE: int          = 20
-
-## Seconds after a hit where the player can't take damage again.
-const INVINCIBILITY_DURATION: float = 0.5
+extends BasePlayer
 
 # ---------------------------------------------------------------------------
-# State machine
+# Lovag-specifikus konstansok
 # ---------------------------------------------------------------------------
 
-enum State { IDLE, RUN, JUMP, FALL, ATTACK, HURT, DEAD }
-var _state: State = State.IDLE
+const KNIGHT_SPEED:       float = 120.0
+const KNIGHT_JUMP_VEL:    float = -300.0
+const KNIGHT_HEALTH:      int   = 1000
+const KNIGHT_DAMAGE:      int   = 10
+const KNIGHT_ATTACK_RANGE: float = 40.0  ## px – közelharc ellenőrzési sugár
 
 # ---------------------------------------------------------------------------
-# Node refs
+# Dash képesség (Shift)
 # ---------------------------------------------------------------------------
 
-@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+## Dash vízszintes impulzus (px/s).
+@export var dash_impulse: float     = 600.0
+## Dash időtartama (másodperc) – ennyi ideig hat az impulzus.
+@export var dash_duration: float    = 0.18
+## Dash újratöltési idő (másodperc).
+@export var dash_cooldown: float    = 1.20
+
+var _dash_timer:    float = 0.0   # aktív dash visszaszámlálás
+var _dash_cd_timer: float = 0.0   # cooldown visszaszámlálás
+var _is_dashing:    bool  = false
 
 # ---------------------------------------------------------------------------
-# Runtime
+# Életerő flash effekt (hurt visszajelzés)
 # ---------------------------------------------------------------------------
 
-var _speed: float
-var _jump_vel: float
-var _damage: int
-
-var health: int
-var max_health: int
-var _inv_timer: float = 0.0
-var _was_on_floor: bool = false
+## Hány alkalommal villog a sprite sebzéskor.
+@export var hurt_flash_count: int   = 4
+## Egy villanás fél-periódusa (másodperc).
+@export var hurt_flash_speed: float = 0.07
 
 # ---------------------------------------------------------------------------
-# Lifecycle
+# _on_ready – BasePlayer hook
 # ---------------------------------------------------------------------------
 
-func _ready() -> void:
-	add_to_group("player")
-	_apply_character_stats()
+func _on_ready() -> void:
+	# Alap értékek beállítása mielőtt az _apply_stats() GameManager szorzókat alkalmaz
+	speed        = KNIGHT_SPEED
+	jump_velocity = KNIGHT_JUMP_VEL
+	max_health   = KNIGHT_HEALTH
+	base_damage  = KNIGHT_DAMAGE
 
-func _physics_process(delta: float) -> void:
-	_apply_gravity(delta)
-	_tick_invincibility(delta)
+	# stat-ok újra skálázása a frissített base értékekkel
+	_apply_stats()
+	current_health = max_health
 
-	match _state:
-		State.IDLE, State.RUN:
-			_move()
-			_check_jump()
-			_check_attack()
-		State.JUMP, State.FALL:
-			_move()
-			_check_jump()
-		State.ATTACK:
-			# Lock horizontal movement during swing.
-			velocity.x = move_toward(velocity.x, 0.0, _speed)
-		State.HURT:
-			# Knockback decays naturally; state exits after a short timer.
-			velocity.x = move_toward(velocity.x, 0.0, _speed * 3.0 * delta)
-		State.DEAD:
-			velocity = Vector2.ZERO
-
-	move_and_slide()
-	_update_state_from_physics()
-	_update_animation()
-	_was_on_floor = is_on_floor()
+	print("[Knight] Init – HP: %d / %d | DMG: %d | SPD: %.0f" % [
+		current_health, max_health, _damage, speed
+	])
 
 # ---------------------------------------------------------------------------
-# Character stats (read from GameManager.player_data)
+# _on_physics_process – dash timer kezelés
 # ---------------------------------------------------------------------------
 
-func _apply_character_stats() -> void:
-	var pd   := GameManager.player_data
-	_speed   = BASE_SPEED * pd.get(GameManager.KEY_SPEED, 1.0)
-	_jump_vel = BASE_JUMP_VELOCITY
-	_damage  = roundi(BASE_DAMAGE * pd.get(GameManager.KEY_DMG, 1.0))
-	max_health = roundi(BASE_HEALTH * pd.get(GameManager.KEY_HP, 1.0))
-	health   = max_health
+func _on_physics_process(delta: float) -> void:
+	_dash_cd_timer = max(0.0, _dash_cd_timer - delta)
+
+	if _is_dashing:
+		_dash_timer -= delta
+		if _dash_timer <= 0.0:
+			_is_dashing = false
 
 # ---------------------------------------------------------------------------
-# Physics helpers
+# Input – dash hozzáadása a Shift gombra
 # ---------------------------------------------------------------------------
 
-func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+## Felülírja a szülő akció inputját: megtartja az attack-ot, hozzáadja a dash-t.
+func _handle_action_input() -> void:
+	super._handle_action_input()   # alap attack megtartása
 
-func _tick_invincibility(delta: float) -> void:
-	if _inv_timer > 0.0:
-		_inv_timer -= delta
-
-# ---------------------------------------------------------------------------
-# Input
-# ---------------------------------------------------------------------------
-
-func _move() -> void:
-	var dir := Input.get_axis("move_left", "move_right")
-	if dir != 0.0:
-		_sprite.flip_h = dir < 0.0
-		velocity.x = dir * _speed
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, _speed)
-
-func _check_jump() -> void:
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = _jump_vel
-		_set_state(State.JUMP)
-
-func _check_attack() -> void:
-	if Input.is_action_just_pressed("attack"):
-		_set_state(State.ATTACK)
-		_do_attack()
+	if Input.is_action_just_pressed("special") and _dash_cd_timer <= 0.0 and not is_dead:
+		_do_dash()
 
 # ---------------------------------------------------------------------------
-# Attack
+# Dash implementáció
 # ---------------------------------------------------------------------------
 
+func _do_dash() -> void:
+	_is_dashing    = true
+	_dash_timer    = dash_duration
+	_dash_cd_timer = dash_cooldown
+
+	# Dash irány = jelenlegi nézési irány
+	var dir := 1.0 if _facing_right else -1.0
+	velocity.x = dir * dash_impulse
+
+# ---------------------------------------------------------------------------
+# Támadás – felülírt közelharc + knockback
+# ---------------------------------------------------------------------------
+
+## Felülírja a szülő _do_attack()-ját:
+## minden "enemies" csoportban lévő ellenséget sebez a hatótávon belül,
+## és knockback-et alkalmaz a lovag iránya alapján.
 func _do_attack() -> void:
-	# Damage any enemy that overlaps the sprite bounds right now.
-	# A proper AttackHitbox Area2D will replace this in the full phase.
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	for enemy in enemies:
-		if global_position.distance_to(enemy.global_position) <= 55.0:
-			enemy.take_damage(_damage)
+	var hit_count := 0
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if global_position.distance_to(enemy.global_position) <= KNIGHT_ATTACK_RANGE:
+			if enemy.has_method("take_damage"):
+				enemy.take_damage(_damage)
+				hit_count += 1
 
-	# Return to IDLE after the swing animation finishes.
-	await get_tree().create_timer(0.35).timeout
-	if _state == State.ATTACK:
-		_set_state(State.IDLE)
-
-# ---------------------------------------------------------------------------
-# Damage reception (called by knight_enemy.gd)
-# ---------------------------------------------------------------------------
-
-func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
-	if _state == State.DEAD or _inv_timer > 0.0:
-		return
-
-	health = max(0, health - amount)
-	_inv_timer = INVINCIBILITY_DURATION
-
-	# Notify the HUD (it listens via group signal).
-	# TODO: emit a proper signal once HealthComponent is added.
-	print("Player HP: %d / %d" % [health, max_health])
-
-	if health == 0:
-		_on_died()
-		return
-
-	if knockback != Vector2.ZERO:
-		velocity = knockback
-	_set_state(State.HURT)
-	await get_tree().create_timer(0.3).timeout
-	if _state == State.HURT:
-		_set_state(State.IDLE)
+	if hit_count > 0:
+		# Lovag lendülete: kis előre-impulzus támadáskor
+		var fwd := 1.0 if _facing_right else -1.0
+		velocity.x += fwd * 40.0
 
 # ---------------------------------------------------------------------------
-# State transitions
+# Animáció – lovag sprite sheet névkonvenció
 # ---------------------------------------------------------------------------
 
-func _update_state_from_physics() -> void:
-	if _state in [State.DEAD, State.ATTACK, State.HURT]:
-		return
-	if is_on_floor():
-		_set_state(State.RUN if abs(velocity.x) > 10.0 else State.IDLE)
-	else:
-		_set_state(State.JUMP if velocity.y < 0.0 else State.FALL)
-
-func _set_state(s: State) -> void:
-	if _state != s:
-		_state = s
-
-# ---------------------------------------------------------------------------
-# Animation
-# Note: the sprite sheet has idle, walk, attack, hurt, death.
-#       Jump and fall reuse "idle" until custom frames are added.
-# ---------------------------------------------------------------------------
-
-func _update_animation() -> void:
+## Felülírja a szülő _get_animation_name()-jét.
+## A Soldier sprite sheet: idle, walk, attack, hurt, death
+## (nincs külön jump / fall frame → idle fallback marad)
+func _get_animation_name() -> StringName:
 	match _state:
-		State.IDLE:            _sprite.play("idle")
-		State.RUN:             _sprite.play("walk")
-		State.JUMP, State.FALL: _sprite.play("idle")
-		State.ATTACK:          _sprite.play("attack")
-		State.HURT:            _sprite.play("hurt")
-		State.DEAD:            _sprite.play("death")
+		State.IDLE:             return &"idle"
+		State.RUN:              return &"walk"
+		State.JUMP, State.FALL: return &"idle"
+		State.ATTACK:           return &"attack"
+		State.HURT:             return &"hurt"
+		State.DEAD:             return &"death"
+	return &"idle"
 
 # ---------------------------------------------------------------------------
-# Death
+# Hurt reakció – sprite flash effekt
 # ---------------------------------------------------------------------------
 
+## Felülírja a szülő _on_took_damage()-jét: sprite villogás + print.
+func _on_took_damage(amount: int) -> void:
+	print("[Knight] Sebzés: -%d | HP: %d / %d" % [amount, current_health, max_health])
+	_flash_sprite()
+
+
+## Sprite villogás coroutine a sebezhetetlen idő alatt.
+func _flash_sprite() -> void:
+	for i in hurt_flash_count:
+		_sprite.visible = false
+		await get_tree().create_timer(hurt_flash_speed).timeout
+		_sprite.visible = true
+		await get_tree().create_timer(hurt_flash_speed).timeout
+
+# ---------------------------------------------------------------------------
+# Halál – felülírt LevelManager értesítéssel
+# ---------------------------------------------------------------------------
+
+## Felülírja a szülő _on_died()-jét:
+## halál animáció → rövid várakozás → LevelManager értesítése.
 func _on_died() -> void:
-	_set_state(State.DEAD)
-	set_collision_layer_value(1, false)
+	print("[Knight] Meghalt – LevelManager értesítve")
+	set_collision_layer_value(1, false)   # átjárhatóvá teszi a holttestet
+	# Rövid szünet hogy a death animáció lejátsszódjon
+	await get_tree().create_timer(0.7).timeout
 	LevelManager.on_player_death()
+
+# ---------------------------------------------------------------------------
+# Stat skálázás – GameManager stat szorzók alkalmazása
+# ---------------------------------------------------------------------------
+
+## Felülírja a szülő _base_speed()-jét, hogy az KNIGHT_SPEED konstanst
+## használja az exportált speed helyett.
+func _base_speed() -> float:
+	return KNIGHT_SPEED

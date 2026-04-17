@@ -147,7 +147,7 @@ func _do_attack() -> void:
 		_set_state(State.AGGRO if _player else State.PATROL)
 
 # ---------------------------------------------------------------------------
-# Damage reception (called by playerKnight.gd)
+# Damage reception
 # ---------------------------------------------------------------------------
 
 func take_damage(amount: int) -> void:

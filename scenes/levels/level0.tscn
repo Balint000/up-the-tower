@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfsujpehcf4n2"]
 
-[ext_resource type="PackedScene" uid="uid://bji7ey60ilwk7" path="res://scenes/entities/player/MainCharacter.tscn" id="1_o8kyb"]
+[ext_resource type="Script" uid="uid://be3jf5vby7htm" path="res://scripts/entities/player/player_spawner.gd" id="1_hghvf"]
 [ext_resource type="PackedScene" uid="uid://b6t15auv12l0v" path="res://scenes/entities/enemies/knightEnemy.tscn" id="2_cperm"]
 [ext_resource type="Texture2D" uid="uid://dv70i73tsofyt" path="res://assets/placeholder assets/Legacy Collection/Assets/Environments/Day-Platformer/PNG/tileset.png" id="3_hghvf"]
 
@@ -125,8 +125,8 @@ sources/0 = SubResource("TileSetAtlasSource_5kr0j")
 
 [node name="Level0" type="Node2D" unique_id=295547098]
 
-[node name="CharacterBody2D" parent="." unique_id=832308272 instance=ExtResource("1_o8kyb")]
-position = Vector2(0, -7)
+[node name="Node2D" type="Node2D" parent="." unique_id=404888228]
+script = ExtResource("1_hghvf")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1561391476]
 zoom = Vector2(2.5, 2.5)

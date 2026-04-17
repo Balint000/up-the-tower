@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3l2lnc5lgsa1"
-path="res://.godot/imported/vodafone-icon.svg-f0c8437e245c2810da927110a6ba678c.ctex"
+uid="uid://d0x2tj7q8qtxd"
+path="res://.godot/imported/character_system_architecture.svg-91dc4bdc4d9bcd5ffaf58989413686b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/GitGodot/vodafone-icon.svg"
-dest_files=["res://.godot/imported/vodafone-icon.svg-f0c8437e245c2810da927110a6ba678c.ctex"]
+source_file="res://docs/character_system_architecture.svg"
+dest_files=["res://.godot/imported/character_system_architecture.svg-91dc4bdc4d9bcd5ffaf58989413686b0.ctex"]
 
 [params]
 
