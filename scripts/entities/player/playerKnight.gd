@@ -24,7 +24,7 @@ extends BasePlayer
 
 const KNIGHT_SPEED:       float = 120.0
 const KNIGHT_JUMP_VEL:    float = -300.0
-const KNIGHT_HEALTH:      int   = 1000
+const KNIGHT_HEALTH:      int   = 100
 const KNIGHT_DAMAGE:      int   = 10
 const KNIGHT_ATTACK_RANGE: float = 40.0  ## px – közelharc ellenőrzési sugár
 
@@ -64,7 +64,7 @@ func _on_ready() -> void:
 	base_damage  = KNIGHT_DAMAGE
 
 	# stat-ok újra skálázása a frissített base értékekkel
-	_apply_stats()
+	# _apply_stats()
 	current_health = max_health
 
 	print("[Knight] Init – HP: %d / %d | DMG: %d | SPD: %.0f" % [

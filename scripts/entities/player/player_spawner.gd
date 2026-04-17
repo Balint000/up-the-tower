@@ -31,7 +31,7 @@ const FALLBACK_CHARACTER_ID: String = "knight"
 const CHARACTER_DATA_PATH: String = "res://data/characters/"
 
 func _ready() -> void:
-	_spawn_player()
+	call_deferred("_spawn_player")
 
 
 ## Fő spawning logika.
