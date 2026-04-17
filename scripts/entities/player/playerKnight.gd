@@ -22,11 +22,11 @@ extends BasePlayer
 # Lovag-specifikus konstansok
 # ---------------------------------------------------------------------------
 
-const KNIGHT_SPEED:       float = 120.0
-const KNIGHT_JUMP_VEL:    float = -300.0
-const KNIGHT_HEALTH:      int   = 100
-const KNIGHT_DAMAGE:      int   = 10
-const KNIGHT_ATTACK_RANGE: float = 40.0  ## px – közelharc ellenőrzési sugár
+# const KNIGHT_SPEED:       float = 120.0
+# const KNIGHT_JUMP_VEL:    float = -300.0
+# const KNIGHT_HEALTH:      int   = 100
+# const KNIGHT_DAMAGE:      int   = 10
+const KNIGHT_ATTACK_RANGE: float = 50.0  ## px – közelharc ellenőrzési sugár
 
 # ---------------------------------------------------------------------------
 # Dash képesség (Shift)
@@ -58,14 +58,14 @@ var _is_dashing:    bool  = false
 
 func _on_ready() -> void:
 	# Alap értékek beállítása mielőtt az _apply_stats() GameManager szorzókat alkalmaz
-	speed        = KNIGHT_SPEED
-	jump_velocity = KNIGHT_JUMP_VEL
-	max_health   = KNIGHT_HEALTH
-	base_damage  = KNIGHT_DAMAGE
+	# speed        = KNIGHT_SPEED
+	# jump_velocity = KNIGHT_JUMP_VEL
+	# max_health   = KNIGHT_HEALTH
+	# base_damage  = KNIGHT_DAMAGE
 
 	# stat-ok újra skálázása a frissített base értékekkel
 	# _apply_stats()
-	current_health = max_health
+	# current_health = max_health
 
 	print("[Knight] Init – HP: %d / %d | DMG: %d | SPD: %.0f" % [
 		current_health, max_health, _damage, speed
@@ -101,11 +101,11 @@ func _handle_action_input() -> void:
 func _do_dash() -> void:
 	_is_dashing    = true
 	_dash_timer    = dash_duration
-	_dash_cd_timer = dash_cooldown
+	_dash_cd_timer = _ability_cooldown
 
 	# Dash irány = jelenlegi nézési irány
 	var dir := 1.0 if _facing_right else -1.0
-	velocity.x = dir * dash_impulse
+	velocity.x = dir * _ability_power
 
 # ---------------------------------------------------------------------------
 # Támadás – felülírt közelharc + knockback
@@ -178,8 +178,3 @@ func _on_died() -> void:
 # ---------------------------------------------------------------------------
 # Stat skálázás – GameManager stat szorzók alkalmazása
 # ---------------------------------------------------------------------------
-
-## Felülírja a szülő _base_speed()-jét, hogy az KNIGHT_SPEED konstanst
-## használja az exportált speed helyett.
-func _base_speed() -> float:
-	return KNIGHT_SPEED
