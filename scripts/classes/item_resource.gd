@@ -38,7 +38,7 @@ extends Resource
 ## "armor"       – páncél (armor slotba kerül, health bónuszt ad)
 ## "consumable"  – egyszer használatos (használatkor elfogy)
 ## "accessory"   – kiegészítő (passzív stat bónusz, nincs külön slot)
-@export_enum("weapon", "armor", "consumable", "accessory") var item_type: String = "weapon"
+@export_enum("weapon", "helmet", "consumable", "accessory") var item_type: String = "weapon"
 
 # ---------------------------------------------------------------------------
 # Stat bónuszok (additív; a BasePlayer._apply_stats()-ban összeadódnak)
@@ -60,6 +60,14 @@ extends Resource
 # ---------------------------------------------------------------------------
 
 @export_group("Weapon")
+
+## Fegyver hatótávolság (px). 0 = az alap érték érvényes.
+@export var attack_range: float = 0.0
+
+## Fegyver attack cooldown felülírása (s). 0 = alapértelmezett.
+@export var attack_cooldown_override: float = 0.0
+
+@export_group("Helmet")
 
 ## Fegyver hatótávolság (px). 0 = az alap érték érvényes.
 @export var attack_range: float = 0.0

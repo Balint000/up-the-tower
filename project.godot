@@ -20,10 +20,11 @@ config/icon="res://icon.svg"
 LevelManager="*uid://de425r3pg717m"
 SaveManager="*uid://bovoldi38yawr"
 GameManager="*uid://51wnvw347dl1"
+DataDb="*uid://du6nuoi3jk1py"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GitGodot/plugin.cfg")
+enabled=PackedStringArray()
 
 [file_customization]
 
