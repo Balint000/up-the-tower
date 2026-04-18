@@ -265,15 +265,15 @@ func _refresh_ui() -> void:
 func _refresh_character_display() -> void:
 	var char_data = DataDb.get_character(_selected_char)
 	if char_data:
-		_char_name_lbl.text = char_data.display_name.to_upper()
-		if char_data.icon:
-			_char_sprite.texture = char_data.icon
+		_char_name_lbl.text = char_data.character_name.to_upper()
+		if char_data.portrait:
+			_char_sprite.texture = char_data.portrait
 		
 		# Update character selector icons
 		for char_id in _char_icons:
 			var c_data = DataDb.get_character(char_id)
-			if c_data and c_data.icon:
-				_char_icons[char_id].texture = c_data.icon
+			if c_data and c_data.portrait:
+				_char_icons[char_id].texture = c_data.portrait
 
 func _refresh_stats() -> void:
 	var stats = _calculate_stats()

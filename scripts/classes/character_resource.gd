@@ -41,12 +41,16 @@ extends Resource
 # ---------------------------------------------------------------------------
 
 @export_group("Stats")
-@export var max_health: int   = 100
-@export var base_damage: int  = 20
+@export var base_hp: int   = 100
+@export var base_dmg: int  = 20
 ## Mozgási sebesség (px/s).
-@export var move_speed: float = 180.0
+@export var base_spd: float = 180.0
 ## Ugrás indulósebessége (negatív = felfelé).
 @export var jump_velocity: float = -360.0
+
+## Unlocks
+@export var unlock_level: int = 1
+@export var is_unlocked: bool = true
 
 # ---------------------------------------------------------------------------
 # Képesség (Shift gomb)

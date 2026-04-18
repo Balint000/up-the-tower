@@ -11,6 +11,7 @@ var items: Dictionary = {}
 @export var item_paths: Array[String] = [
 	"res://data/items/basic_sword.tres",
 	"res://data/items/health_potion.tres",
+	"res://data/items/helm_bag.tres",
 	# ...
 ]
 
