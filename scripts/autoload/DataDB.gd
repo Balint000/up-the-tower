@@ -29,11 +29,38 @@ func _load_items() -> void:
 	for path in item_paths:
 		if ResourceLoader.exists(path):
 			var res: ItemResource = load(path)
-			if res and res.item_id != "":
-				items[res.item_id] = res
+			if res and res.id != "":
+				items[res.id] = res
 
 func get_character(id: String) -> CharacterResource:
 	return characters.get(id)
 
 func get_item(id: String) -> ItemResource:
 	return items.get(id)
+
+# =============================================================================
+#  FILTERS
+# =============================================================================
+func get_items_by_slot(slot: ItemResource.ItemType) -> Array:
+	var result = []
+	for item_id in items:
+		var item = items[item_id]
+		if item.slot == slot:
+			result.append(item_id)
+	return result
+
+func get_items_by_type(type: ItemResource.ItemType) -> Array:
+	var result = []
+	for item_id in items:
+		var item = items[item_id]
+		if item.type == type:
+			result.append(item_id)
+	return result
+
+func get_items_by_rarity(rarity: String) -> Array:
+	var result = []
+	for item_id in items:
+		var item = items[item_id]
+		if item.rarity.to_lower() == rarity.to_lower():
+			result.append(item_id)
+	return result

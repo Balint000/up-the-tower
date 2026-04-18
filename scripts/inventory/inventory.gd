@@ -162,9 +162,9 @@ func _get_item_category(item_id: String) -> String:
 	if item == null:
 		return "cons"
 	match item.slot:
-		ItemData.EquipSlot.HELMET: return "helm"
-		ItemData.EquipSlot.WEAPON: return "weap"
-		ItemData.EquipSlot.BOOTS: return "boots"
+		ItemResource.EquipSlot.HELMET: return "helm"
+		ItemResource.EquipSlot.WEAPON: return "weap"
+		ItemResource.EquipSlot.BOOTS: return "boots"
 		_: return "cons"
 
 # =============================================================================
@@ -462,11 +462,11 @@ func _get_available_items_for_slot(slot: String) -> Array:
 			var belongs = false
 			match slot:
 				"helmet":
-					belongs = (item.slot == ItemData.EquipSlot.HELMET)
+					belongs = (item.slot == ItemResource.EquipSlot.HELMET)
 				"weapon":
-					belongs = (item.slot == ItemData.EquipSlot.WEAPON)
+					belongs = (item.slot == ItemResource.EquipSlot.WEAPON)
 				"boots":
-					belongs = (item.slot == ItemData.EquipSlot.BOOTS)
+					belongs = (item.slot == ItemResource.EquipSlot.BOOTS)
 			
 			if belongs:
 				result.append(item_id)
@@ -511,9 +511,9 @@ func _on_overlay_background_click(event: InputEvent) -> void:
 func _on_inventory_slot_input(event: InputEvent, item_id: String) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		var item = DataDb.get_item(item_id)
-		if item and item.type == ItemData.ItemType.BAG:
+		if item and item.type == ItemResource.ItemType.BAG:
 			_open_bag(item_id)
-		elif item and item.type == ItemData.ItemType.CONSUMABLE:
+		elif item and item.type == ItemResource.ItemType.CONSUMABLE:
 			_use_consumable(item_id)
 
 func _open_bag(bag_id: String) -> void:

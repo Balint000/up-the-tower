@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_7gb6n")
-damage_bonus = 5
-attack_range = 30.0
+id = "basic_sword"
+dmg = 10
 metadata/_custom_type_script = "uid://cbu1nshdmxwv"

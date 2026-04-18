@@ -215,15 +215,15 @@ func inventory_get_count(item_id: String) -> int:
 func _get_item_category(item: Resource) -> String:
 	if item is ItemResource:
 		match item.slot:
-			ItemData.EquipSlot.HELMET: return "helm"
-			ItemData.EquipSlot.WEAPON: return "weap"
-			ItemData.EquipSlot.BOOTS: return "boots"
+			ItemResource.EquipSlot.HELMET: return "helm"
+			ItemResource.EquipSlot.WEAPON: return "weap"
+			ItemResource.EquipSlot.BOOTS: return "boots"
 	return "cons"
 
 #Equipment Managment
 
 func equip_item(item_id: String) -> bool:
-	var item = InventoryDB.get_item(item_id)
+	var item = DataDb.get_item(item_id)
 	if item == null:
 		return false
 	
@@ -234,11 +234,11 @@ func equip_item(item_id: String) -> bool:
 	var equipped = runtime_data.get(KEY_EQUIPPED_ITEMS, {})
 	
 	match item.slot:
-		ItemData.EquipSlot.HELMET:
+		ItemResource.EquipSlot.HELMET:
 			equipped[KEY_HELMET] = item_id
-		ItemData.EquipSlot.WEAPON:
+		ItemResource.EquipSlot.WEAPON:
 			equipped[KEY_WEAPON] = item_id
-		ItemData.EquipSlot.BOOTS:
+		ItemResource.EquipSlot.BOOTS:
 			equipped[KEY_BOOTS] = item_id
 		_:
 			push_warning("Item is not equippable: " + item_id)

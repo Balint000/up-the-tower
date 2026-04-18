@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_8kas0")
-item_type = "consumable"
+id = "health_potion"
+hp = 10
 metadata/_custom_type_script = "uid://cbu1nshdmxwv"
