@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LevelManager="*uid://de425r3pg717m"
+DataDb="*uid://du6nuoi3jk1py"
 SaveManager="*uid://bovoldi38yawr"
 GameManager="*uid://51wnvw347dl1"
-DataDb="*uid://du6nuoi3jk1py"
+LevelManager="*uid://de425r3pg717m"
 
 [editor_plugins]
 

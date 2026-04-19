@@ -1,10 +1,16 @@
 extends Node
 
 var characters: Dictionary = {}
+var enemies: Dictionary = {}
 var items: Dictionary = {}
 
 @export var character_paths: Array[String] = [
 	"res://data/characters/knight.tres",
+	# add others
+]
+
+@export var enemies_paths: Array[String] = [
+	"res://data/enemies/enemy_knight.tres",
 	# add others
 ]
 
@@ -18,6 +24,8 @@ var items: Dictionary = {}
 func _ready() -> void:
 	_load_characters()
 	_load_items()
+	_load_enemies()
+	print("DataDB betöltve: %d items, %d characters, %d enemies" % [items.size(), characters.size(), enemies.size()])
 
 func _load_characters() -> void:
 	for path in character_paths:
@@ -25,6 +33,13 @@ func _load_characters() -> void:
 			var res: CharacterResource = load(path)
 			if res and res.character_id != "":
 				characters[res.character_id] = res
+
+func _load_enemies() -> void:
+	for path in enemies_paths:
+		if ResourceLoader.exists(path):
+			var res: CharacterResource = load(path)
+			if res and res.character_id != "":
+				enemies[res.character_id] = res
 
 func _load_items() -> void:
 	for path in item_paths:

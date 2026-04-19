@@ -61,7 +61,7 @@ extends Resource
 ## Képesség típusa. A BasePlayer._handle_action_input() ezt olvassa és
 ## a megfelelő metódust hívja.
 ## Érvényes értékek: "dash", "double_jump", "block", "fireball"
-@export_enum("dash", "double_jump", "block", "fireball") var ability_type: String = "dash"
+@export_enum("none", "dash", "double_jump", "block", "fireball") var ability_type: String = "none"
 
 ## Képesség cooldown (másodperc).
 @export var ability_cooldown: float = 1.2
