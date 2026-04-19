@@ -125,7 +125,7 @@ sources/0 = SubResource("TileSetAtlasSource_5kr0j")
 
 [node name="Level0" type="Node2D" unique_id=295547098]
 
-[node name="Node2D" type="Node2D" parent="." unique_id=404888228]
+[node name="PlayerSpawner" type="Node2D" parent="." unique_id=404888228]
 script = ExtResource("1_hghvf")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1561391476]

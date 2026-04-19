@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bji7ey60ilwk7"]
 
-[ext_resource type="Script" uid="uid://c255fc8jbm7yt" path="res://scripts/entities/player/playerKnight.gd" id="1_hgmf5"]
+[ext_resource type="Script" uid="uid://dj0rnb7it8ko" path="res://scripts/entities/player/player_knight.gd" id="1_hgmf5"]
 [ext_resource type="Texture2D" uid="uid://ser3sd8luyjf" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_rh8th"]
 [ext_resource type="Texture2D" uid="uid://do7g337dfmbkq" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="3_cig4f"]
 [ext_resource type="Texture2D" uid="uid://dc2g7m1p01s7v" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_vm3kj"]
