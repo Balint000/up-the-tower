@@ -41,18 +41,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _get_animation_name() -> StringName:
 	match _state:
-		State.IDLE:
-			return &"idle"
-		State.RUN:
-			return &"walk"
-		State.JUMP, State.FALL:
-			return &"idle"
-		State.ATTACK:
-			return &"attack"
-		State.HURT:
-			return &"hurt"
-		State.DEAD:
-			return &"death"
+		State.IDLE:             return &"idle"
+		State.RUN:              return &"walk"
+		State.JUMP:             return &"idle"
+		State.FALL:             return &"idle"
+		State.ATTACK:           return &"attack"
+		State.HURT:             return &"hurt"
+		State.DEAD:             return &"death"
 	return &"idle"
 
 

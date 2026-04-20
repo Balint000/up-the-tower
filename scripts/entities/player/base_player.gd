@@ -166,12 +166,16 @@ func _handle_movement(delta: float) -> void:
 	if abs(input_dir) > 0.1:
 		_facing_right = input_dir > 0.0
 
-	move_and_slide()
+	if _state == State.RUN or _state == State.FALL or _state == State.JUMP:
+		move_and_slide()
 
 
 func _update_state() -> void:
 	if not is_alive:
 		_state = State.DEAD
+		return
+
+	if _state == State.ATTACK or _state == State.HURT or _state == State.DEAD:
 		return
 
 	if not is_on_floor():
@@ -191,16 +195,6 @@ func _tick_coyote(delta: float) -> void:
 	else:
 		_coyote_left = max(0.0, _coyote_left - delta)
 
-func _update_animation() -> void:
-	if _sprite == null:
-		return
-
-	var anim_name: StringName = _get_animation_name()
-	_sprite.play(anim_name)
-
-	_sprite.flip_h = not _facing_right
-
-
 func _get_animation_name() -> StringName:
 	## Default mapping – konkrét karakter (pl. PlayerKnight) override-olhatja.
 	match _state:
@@ -212,6 +206,15 @@ func _get_animation_name() -> StringName:
 		State.HURT:             return &"hurt"
 		State.DEAD:             return &"death"
 	return &"idle"
+
+func _update_animation() -> void:
+	if _sprite == null:
+		return
+
+	var anim_name: StringName = _get_animation_name()
+	_sprite.play(anim_name)
+
+	_sprite.flip_h = not _facing_right
 
 # ============================================================================
 # INPUT: MELEE ATTACK + ABILITY + INTERACT + ITEM USE
@@ -250,13 +253,18 @@ func _do_melee_attack() -> void:
 		return
 
 	_state = State.ATTACK
+	
+	var origin: Vector2 = global_position
+	if _hitbox != null and _hitbox is Node2D:
+		origin = (_hitbox as Node2D).global_position
 
 	var hit_count := 0
 	var targets := _get_melee_targets()
 	for enemy in targets:
 		if not (enemy is Node2D):
 			continue
-		if global_position.distance_to(enemy.global_position) <= melee_range:
+		var enemy_pos := (enemy as Node2D).global_position
+		if origin.distance_to(enemy_pos) <= melee_range:
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(damage)
 				hit_count += 1
@@ -265,6 +273,10 @@ func _do_melee_attack() -> void:
 	if hit_count > 0:
 		var fwd := 1.0 if _facing_right else -1.0
 		velocity.x += fwd * 40.0
+		
+	await get_tree().create_timer(0.5).timeout
+	if _state == State.ATTACK:
+		_state = State.IDLE
 
 # ============================================================================
 # ABILITY – dash / double_jump / block / fireball

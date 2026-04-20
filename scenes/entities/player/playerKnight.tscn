@@ -240,9 +240,8 @@ script = ExtResource("1_hgmf5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1719260629]
 sprite_frames = SubResource("SpriteFrames_pxuga")
-animation = &"hurt"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.038372044
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
