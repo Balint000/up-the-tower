@@ -45,7 +45,7 @@ func take_damage(amount: int) -> void:
 		return
 
 	var old_health := health
-	health = max(health - amount, 0)
+	health = max(health - amount, 0) # ne legyen negatív életerő
 	emit_signal("health_changed", self, old_health, health)
 
 	if health == 0:
@@ -58,7 +58,7 @@ func heal(amount: int) -> void:
 		return
 
 	var old_health := health
-	health = min(health + amount, max_health)
+	health = min(health + amount, max_health) # ne legyen több az életerő, mint a maximális
 	emit_signal("health_changed", self, old_health, health)
 
 

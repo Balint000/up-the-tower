@@ -1,5 +1,5 @@
+class_name BasePlayer
 extends Entity
-class_name BaseCharacter
 ## Közös 2D karakter alap:
 ## - állapotgép: IDLE / RUN / JUMP / FALL / ATTACK / HURT / DEAD
 ## - mozgás, ugrás, gravitáció
@@ -139,7 +139,7 @@ func set_character_resource(res: CharacterResource) -> void:
 # ============================================================================
 
 func _handle_movement(delta: float) -> void:
-	var input_dir := Input.get_axis("ui_left", "ui_right")
+	var input_dir := Input.get_axis("move_left", "move_right")
 
 	# Vízszintes mozgás
 	velocity.x = input_dir * move_speed
@@ -147,7 +147,7 @@ func _handle_movement(delta: float) -> void:
 	# Gravitáció
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	elif Input.is_action_just_pressed("ui_accept"):
+	elif Input.is_action_just_pressed("jump"):
 		velocity.y = -jump_force
 
 	# Nézési irány
@@ -288,7 +288,7 @@ func _do_fireball() -> void:
 	pass
 
 # ============================================================================
-# INTERAKCIÓK / ITEM HASZNÁLAT – üres hook-ok
+# INTERAKCIÓK / ITEM HASZNÁLAT – üres hook-ok, elvileg megvalósíthatóak ebben a fájlban
 # ============================================================================
 
 func _request_interaction() -> void:
@@ -297,7 +297,7 @@ func _request_interaction() -> void:
 
 
 func _use_selected_item() -> void:
-	## Inventory integráció – konkrét karakter (PlayerKnight) override-olja.
+	## Inventory integráció – konkrét karakter (PlayerKnight) override-olja. 
 	pass
 
 # ============================================================================

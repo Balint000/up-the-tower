@@ -1,7 +1,7 @@
 extends GutTest
 
-func _create_level_manager() -> Level_Manager:
-	return Level_Manager.new()
+func _create_level_manager() -> LevelManager:
+	return LevelManager.new()
 
 func test_level_zero_is_unlocked_by_default():
 	var lm := _create_level_manager()

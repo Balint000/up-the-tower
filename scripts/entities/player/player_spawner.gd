@@ -2,7 +2,7 @@ extends Node2D
 ## Player spawner: létrehozza az inventory-ban kiválasztott karakter példányát a pályán.
 ## A karakter scene_path-ját a CharacterResource.scene_path adja (DataDb + GameManager alapján).
 
-var player_instance: BaseCharacter = null
+var player_instance: BasePlayer = null
 
 func _ready() -> void:
 	call_deferred("_spawn_player")
@@ -41,7 +41,7 @@ func _spawn_player() -> void:
 		return
 
 	## 5) Példányosítás
-	player_instance = scene.instantiate() as BaseCharacter
+	player_instance = scene.instantiate() as BasePlayer
 	if player_instance == null:
 		push_error("PlayerSpawner: a példány nem BaseCharacter (scene: " + char_res.scene_path + ")")
 		return

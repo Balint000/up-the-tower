@@ -68,7 +68,7 @@ func _on_ready() -> void:
 	# current_health = max_health
 
 	print("[Knight] Init – HP: %d / %d | DMG: %d | SPD: %.0f" % [
-		current_health, max_health, _damage, speed
+		health, max_health, damage, move_speed
 	])
 
 # ---------------------------------------------------------------------------
@@ -88,10 +88,10 @@ func _on_physics_process(delta: float) -> void:
 # ---------------------------------------------------------------------------
 
 ## Felülírja a szülő akció inputját: megtartja az attack-ot, hozzáadja a dash-t.
-func _handle_action_input() -> void:
-	super._handle_action_input()   # alap attack megtartása
+func _handle_action_input(event: InputEvent) -> void:
+	super._handle_action_input(event)   # alap attack megtartása
 
-	if Input.is_action_just_pressed("special") and _dash_cd_timer <= 0.0 and not is_dead:
+	if Input.is_action_pressed("special") and _dash_cd_timer <= 0.0 and is_alive:
 		_do_dash()
 
 # ---------------------------------------------------------------------------
@@ -101,11 +101,11 @@ func _handle_action_input() -> void:
 func _do_dash() -> void:
 	_is_dashing    = true
 	_dash_timer    = dash_duration
-	_dash_cd_timer = _ability_cooldown
+	_dash_cd_timer = ability_cooldown
 
 	# Dash irány = jelenlegi nézési irány
 	var dir := 1.0 if _facing_right else -1.0
-	velocity.x = dir * _ability_power
+	velocity.x = dir * ability_power
 
 # ---------------------------------------------------------------------------
 # Támadás – felülírt közelharc + knockback
@@ -119,7 +119,7 @@ func _do_attack() -> void:
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if global_position.distance_to(enemy.global_position) <= KNIGHT_ATTACK_RANGE:
 			if enemy.has_method("take_damage"):
-				enemy.take_damage(_damage)
+				enemy.take_damage(damage)
 				hit_count += 1
 
 	if hit_count > 0:
@@ -150,7 +150,7 @@ func _get_animation_name() -> StringName:
 
 ## Felülírja a szülő _on_took_damage()-jét: sprite villogás + print.
 func _on_took_damage(amount: int) -> void:
-	print("[Knight] Sebzés: -%d | HP: %d / %d" % [amount, current_health, max_health])
+	print("[Knight] Sebzés: -%d | HP: %d / %d" % [amount, health, max_health])
 	_flash_sprite()
 
 

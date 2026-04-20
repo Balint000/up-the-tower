@@ -1,4 +1,4 @@
-extends BaseCharacter
+extends BasePlayer
 ## PlayerKnight – játszható lovag karakter.
 
 @onready var _camera: Camera2D = $Camera2D if has_node("Camera2D") else null
