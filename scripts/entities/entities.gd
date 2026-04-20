@@ -24,6 +24,14 @@ func _ready() -> void:
 	## Leszármazottak (pl. PlayerKnight, Enemy) innen indulnak.
 	pass
 
+func register_groups_from_faction() -> void:
+	match faction:
+		"player":
+			add_to_group("player")
+		"enemy":
+			add_to_group("enemies")
+		_:
+			pass
 
 func apply_stats_from_dict(stats: Dictionary) -> void:
 	## GameManager.player_data és/vagy karakter resource alapján tölti fel a statokat.

@@ -25,6 +25,10 @@ enum State {
 	DEAD
 }
 
+var _coyote_left: float = 0.0
+var _was_on_floor: bool = false
+@export var coyote_time: float = 0.12
+
 var _state: State = State.IDLE
 var _facing_right: bool = true
 
@@ -85,9 +89,12 @@ func _physics_process(delta: float) -> void:
 
 	_ability_cd_timer = max(0.0, _ability_cd_timer - delta)
 
+	_tick_coyote(delta)
 	_handle_movement(delta)
 	_update_state()
 	_update_animation()
+	
+	_was_on_floor = is_on_floor()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -147,8 +154,13 @@ func _handle_movement(delta: float) -> void:
 	# Gravitáció
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	elif Input.is_action_just_pressed("jump"):
+	else:
+		pass
+		
+	var can_jump := is_on_floor() or _coyote_left > 0.0
+	if Input.is_action_just_pressed("jump") and can_jump:
 		velocity.y = -jump_force
+		_coyote_left = 0.0
 
 	# Nézési irány
 	if abs(input_dir) > 0.1:
@@ -171,6 +183,13 @@ func _update_state() -> void:
 	else:
 		_state = State.IDLE
 
+func _tick_coyote(delta: float) -> void:
+	if _was_on_floor and not is_on_floor() and velocity.y >= 0.0:
+		_coyote_left = coyote_time
+	elif is_on_floor():
+		_coyote_left = 0.0
+	else:
+		_coyote_left = max(0.0, _coyote_left - delta)
 
 func _update_animation() -> void:
 	if _sprite == null:
@@ -219,6 +238,13 @@ func _handle_action_input(event: InputEvent) -> void:
 # MELEE TÁMADÁS – enemies csoport ellen
 # ============================================================================
 
+func _get_melee_targets() -> Array:
+	var result: Array = []
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy is Node2D:
+			result.append(enemy)
+	return result
+
 func _do_melee_attack() -> void:
 	if not is_alive:
 		return
@@ -226,7 +252,8 @@ func _do_melee_attack() -> void:
 	_state = State.ATTACK
 
 	var hit_count := 0
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	var targets := _get_melee_targets()
+	for enemy in targets:
 		if not (enemy is Node2D):
 			continue
 		if global_position.distance_to(enemy.global_position) <= melee_range:
@@ -292,8 +319,24 @@ func _do_fireball() -> void:
 # ============================================================================
 
 func _request_interaction() -> void:
-	## Ajtók, triggerek stb. kezdeti hook – konkrét karakter override-olja.
-	pass
+	## Megkeressük a legközelebbi "interactable" csoportban lévő
+	## Node2D-t egy kis sugarú körben, és ha van rajta "interact" metódus,
+	## hívjuk meg.
+	var nearest: Node2D = null
+	var best_dist := 48.0  # max interakciós távolság (px)
+	var interactable_items := get_tree().get_nodes_in_group("interactable")
+
+	for node in interactable_items:
+		if not (node is Node2D):
+			continue
+		var d := global_position.distance_to(node.global_position)
+		if d <= best_dist:
+			best_dist = d
+			nearest = node
+
+	if nearest and nearest.has_method("interact"):
+		nearest.interact(self)
+
 
 
 func _use_selected_item() -> void:
@@ -304,11 +347,14 @@ func _use_selected_item() -> void:
 # SEBZÉS / HALÁL – ALAP IMPLEMENTÁCIÓ
 # ============================================================================
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	## Entity alap sebzés + állapotfrissítés.
+	## Ha csak amount-ot adunk meg az ellenfélnél, akkor is működik, nem löki vissza a karaktert
 	super.take_damage(amount)
 
 	if is_alive:
+		if knockback != Vector2.ZERO:
+			velocity = knockback
 		_state = State.HURT
 		_on_took_damage(amount)
 	else:

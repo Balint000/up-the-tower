@@ -67,8 +67,8 @@ func _request_interaction() -> void:
 	pass
 
 
-func take_damage(amount: int) -> void:
-	super.take_damage(amount)
+func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
+	super.take_damage(amount, knockback)
 	## super() már hívja _on_took_damage() / _on_died()-et, amiket itt override-olunk.
 
 
