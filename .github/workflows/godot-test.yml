@@ -10,21 +10,41 @@ jobs:
   unit-test:
     name: Unit Tests
     runs-on: ubuntu-latest
-    # This container image includes Godot and required Linux dependencies
+    # Ez a konténer tartalmazza a Godot engine-t és a Linux függőségeket
     container:
       image: barichello/godot-ci:4.6
 
     steps:
+      # 1. Forráskód letöltése
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Godot Import
-        run: godot --headless --verbose --editor --quit
+      # 2. Asset importálás – a Godot generálja a .godot/ cache könyvtárat.
+      #    A || true azért kell, mert headless módban az editor nem-nulla
+      #    kilépési kóddal zárhat, ami egyébként megbuktatná a lépést.
+      - name: Import assets
+        run: godot --headless --verbose --editor --quit || true
 
-      - name: Run GUT Tests
-        # --headless: run without window
-        # --script addons/gut/gut_cmdln.gd: GUT CLI runner
-        # -gexit: exit after tests finish
-        # -gdir: tests directory
+      # 3. GUT unit tesztek futtatása
+      #    -gexit      : kilép a tesztek befejezése után
+      #    -gdir       : a tesztfájlok könyvtára
+      #    -glog_level : 1 = figyelmeztetések és hibák logolva
+      - name: Run GUT tests
         run: |
-          godot --headless --script addons/gut/gut_cmdln.gd -gexit -gdir=res://tests/unit
+          godot --headless \
+            --script addons/gut/gut_cmdln.gd \
+            -gexit \
+            -gdir=res://tests/unit \
+            -glog_level=1
+
+      # 4. Teszt eredmény feltöltése – csak akkor fut, ha valamelyik
+      #    korábbi lépés sikertelen volt (hibakereséshez hasznos)
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gut-logs
+          path: |
+            .godot/
+            *.log
+          retention-days: 5
