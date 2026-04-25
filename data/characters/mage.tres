@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://cbqj52yjm74iy"]
+
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_0ycyj"]
+[ext_resource type="Texture2D" uid="uid://b6lk5oe14ovr2" path="res://assets/placeholder assets/Legacy Collection/Assets/Characters/sunny-dragon/sprites/_0001_Layer-2.png" id="1_shys8"]
+
+[resource]
+script = ExtResource("1_0ycyj")
+character_id = "mage"
+character_name = "mage"
+description = "mage"
+portrait = ExtResource("1_shys8")
+base_hp = 80
+base_dmg = 15
+base_spd = 220.0
+ability_type = "fireball"
+ability_cooldown = 5.0
+metadata/_custom_type_script = "uid://xxkmfki5unb6"

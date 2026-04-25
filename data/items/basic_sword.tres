@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://k33hv3iqdh13"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_7gb6n"]
+
+[resource]
+script = ExtResource("1_7gb6n")
+id = "basic_sword"
+name = "basic_sword"
+short_name = "basic_sword"
+description = "basic_sword"
+type = 0
+slot = 2
+dmg = 10
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

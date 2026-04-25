@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://decy2ejne6oqp"]
+
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_6osm6"]
+
+[resource]
+script = ExtResource("1_6osm6")
+character_id = "enemy_knight"
+character_name = "enemy_knight"
+description = "enemy_knight"
+base_spd = 100.0
+metadata/_custom_type_script = "uid://xxkmfki5unb6"
