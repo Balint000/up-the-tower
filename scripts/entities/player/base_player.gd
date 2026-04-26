@@ -79,6 +79,9 @@ func _ready() -> void:
 	## set_character_resource() metódust a megfelelő CharacterResource-szal.
 	## Itt csak inicializáljuk a belső időzítőket.
 	_ability_cd_timer = 0.0
+	if faction == "neutral":
+		faction = "player"
+	register_groups_from_faction()
 
 
 func _physics_process(delta: float) -> void:
