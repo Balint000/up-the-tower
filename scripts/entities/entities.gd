@@ -59,7 +59,6 @@ func take_damage(amount: int) -> void:
 	if health == 0:
 		die()
 
-
 func heal(amount: int) -> void:
 	## Gyógyítás az entitáson.
 	if not is_alive:

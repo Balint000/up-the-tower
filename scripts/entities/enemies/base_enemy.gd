@@ -34,10 +34,14 @@ var character_res: CharacterResource = null
 @export var lose_aggro_range: float   = 220.0
 ## @var attack_range
 ## @brief Distance at which the enemy starts a melee attack (pixels).
-@export var attack_range: float       = 50.0
+@export var attack_range: float       = 35.0
 ## @var attack_cooldown
 ## @brief Minimum time between two attacks (seconds).
 @export var attack_cooldown: float    = 1.4
+
+## Sprite flashing parameters
+@export var hurt_flash_count: int   = 4
+@export var hurt_flash_speed: float = 0.07
 
 ## @var _dir
 ## @brief Current patrol direction: 1.0 = right, -1.0 = left.
@@ -216,9 +220,27 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 		return
 
 	_set_state(State.HURT)
+	_on_took_damage(amount)
 	if knockback != Vector2.ZERO:
 		velocity = knockback
+		
+	await get_tree().create_timer(0.4).timeout
+	_set_state(State.AGGRO)
 
+func _on_took_damage(amount: int) -> void:
+	## Default: csak logol – konkrét karakter (PlayerKnight) teheti hozzá a flash effektet.
+	_flash_sprite()
+	print("[BaseCharacter] Took damage: -%d | HP: %d / %d" % [amount, health, max_health])
+
+func _flash_sprite() -> void:
+	if _sprite == null:
+		return
+
+	for i in hurt_flash_count:
+		_sprite.visible = false
+		await get_tree().create_timer(hurt_flash_speed).timeout
+		_sprite.visible = true
+		await get_tree().create_timer(hurt_flash_speed).timeout
 
 ## @brief Helper to change state, prevents unnecessary re‑assignments.
 ## @param s New state value.

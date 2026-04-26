@@ -377,6 +377,9 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 		_on_died()
 
 	emit_signal("character_stats_changed")
+	await get_tree().create_timer(0.2).timeout
+	if _state == State.HURT:
+		_state = State.IDLE
 
 
 func _on_took_damage(amount: int) -> void:
