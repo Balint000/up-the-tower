@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://be3jf5vby7htm" path="res://scripts/entities/player/player_spawner.gd" id="1_hghvf"]
 [ext_resource type="PackedScene" uid="uid://b6t15auv12l0v" path="res://scenes/entities/enemies/knightEnemy.tscn" id="2_cperm"]
 [ext_resource type="Texture2D" uid="uid://dv70i73tsofyt" path="res://assets/placeholder assets/Legacy Collection/Assets/Environments/Day-Platformer/PNG/tileset.png" id="3_hghvf"]
+[ext_resource type="PackedScene" uid="uid://dt7nf2crai7jg" path="res://scenes/levels/hud/Hud.tscn" id="4_5kr0j"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o8kyb"]
 
@@ -159,3 +160,5 @@ shape = SubResource("WorldBoundaryShape2D_hghvf")
 tile_set = SubResource("TileSet_ry65h")
 format = 2
 layer_0/tile_data = PackedInt32Array(65530, 196608, 4, 131066, 196608, 5, 196602, 196608, 6, 65531, 196608, 4, 131067, 196608, 5, 196603, 196608, 6, 65532, 196608, 4, 131068, 196608, 5, 196604, 196608, 6, 65533, 196608, 4, 131069, 196608, 5, 196605, 196608, 6, 65534, 196608, 4, 131070, 196608, 5, 196606, 196608, 6, 65535, 196608, 4, 131071, 196608, 5, 196607, 196608, 6, 0, 196608, 4, 65536, 196608, 5, 131072, 196608, 6, 1, 196608, 4, 65537, 196608, 5, 131073, 196608, 6, 2, 196608, 4, 65538, 196608, 5, 131074, 196608, 6, 3, 196608, 4, 65539, 196608, 5, 131075, 196608, 6, 4, 196608, 4, 65540, 196608, 5, 131076, 196608, 6, 5, 196608, 4, 65541, 196608, 5, 131077, 196608, 6, 6, 196608, 4, 65542, 196608, 5, 131078, 196608, 6, 7, 196608, 4, 65543, 196608, 5, 131079, 196608, 6, 8, 196608, 4, 65544, 196608, 5, 131080, 196608, 6, 9, 196608, 4, 65545, 196608, 5, 131081, 196608, 6, 65529, 196608, 4, 131065, 196608, 5, 196601, 196608, 6, -7, 1376256, 2, -65527, 1376256, 2, -131063, 1376256, 2, -65543, 1376256, 2, -5, 851968, 2, -4, 917504, 2, -65529, 1245184, 2)
+
+[node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("4_5kr0j")]

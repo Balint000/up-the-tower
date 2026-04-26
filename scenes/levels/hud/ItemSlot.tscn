@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://oc2ymh5jmqk1"]
+
+[ext_resource type="Script" uid="uid://rynk6yabymxa" path="res://scenes/levels/hud/item_slot.gd" id="1_il4c3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5a6u"]
+bg_color = Color(0.47388566, 0.39188927, 0.15453267, 0.6666667)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rqj2"]
+bg_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="ItemSlot" type="Control" unique_id=1786265938]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_il4c3")
+
+[node name="Panel" type="Panel" parent="." unique_id=598854353]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_c5a6u")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=791680062]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="." unique_id=1417522478]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1132.0
+offset_top = -611.0
+offset_right = -1092.0
+offset_bottom = -588.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_1rqj2")
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2

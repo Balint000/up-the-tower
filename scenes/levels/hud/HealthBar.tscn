@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bpmk8oatab836"]
+
+[ext_resource type="Script" uid="uid://bejidbxsnhsek" path="res://scenes/levels/hud/health_bar.gd" id="1_00l05"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7qnt"]
+bg_color = Color(0.47397572, 0.47397572, 0.47397572, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00l05"]
+bg_color = Color(0.7725134, 0, 0.20282578, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 15
+
+[node name="HealthBar" type="Control" unique_id=391959764]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = 60.0
+offset_right = 151.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "
+"
+script = ExtResource("1_00l05")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1669704505]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 30.0
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer" unique_id=1911613849]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_e7qnt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_00l05")
+step = 1.0
+value = 100.0
+show_percentage = false
