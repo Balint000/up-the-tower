@@ -10,21 +10,54 @@ jobs:
   unit-test:
     name: Unit Tests
     runs-on: ubuntu-latest
-    # This container image includes Godot and required Linux dependencies
+    # This container includes the Godot engine and basic Linux dependencies.
+    # NOTE: fontconfig and freetype are NOT bundled in the image,
+    # but Godot 4 headless mode still requires them at runtime.
     container:
       image: barichello/godot-ci:4.6
 
     steps:
+      # 1. Check out the repository source code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Godot Import
-        run: godot --headless --verbose --editor --quit
-
-      - name: Run GUT Tests
-        # --headless: run without window
-        # --script addons/gut/gut_cmdln.gd: GUT CLI runner
-        # -gexit: exit after tests finish
-        # -gdir: tests directory
+      # 2. Install missing system libraries required by Godot 4 headless mode.
+      #    libfontconfig1 : font configuration/discovery library
+      #    libfreetype6   : font rendering library
+      #    Without these, Godot crashes immediately with
+      #    "libfontconfig.so.1: cannot open shared object file"
+      - name: Install system dependencies
         run: |
-          godot --headless --script addons/gut/gut_cmdln.gd -gexit -gdir=res://tests/unit
+          apt-get update -y
+          apt-get install -y libfontconfig1 libfreetype6
+
+      # 3. Import assets – Godot generates the .godot/ cache directory here.
+      #    "|| true" is intentional: the editor may exit with a non-zero code
+      #    in headless mode even on success, which would otherwise fail the step.
+      - name: Import assets
+        run: godot --headless --verbose --editor --quit || true
+
+      # 4. Run GUT unit tests.
+      #    -gexit          : quit after tests finish
+      #    -gdir           : directory that contains the test files
+      #    -glog_level 1   : log warnings and errors (space-separated, NOT "=")
+      #                      Using "-glog_level=1" causes "Unknown arguments" error.
+      - name: Run GUT tests
+        run: |
+          godot --headless \
+            --script addons/gut/gut_cmdln.gd \
+            -gexit \
+            -gdir=res://tests/unit \
+            -glog_level 1
+
+      # 5. Upload logs as an artifact when any previous step fails.
+      #    Useful for debugging failing test runs without re-running the pipeline.
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gut-logs
+          path: |
+            .godot/
+            *.log
+          retention-days: 5
