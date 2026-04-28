@@ -52,6 +52,9 @@ func _load_items() -> void:
 func get_character(id: String) -> CharacterResource:
 	return characters.get(id)
 
+func get_enemy(id: String) -> CharacterResource:
+	return enemies.get(id)
+
 func get_item(id: String) -> ItemResource:
 	return items.get(id)
 

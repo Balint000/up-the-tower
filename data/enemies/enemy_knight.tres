@@ -5,7 +5,12 @@
 [resource]
 script = ExtResource("1_6osm6")
 character_id = "enemy_knight"
-character_name = "enemy_knight"
+character_name = "KNIGHT"
 description = "enemy_knight"
-base_spd = 100.0
+base_hp = 160
+base_dmg = 15
+base_spd = 80.0
+jump_velocity = 0.0
+ability_power = 0.0
+scene_path = "uid://b6t15auv12l0v"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"

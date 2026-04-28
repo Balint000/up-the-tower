@@ -79,6 +79,9 @@ func _ready() -> void:
 	## set_character_resource() metódust a megfelelő CharacterResource-szal.
 	## Itt csak inicializáljuk a belső időzítőket.
 	_ability_cd_timer = 0.0
+	if faction == "neutral":
+		faction = "player"
+	register_groups_from_faction()
 
 
 func _physics_process(delta: float) -> void:
@@ -374,6 +377,9 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 		_on_died()
 
 	emit_signal("character_stats_changed")
+	await get_tree().create_timer(0.2).timeout
+	if _state == State.HURT:
+		_state = State.IDLE
 
 
 func _on_took_damage(amount: int) -> void:

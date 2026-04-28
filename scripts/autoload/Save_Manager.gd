@@ -17,7 +17,7 @@ func save_player_data_json(runtime_data: Dictionary) -> void:
 		push_error("Nem lehet menteni (JSON): ", error_string(err))
 	else:
 		print("Save_manager mentése sikeres")
-		print("Valószínusithető Útvonal srácok, az ez (Bossnak linuxon más valszeg): C:/Users/(fiókod)/AppData/Roaming/Godot/app_userdata/up-the-tower/save_files")
+		# print("Valószínusithető Útvonal srácok, az ez (Bossnak linuxon más valszeg): C:/Users/(fiókod)/AppData/Roaming/Godot/app_userdata/up-the-tower/save_files")
 
 func load_player_data_json() -> Dictionary:
 	var save_data: Dictionary = {}
