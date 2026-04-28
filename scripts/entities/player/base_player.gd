@@ -169,8 +169,7 @@ func _handle_movement(delta: float) -> void:
 	if abs(input_dir) > 0.1:
 		_facing_right = input_dir > 0.0
 
-	if _state == State.RUN or _state == State.FALL or _state == State.JUMP:
-		move_and_slide()
+	move_and_slide()
 
 
 func _update_state() -> void:
