@@ -48,7 +48,7 @@ jobs:
             --script addons/gut/gut_cmdln.gd \
             -gexit \
             -gdir=res://tests/unit \
-            -glog_level 1
+            -glog_level=1
 
       # 5. Upload logs as an artifact when any previous step fails.
       #    Useful for debugging failing test runs without re-running the pipeline.
