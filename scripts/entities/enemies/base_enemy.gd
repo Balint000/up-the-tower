@@ -193,7 +193,7 @@ func _do_attack() -> void:
 	# Small delay to simulate a wind‑up before damage is applied.
 	await get_tree().create_timer(0.25).timeout
 
-	if _state == State.DEAD:
+	if _state == State.DEAD or _state == State.HURT:
 		return
 
 	if _player \

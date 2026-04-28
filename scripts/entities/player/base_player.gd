@@ -48,6 +48,10 @@ var _ability_cd_timer: float = 0.0
 ## most ability_power-re támaszkodunk alapértelmezésként.
 var melee_range: float = 50.0
 
+## Characters CD for attacking. Cant spam attack.
+var attack_cooldown: float = 0.4
+var _attack_cd_timer: float = 0.0
+
 # ============================================================================
 # MOZGÁS PARAMÉTEREK (Resource-ból jönnek)
 # ============================================================================
@@ -91,6 +95,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_ability_cd_timer = max(0.0, _ability_cd_timer - delta)
+	_attack_cd_timer   = max(0.0, _attack_cd_timer   - delta)
 
 	_tick_coyote(delta)
 	_handle_movement(delta)
@@ -254,6 +259,10 @@ func _do_melee_attack() -> void:
 	if not is_alive:
 		return
 
+	if _attack_cd_timer > 0.0:
+		print("Attack is in CD")
+		return
+
 	_state = State.ATTACK
 	
 	var origin: Vector2 = global_position
@@ -271,6 +280,8 @@ func _do_melee_attack() -> void:
 				enemy.take_damage(damage)
 				hit_count += 1
 
+	_attack_cd_timer = attack_cooldown
+
 	# Egyszerű előre lökés találatkor
 	if hit_count > 0:
 		var fwd := 1.0 if _facing_right else -1.0
@@ -279,6 +290,7 @@ func _do_melee_attack() -> void:
 	await get_tree().create_timer(0.5).timeout
 	if _state == State.ATTACK:
 		_state = State.IDLE
+		
 
 # ============================================================================
 # ABILITY – dash / double_jump / block / fireball
@@ -301,7 +313,6 @@ func _do_ability() -> void:
 			_do_fireball()
 
 	_ability_cd_timer = ability_cooldown
-
 
 func _do_dash() -> void:
 	## Dash: ability_power = vízszintes impulzus px/s
