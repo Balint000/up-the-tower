@@ -40,15 +40,13 @@ jobs:
       # 4. Run GUT unit tests.
       #    -gexit          : quit after tests finish
       #    -gdir           : directory that contains the test files
-      #    -glog_level 1   : log warnings and errors (space-separated, NOT "=")
-      #                      Using "-glog_level=1" causes "Unknown arguments" error.
+      # -glog_level 1
       - name: Run GUT tests
         run: |
           godot --headless \
             --script addons/gut/gut_cmdln.gd \
             -gexit \
             -gdir=res://tests/unit \
-            -glog_level=1
 
       # 5. Upload logs as an artifact when any previous step fails.
       #    Useful for debugging failing test runs without re-running the pipeline.
