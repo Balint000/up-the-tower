@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dt7nf2crai7jg"]
+
+[ext_resource type="PackedScene" uid="uid://bpmk8oatab836" path="res://scenes/levels/hud/HealthBar.tscn" id="1_yomwc"]
+[ext_resource type="Script" uid="uid://dl5nroadlxii5" path="res://scenes/levels/hud/hud.gd" id="1_yu63d"]
+[ext_resource type="PackedScene" uid="uid://ba87camg2cs3v" path="res://scenes/levels/hud/TimerBar.tscn" id="2_wu2vq"]
+[ext_resource type="PackedScene" uid="uid://day8xxu4q5qgx" path="res://scenes/levels/hud/MenuButton.tscn" id="4_r87kl"]
+[ext_resource type="PackedScene" uid="uid://oc2ymh5jmqk1" path="res://scenes/levels/hud/ItemSlot.tscn" id="5_3guue"]
+
+[node name="Hud" type="Control" unique_id=1897493702]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yu63d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1223004414]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1619582686]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 24
+
+[node name="HealthBar" parent="CanvasLayer/VBoxContainer" unique_id=391959764 instance=ExtResource("1_yomwc")]
+layout_mode = 2
+
+[node name="TimerBar" parent="CanvasLayer/VBoxContainer" unique_id=1345138645 instance=ExtResource("2_wu2vq")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=629891347]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+theme_override_constants/separation = 5
+
+[node name="MenuButton" parent="CanvasLayer/VBoxContainer2" unique_id=69966390 instance=ExtResource("4_r87kl")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ItemSlots" type="Control" parent="CanvasLayer" unique_id=1128133994]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -48.0
+offset_right = -102.0
+offset_bottom = -48.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ItemSlots" unique_id=1985386879]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -19.0
+offset_right = 36.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 70
+
+[node name="Slot1" parent="CanvasLayer/ItemSlots/HBoxContainer" unique_id=1786265938 instance=ExtResource("5_3guue")]
+layout_mode = 2
+
+[node name="Slot2" parent="CanvasLayer/ItemSlots/HBoxContainer" unique_id=1008725017 instance=ExtResource("5_3guue")]
+layout_mode = 2
+
+[node name="KeySlot" parent="CanvasLayer/ItemSlots/HBoxContainer" unique_id=399539960 instance=ExtResource("5_3guue")]
+layout_mode = 2

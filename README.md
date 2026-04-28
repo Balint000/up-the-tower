@@ -68,11 +68,11 @@ A vertical platformer game where players climb an ever-rising tower, facing incr
 
 2. **Open the project in Godot:**
 
-        Launch Godot Engine 4.6
-        Click Import
-        Navigate to the cloned repository folder
-        Select the project.godot file
-        Click Import & Edit
+		Launch Godot Engine 4.6
+		Click Import
+		Navigate to the cloned repository folder
+		Select the project.godot file
+		Click Import & Edit
 
 4. **Install Git integration (optional):**
 - The project uses the GitGodot plugin for version control integration within the editor. It should be automatically enabled when you open the project.
@@ -84,56 +84,56 @@ A vertical platformer game where players climb an ever-rising tower, facing incr
 
 We follow a modular approach where each major entity has its own scene file:
 
-    scenes/entities/player/player.tscn + scripts/entities/player/player.gd
-    scenes/entities/enemies/flying_enemy.tscn + scripts/entities/enemies/flying_enemy.gd
+	scenes/entities/player/player.tscn + scripts/entities/player/player.gd
+	scenes/entities/enemies/flying_enemy.tscn + scripts/entities/enemies/flying_enemy.gd
 
 This structure makes it easy for multiple team members to work on different features simultaneously without conflicts.
 
 🛠️ **Development Guidelines**
 Folder Structure Usage
 
-    assets/: All raw assets (images, sounds, fonts) go here
-    scenes/: Organize scenes by function (entities, levels, ui)
-    scripts/: Mirror the structure of scenes/ for easy pairing
-    autoload/: Global managers (GameManager, AudioManager, etc.)
+	assets/: All raw assets (images, sounds, fonts) go here
+	scenes/: Organize scenes by function (entities, levels, ui)
+	scripts/: Mirror the structure of scenes/ for easy pairing
+	autoload/: Global managers (GameManager, AudioManager, etc.)
 
 🖥️ **Development Environment**
 
 This project is actively developed on:
 Windows 11
 
-    Godot 4.6 with D3D12 renderer (configured in project.godot)
-    Git for Windows
-    Visual Studio Code with GDScript syntax highlighting
+	Godot 4.6 with D3D12 renderer (configured in project.godot)
+	Git for Windows
+	Visual Studio Code with GDScript syntax highlighting
 
 Fedora 43 Wayland
 
-    Godot 4.6 running natively on Wayland
-    Git for version control
-    Native Wayland support for smooth editor experience
+	Godot 4.6 running natively on Wayland
+	Git for version control
+	Native Wayland support for smooth editor experience
 
 🎮 **Controls**
 
 Controls will be finalized during development. Planned default controls:
 
-    Move Left: A / Left Arrow
-    Move Right: D / Right Arrow
-    Jump: Space / W / Up Arrow
-    Attack: Z
-    Interact: E
-    Pause: Escape
+	Move Left: A / Left Arrow
+	Move Right: D / Right Arrow
+	Jump: Space / W / Up Arrow
+	Attack: Z
+	Interact: E
+	Pause: Escape
 
 👥 **Team**
 
 This game is being developed as a university project for the Modern Software Development Tools course at the University of Győr.
 Development Team
 
-    Erdei Bálint - @Balint000
-    Tóth Gábor - @gabortoth55
-    Mogyorósi István - @Mogyi13
+	Erdei Bálint - @Balint000
+	Tóth Gábor - @gabortoth55
+	Mogyorósi István - @Mogyi13
 
 Course Information
 
-    Institution: University of Győr (Széchenyi István University)
-    Course: Modern Software Development Tools (Modern szoftverfejlesztési eszközök)
-    Semester: Spring 2025/2026
+	Institution: University of Győr (Széchenyi István University)
+	Course: Modern Software Development Tools (Modern szoftverfejlesztési eszközök)
+	Semester: Spring 2025/2026

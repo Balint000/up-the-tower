@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://ba87camg2cs3v"]
+
+[ext_resource type="Script" uid="uid://bukoi485jyic3" path="res://scenes/levels/hud/timer_bar.gd" id="1_o5wba"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rh00h"]
+bg_color = Color(0.4745098, 0.4745098, 0.4745098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5wba"]
+bg_color = Color(0.75370294, 0.595853, 0.07304149, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="TimerBar" type="Control" unique_id=1345138645]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5wba")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1836831013]
+layout_mode = 1
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 163.0
+offset_bottom = 20.0
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer" unique_id=401223615]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_rh00h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o5wba")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
