@@ -16,13 +16,13 @@ func _ready() -> void:
 	super._ready()
 
 	if GameManager == null:
-		push_error("PlayerKnight: GameManager autoload nem elérhető!")
+		push_error("PlayerKnight: GameManager autoload is not availble!")
 		return
 
 	var selected_char_id: String = GameManager.runtime_data.get(GameManager.KEY_SELECTED_CHARACTER, "knight")
 	var char_res: CharacterResource = DataDb.get_character(selected_char_id)
 	if char_res == null:
-		push_error("PlayerKnight: CharacterResource nem található: " + selected_char_id)
+		push_error("PlayerKnight: Cant find CharacterResource: " + selected_char_id)
 		return
 
 	set_character_resource(char_res)
@@ -56,6 +56,8 @@ func _use_selected_item() -> void:
 		_inventory.use_selected(self)
 		emit_signal("player_stats_changed")
 
+func _do_ability() -> void:
+	super._do_ability()
 
 func _request_interaction() -> void:
 	## Később ide jön az ajtó/trigger logika.
@@ -85,7 +87,7 @@ func _flash_sprite() -> void:
 
 
 func _on_died() -> void:
-	print("[Knight] Meghalt – LevelManager értesítve")
+	print("[Knight] Died")
 	emit_signal("player_died")
 
 	if _hitbox != null:

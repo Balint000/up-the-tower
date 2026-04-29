@@ -38,11 +38,7 @@ var _facing_right: bool = true
 
 var character_res: CharacterResource = null
 
-var ability_type: String = "none"
-var ability_cooldown: float = 0.0
-var ability_power: float = 0.0
-
-var _ability_cd_timer: float = 0.0
+@onready var _ability: AbilityComponent = $AbilityComponent if has_node("AbilityComponent") else null
 
 ## Alap melee range – ha akarod, tehetsz rá külön mezőt a CharacterResource-ba,
 ## most ability_power-re támaszkodunk alapértelmezésként.
@@ -82,7 +78,6 @@ func _ready() -> void:
 	## Fontos: a konkrét karakter (pl. PlayerKnight) hívja meg később a
 	## set_character_resource() metódust a megfelelő CharacterResource-szal.
 	## Itt csak inicializáljuk a belső időzítőket.
-	_ability_cd_timer = 0.0
 	if faction == "neutral":
 		faction = "player"
 	register_groups_from_faction()
@@ -94,7 +89,8 @@ func _physics_process(delta: float) -> void:
 		_update_animation()
 		return
 
-	_ability_cd_timer = max(0.0, _ability_cd_timer - delta)
+	if _ability != null:
+		_ability.tick(delta)
 	_attack_cd_timer   = max(0.0, _attack_cd_timer   - delta)
 
 	_tick_coyote(delta)
@@ -132,15 +128,14 @@ func set_character_resource(res: CharacterResource) -> void:
 	jump_force = -character_res.jump_velocity  ## Resource-ban negatív, itt pozitív erőként használjuk
 	## Gravity maradhat egy globális default, vagy később tegyünk Resource-ba külön mezőt
 
-	## Ability
-	ability_type = character_res.ability_type
-	ability_cooldown = character_res.ability_cooldown
-	ability_power = character_res.ability_power
-
 	## Alap melee range – ha szükséges, Resource-ba is tehetünk külön mezőt,
 	## most legyen ability_power-rel arányos vagy fix.
 	melee_range = 50.0
 
+	## Ability
+	if _ability != null:
+		_ability.setup(self, character_res)
+	
 	## 2) GameManager.player_data-ból végső HP/DMG/SPD (equip itemekkel együtt)
 	if GameManager != null:
 		if GameManager.has_method("_update_player_stats"):
@@ -260,7 +255,6 @@ func _do_melee_attack() -> void:
 		return
 
 	if _attack_cd_timer > 0.0:
-		print("Attack is in CD")
 		return
 
 	_state = State.ATTACK
@@ -293,51 +287,12 @@ func _do_melee_attack() -> void:
 		
 
 # ============================================================================
-# ABILITY – dash / double_jump / block / fireball
+# ABILITY – dash / double_jump / block / fireball ; AbilityComponent
 # ============================================================================
 
 func _do_ability() -> void:
-	if ability_type == "none":
-		return
-	if _ability_cd_timer > 0.0:
-		return
-
-	match ability_type:
-		"dash":
-			_do_dash()
-		"double_jump":
-			_do_double_jump()
-		"block":
-			_do_block()
-		"fireball":
-			_do_fireball()
-
-	_ability_cd_timer = ability_cooldown
-
-func _do_dash() -> void:
-	## Dash: ability_power = vízszintes impulzus px/s
-	var dir := 1.0 if _facing_right else -1.0
-	velocity.x = dir * ability_power
-
-
-func _do_double_jump() -> void:
-	## Double jump: ability_power = második ugrás velocity (negatív)
-	if not is_on_floor():
-		velocity.y = ability_power
-
-
-func _do_block() -> void:
-	## Block: ability_power = sebzéscsökkentés aránya 0..1
-	## Itt csak egy flaget állíthatnánk, amit a take_damage figyelembe vesz.
-	## Egyszerű implementáció: next hit reduced – ezt a konkrét játékdesign szerint finomíthatod.
-	pass
-
-
-func _do_fireball() -> void:
-	## Fireball: ability_power = lövedék sebzése.
-	## Itt projectile spawnt kellene meghívni (pl. egy PackedScene-ből),
-	## amit a konkrét karakter script (PlayerKnight) tudna előkészíteni.
-	pass
+	if _ability != null:
+		_ability.activate()
 
 # ============================================================================
 # INTERAKCIÓK / ITEM HASZNÁLAT – üres hook-ok, elvileg megvalósíthatóak ebben a fájlban
@@ -375,7 +330,10 @@ func _use_selected_item() -> void:
 func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	## Entity alap sebzés + állapotfrissítés.
 	## Ha csak amount-ot adunk meg az ellenfélnél, akkor is működik, nem löki vissza a karaktert
-	super.take_damage(amount)
+	var final_amount := amount
+	if _ability != null and get_meta("is_blocking", false):
+		final_amount = int(amount * (1.0-_ability.ability_power))
+	super.take_damage(final_amount)
 
 	if is_alive:
 		if knockback != Vector2.ZERO:
