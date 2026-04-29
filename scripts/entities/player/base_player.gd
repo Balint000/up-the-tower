@@ -48,6 +48,10 @@ var melee_range: float = 50.0
 var attack_cooldown: float = 0.4
 var _attack_cd_timer: float = 0.0
 
+var _is_dashing: bool = false
+var _dash_timer: float = 0.0
+@export var dash_duration: float = 0.15
+
 # ============================================================================
 # MOZGÁS PARAMÉTEREK (Resource-ból jönnek)
 # ============================================================================
@@ -149,6 +153,13 @@ func set_character_resource(res: CharacterResource) -> void:
 # ============================================================================
 
 func _handle_movement(delta: float) -> void:
+	if _is_dashing:
+		_dash_timer -= delta
+		if _dash_timer <= 0.0:
+			_is_dashing = false
+		move_and_slide()
+		return
+	
 	var input_dir := Input.get_axis("move_left", "move_right")
 
 	# Vízszintes mozgás

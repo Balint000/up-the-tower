@@ -42,6 +42,8 @@ func activate() -> void:
 func _do_dash() -> void:
 	var dir := 1.0 if _player._facing_right else -1.0
 	_player.velocity.x = dir * ability_power
+	_player._is_dashing = true
+	_player._dash_timer = _player.dash_duration
 
 func _do_double_jump() -> void:
 	if not _player.is_on_floor():
