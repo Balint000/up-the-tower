@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dc2g7m1p01s7v" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_vm3kj"]
 [ext_resource type="Texture2D" uid="uid://di0oh4ubnh5qk" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="5_0x2ry"]
 [ext_resource type="Texture2D" uid="uid://diiuyp76hhcyr" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="6_34lkl"]
+[ext_resource type="Script" uid="uid://bxmsu07jj6ajk" path="res://scripts/entities/player/ability_component.gd" id="7_rh8th"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kanyx"]
 atlas = ExtResource("2_rh8th")
@@ -249,3 +250,6 @@ shape = SubResource("CapsuleShape2D_wf3kh")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2001592099]
 zoom = Vector2(2.5, 2.5)
 position_smoothing_enabled = true
+
+[node name="AbilityComponent" type="Node2D" parent="." unique_id=702418442]
+script = ExtResource("7_rh8th")

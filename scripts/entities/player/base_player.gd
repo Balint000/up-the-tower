@@ -294,6 +294,9 @@ func _do_ability() -> void:
 	if _ability != null:
 		_ability.activate()
 
+func spawn_projectile(power: float) -> void:
+	pass
+
 # ============================================================================
 # INTERAKCIÓK / ITEM HASZNÁLAT – üres hook-ok, elvileg megvalósíthatóak ebben a fájlban
 # ============================================================================
@@ -332,7 +335,8 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	## Ha csak amount-ot adunk meg az ellenfélnél, akkor is működik, nem löki vissza a karaktert
 	var final_amount := amount
 	if _ability != null and get_meta("is_blocking", false):
-		final_amount = int(amount * (1.0-_ability.ability_power))
+		var reduction := clampf(_ability.ability_power, 0.0, 1.0)
+		final_amount = int(amount * (1.0 - reduction))
 	super.take_damage(final_amount)
 
 	if is_alive:

@@ -1,5 +1,5 @@
 class_name AbilityComponent
-extends Node
+extends Node2D
 
 ## Az ownernek (BasePlayer) szüksége van rá, hogy velocity-t és
 ## facing-et olvashasson/írhasson.
