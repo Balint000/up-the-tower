@@ -1,0 +1,357 @@
+[gd_scene format=3 uid="uid://lqfattsan8j7"]
+
+[node name="LevelSelect" type="Control" unique_id=311286508]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=458689810]
+layer = -1
+
+[node name="BGColorRect" type="ColorRect" parent="Background" unique_id=803910862]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.10460494, 0.11710303, 0.12578732, 1)
+
+[node name="BGToronySprite" type="TextureRect" parent="Background" unique_id=518003290]
+modulate = Color(1, 1, 1, 0.08)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=724595519]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_constants/separation = 14
+
+[node name="Btn_Back" type="Button" parent="Header" unique_id=1504505717]
+custom_minimum_size = Vector2(100, 44)
+layout_mode = 2
+tooltip_text = "Return to main menu"
+text = "← Back"
+
+[node name="HeaderSpacer_L" type="Control" parent="Header" unique_id=1366314057]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScreenTitle" type="Label" parent="Header" unique_id=22561563]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "SELECT LEVEL"
+horizontal_alignment = 1
+
+[node name="HeaderSpacer_R" type="Control" parent="Header" unique_id=195332807]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeaderPlaceholder" type="Control" parent="Header" unique_id=1475660241]
+custom_minimum_size = Vector2(100, 44)
+layout_mode = 2
+
+[node name="HeaderSeparator" type="HSeparator" parent="." unique_id=5271633]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = -16.0
+offset_bottom = 66.0
+grow_horizontal = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1539085875]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 76.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="LevelsGrid" type="GridContainer" parent="ScrollContainer" unique_id=1767074325]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="LevelCard_01" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=1779453344]
+custom_minimum_size = Vector2(280, 200)
+layout_mode = 2
+
+[node name="CardBG_01" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_01" unique_id=465619977]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="DimOverlay_01" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_01" unique_id=1333771336]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.42)
+
+[node name="CardContent_01" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_01" unique_id=1667534801]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelNumber_01" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_01/CardContent_01" unique_id=434076208]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "01"
+
+[node name="CardSpacer_01" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_01/CardContent_01" unique_id=1406267799]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LevelName_01" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_01/CardContent_01" unique_id=1763255425]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "The Beginning"
+
+[node name="SelectBtn_01" type="Button" parent="ScrollContainer/LevelsGrid/LevelCard_01" unique_id=2139748048]
+layout_mode = 2
+flat = true
+
+[node name="LevelCard_02" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=2028507579]
+custom_minimum_size = Vector2(280, 200)
+layout_mode = 2
+
+[node name="CardBG_02" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_02" unique_id=1320408000]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="DimOverlay_02" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_02" unique_id=651204722]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.42)
+
+[node name="CardContent_02" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_02" unique_id=1125655899]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelNumber_02" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_02/CardContent_02" unique_id=1948276654]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "02"
+
+[node name="CardSpacer_02" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_02/CardContent_02" unique_id=569551970]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LevelName_02" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_02/CardContent_02" unique_id=1335365099]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Hall of Shadows"
+
+[node name="SelectBtn_02" type="Button" parent="ScrollContainer/LevelsGrid/LevelCard_02" unique_id=1260275264]
+layout_mode = 2
+flat = true
+
+[node name="LevelCard_03" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=1286844691]
+custom_minimum_size = Vector2(280, 200)
+layout_mode = 2
+
+[node name="CardBG_03" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_03" unique_id=1719203999]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="DimOverlay_03" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_03" unique_id=1551590602]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.42)
+
+[node name="CardContent_03" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_03" unique_id=2054702354]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelNumber_03" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_03/CardContent_03" unique_id=862485301]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "03"
+
+[node name="CardSpacer_03" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_03/CardContent_03" unique_id=846264967]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LevelName_03" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_03/CardContent_03" unique_id=454924803]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "The Tower"
+
+[node name="SelectBtn_03" type="Button" parent="ScrollContainer/LevelsGrid/LevelCard_03" unique_id=1238797697]
+layout_mode = 2
+flat = true
+
+[node name="LevelCard_04_LOCKED" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=339708883]
+custom_minimum_size = Vector2(280, 200)
+layout_mode = 2
+
+[node name="CardBG_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=623212996]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="DimOverlay_04" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=1001749520]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.68)
+
+[node name="LockedOverlay_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=823452960]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LockedCenterBox" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04" unique_id=1116640615]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="LockIcon_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04/LockedCenterBox" unique_id=1875951819]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LockLabel_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04/LockedCenterBox" unique_id=1664599402]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "LOCKED"
+horizontal_alignment = 1
+
+[node name="CardContent_04" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=1926322030]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelNumber_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=135046804]
+modulate = Color(1, 1, 1, 0.35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "04"
+
+[node name="CardSpacer_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=815306588]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LevelName_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=1308390894]
+modulate = Color(1, 1, 1, 0.35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "???"
+
+[node name="LevelCard_05_LOCKED" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=249964637]
+custom_minimum_size = Vector2(280, 200)
+layout_mode = 2
+
+[node name="CardBG_05" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED" unique_id=1088428618]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="DimOverlay_05" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED" unique_id=1185478968]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.68)
+
+[node name="LockedOverlay_05" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED" unique_id=1967251592]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LockedCenterBox" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/LockedOverlay_05" unique_id=1542691699]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="LockIcon_05" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/LockedOverlay_05/LockedCenterBox" unique_id=1306386207]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LockLabel_05" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/LockedOverlay_05/LockedCenterBox" unique_id=1923174030]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "LOCKED"
+horizontal_alignment = 1
+
+[node name="CardContent_05" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED" unique_id=903674247]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelNumber_05" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/CardContent_05" unique_id=1466914147]
+modulate = Color(1, 1, 1, 0.35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "05"
+
+[node name="CardSpacer_05" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/CardContent_05" unique_id=1513350880]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LevelName_05" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_05_LOCKED/CardContent_05" unique_id=1698231721]
+modulate = Color(1, 1, 1, 0.35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "???"
