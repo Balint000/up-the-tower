@@ -8,18 +8,12 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health_bar.set_max_health(100)
-	health_bar.set_health(100)
+	add_to_group("hud")
 	key_slot.usable = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_button_pressed() -> void:
-	health_bar.take_damage(20)
-
 
 func _on_button_2_pressed() -> void:
 	health_bar.heal(10)
@@ -29,3 +23,6 @@ func _on_button_3_pressed() -> void:
 		return
 
 	timer_bar.start_cooldown(5.0)
+
+func _on_character_take_damage(amount) -> void:
+	health_bar.take_damage(amount)
