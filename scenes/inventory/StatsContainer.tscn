@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ehf8vcybbav0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3jt"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k66o5"]
+bg_color = Color(0.10049189, 0.6525332, 0.2829068, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6gtg"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmb1v"]
+bg_color = Color(1, 0, 0.16470589, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wn0tg"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ifqn"]
+bg_color = Color(0, 0.4438785, 0.82801384, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[node name="StatsContainer" type="HBoxContainer" unique_id=1707415378]
+theme_override_constants/separation = 4
+
+[node name="Stat_HP" type="VBoxContainer" parent="." unique_id=687814205]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HpLabel" type="Label" parent="Stat_HP" unique_id=1873254068]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_lt3jt")
+text = "HP"
+horizontal_alignment = 1
+
+[node name="HpValue" type="Label" parent="Stat_HP" unique_id=1768349456]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_k66o5")
+text = "5"
+horizontal_alignment = 1
+
+[node name="Stat_Damage" type="VBoxContainer" parent="." unique_id=1725343407]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DmgLabel" type="Label" parent="Stat_Damage" unique_id=1759778406]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_f6gtg")
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="DmgValue" type="Label" parent="Stat_Damage" unique_id=119568895]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_kmb1v")
+text = "2"
+horizontal_alignment = 1
+
+[node name="Stat_Speed" type="VBoxContainer" parent="." unique_id=1688273819]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpdLabel" type="Label" parent="Stat_Speed" unique_id=1247784421]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_wn0tg")
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="SpdValue" type="Label" parent="Stat_Speed" unique_id=2000286814]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ifqn")
+text = "2"
+horizontal_alignment = 1

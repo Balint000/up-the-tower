@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b37asbl0cr3p2"]
+
+[node name="Slots" type="Panel" unique_id=1335748591]
+custom_minimum_size = Vector2(80, 80)
+
+[node name="SlotLayout" type="VBoxContainer" parent="." unique_id=235017850]
+layout_mode = 0
+offset_top = -0.5
+offset_right = 80.0
+offset_bottom = 80.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="SlotLayout" unique_id=1437085185]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="SlotLayout" unique_id=2081399302]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+
+[node name="Quantity" type="Label" parent="SlotLayout" unique_id=1597036611]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
