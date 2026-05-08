@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 ## Player spawner: létrehozza az inventory-ban kiválasztott karakter példányát a pályán.
 ## A karakter scene_path-ját a CharacterResource.scene_path adja (DataDb + GameManager alapján).
 

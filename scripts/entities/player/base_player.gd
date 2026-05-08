@@ -86,7 +86,7 @@ func _ready() -> void:
 	if faction == "neutral":
 		faction = "player"
 	register_groups_from_faction()
-
+	
 
 func _physics_process(delta: float) -> void:
 	if not is_alive:
