@@ -245,6 +245,7 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
+<<<<<<< HEAD
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2001592099]
 zoom = Vector2(2.5, 2.5)
@@ -252,3 +253,5 @@ limit_left = 0
 limit_right = 1150
 position_smoothing_enabled = true
 drag_vertical_offset = -0.8
+=======
+>>>>>>> 148a646098a81393fc9c93ed67df6d85d74cefb6

@@ -1,7 +1,6 @@
 extends BasePlayer
 ## PlayerKnight – játszható lovag karakter.
 
-@onready var _camera: Camera2D = $Camera2D if has_node("Camera2D") else null
 @onready var _inventory: Node = $Inventory if has_node("Inventory") else null
 ## Ha az inventory scriptednek van class_name-je (pl. class_name Inventory),
 ## ezt írd át így: `@onready var _inventory: Inventory = $Inventory`
