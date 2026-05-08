@@ -85,6 +85,9 @@ var player_data := {
 ## Current State
 var current_state : GameState
 
+## Current player character
+var current_player: BasePlayer = null
+
 func _ready() -> void:
 	current_state = GameState.MAIN_MENU
 	print("GameManager Init : ", GameState.keys()[current_state])
@@ -305,6 +308,9 @@ func set_state(new_state: GameState):
 			get_tree().paused = false
 			if old_state == GameState.PAUSED:
 				game_resumed.emit()
+
+func set_player(p: BasePlayer) -> void:
+	current_player = p
 
 ## change scene --> MainMenu
 func go_to_mainmenu() -> void:
