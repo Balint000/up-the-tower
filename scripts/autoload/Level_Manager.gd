@@ -13,12 +13,19 @@ var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
 var _loading_label: Label = null
 
+## Current player character
+var current_player: BasePlayer = null
+
 signal player_died
 signal level_completed
 signal wiring_finished # Új signal: akkor fut le, ha minden node a helyén van
 
 func _ready() -> void:
 	_build_fade_overlay()
+
+func set_player(p: BasePlayer) -> void:
+	current_player = p
+
 
 # ---------------------------------------------------------------------------
 # Level loading
