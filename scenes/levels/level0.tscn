@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://be3jf5vby7htm" path="res://scripts/entities/player/player_spawner.gd" id="1_hghvf"]
 [ext_resource type="Script" uid="uid://ixwhqitd82b8" path="res://scripts/levels/level0.gd" id="1_ry65h"]
-[ext_resource type="Script" uid="uid://48u1ljr4wwom" path="res://scripts/environment/camera.gd" id="2_d0grl"]
+[ext_resource type="Script" path="res://scripts/environment/camera.gd" id="2_d0grl"]
 [ext_resource type="PackedScene" uid="uid://b5v6oym2rf7y5" path="res://scenes/entities/enemies/EnemySpawner.tscn" id="2_hghvf"]
 [ext_resource type="Texture2D" uid="uid://dv70i73tsofyt" path="res://assets/placeholder assets/Legacy Collection/Assets/Environments/Day-Platformer/PNG/tileset.png" id="3_hghvf"]
 [ext_resource type="PackedScene" uid="uid://dt7nf2crai7jg" path="res://scenes/levels/hud/Hud.tscn" id="4_5kr0j"]

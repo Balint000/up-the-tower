@@ -81,14 +81,14 @@ func _do_double_jump() -> void:
 
 # ---------------------------------------------------------------------------
 # BLOCK
-## 0.6 másodpercig csökkenti a beérkező sebzést.
+## 6 másodpercig csökkenti a beérkező sebzést.
 ## BasePlayer.take_damage() az is_blocking flag alapján alkalmazza a csökkentést.
 ## ability_power = sebzés csökkentési arány (0.0 = nincs csökkentés, 1.0 = teljes blokk)
 ## Ajánlott érték: 0.5 (50%-os csökkentés)
 # ---------------------------------------------------------------------------
 func _do_block() -> void:
 	_player.is_blocking = true
-	await _player.get_tree().create_timer(0.6).timeout
+	await _player.get_tree().create_timer(6).timeout
 	## Ellenőrzés: a játékos nem halt meg közben
 	if is_instance_valid(_player):
 		_player.is_blocking = false
