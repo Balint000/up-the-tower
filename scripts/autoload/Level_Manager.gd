@@ -1,71 +1,126 @@
-## Autoload singleton, registered as "LevelManager" in Project Settings.
-## Handles level loading, unlocked levels, and fade transitions.
-##
-## Other scripts that use this:
-##   - main.gd           : calls has_save_data() to show/hide the Level Select button
-##   - levels.gd         : calls load_level(index) when the player picks a level,
-##                         and is_unlocked(index) to grey out locked levels
-##   - GameManager.gd    : calls load_next_level() on goal reached,
-##                         reload_current_level() on game over
-##   - SaveSystem.gd     : calls restore_unlocked_levels() after loading a save file,
-##                         reads get_unlocked_levels() before writing a save file
 extends Node
 
-## Levels in play order. Drag Level_01.tscn, Level_02.tscn ... here in the editor.
-@export var levels: Array = ["res://scenes/levels/level0.tscn"]
-
-## The main menu scene. Drag scenes/main/main.tscn here in the editor.
+## Levels in play order.
+@export var levels: Array = ["res://scenes/levels/Level0/Level0.tscn"]
 @export var main_menu_scene: PackedScene = null
-
-## Fade duration in seconds (black-out between scene changes).
 @export var fade_duration: float = 0.4
 
-## Current level index stored (helper). 
-## -1 means we are on the main menu
 var current_level_index: int = -1 
-
-## Level 0 is always unlocked. More are added by unlock_level().
 var _unlocked_levels: Array[int] = [0]
 
-## Fade overlay nodes, created once in _ready().
+# UI elemek a töltéshez
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
+var _loading_label: Label = null
 
-signal player_died       # emitted when the player's HP reaches 0
-signal level_completed   # emitted when the player touches the Goal
+## Current player character
+var current_player: BasePlayer = null
 
+signal player_died
+signal level_completed
+signal wiring_finished # Új signal: akkor fut le, ha minden node a helyén van
 
 func _ready() -> void:
 	_build_fade_overlay()
+
+func set_player(p: BasePlayer) -> void:
+	current_player = p
 
 
 # ---------------------------------------------------------------------------
 # Level loading
 # ---------------------------------------------------------------------------
 
-## Load a level by index. Plays a fade transition around the scene swap.
 func load_level(index: int) -> void:
 	if index < 0 or index >= levels.size():
 		push_error("LevelManager: invalid level index %d" % index)
 		return
 
+	# 1. Elindítjuk a sötétítést
 	await _fade_out()
-	get_tree().change_scene_to_file(levels[index])
-	GameManager.set_state(GameManager.GameState.IN_GAME)
-	current_level_index = index
-	await _fade_in()
-
-## Load the level that comes after the current one.
-## Unlocks it first, then loads it. Returns to main menu if there is no next level.
-func load_next_level() -> void:
-	var next: int = current_level_index + 1
-
-	if next >= levels.size():
-		GameManager.go_to_mainmenu()
+	
+	# 2. Scene váltás
+	var error = get_tree().change_scene_to_file(levels[index])
+	if error != OK:
+		push_error("Sikertelen scene betöltés!")
 		return
 
-	unlock_level(next)
-	await load_level(next)
+	# 3. Várunk, amíg a Godot felépíti a fát (legalább 1 frame)
+	await get_tree().process_frame
+	
+	# 4. Megpróbáljuk összekötni a szálakat. 
+	# Ha nem találja elsőre (pl. bonyolult scene), addig várunk, amíg meglesznek.
+	await _wait_and_setup_connections()
+	
+	current_level_index = index
+	GameManager.set_state(GameManager.GameState.IN_GAME)
+	
+	# 5. Csak most fedjük fel a játékot
+	await _fade_in()
+
+## Biztonságos összekötés: addig próbálkozik, amíg meg nem találja a Player-t és a HUD-ot
+func _wait_and_setup_connections() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	var hud = get_tree().get_first_node_in_group("hud")
+	
+	# Ha még nincsenek ott, várunk egy kicsit (időzítési problémák ellen)
+	while player == null or hud == null:
+		await get_tree().create_timer(0.1).timeout
+		player = get_tree().get_first_node_in_group("player")
+		hud = get_tree().get_first_node_in_group("hud")
+	
+	# Most már biztosan megvannak, jöhet a wiring
+	_do_wiring(player, hud)
+
+func _do_wiring(player: Node, hud: Node) -> void:
+	# Player -> HUD kapcsolat (Health)
+	if player.has_signal("character_take_damage") and hud.has_method("_on_character_take_damage"):
+		if not player.character_take_damage.is_connected(hud._on_character_take_damage):
+			player.character_take_damage.connect(hud._on_character_take_damage)
+	
+	# Player -> LevelManager kapcsolat (Halál)
+	if player.has_signal("player_died"):
+		if not player.player_died.is_connected(on_player_death):
+			player.player_died.connect(on_player_death)
+			
+	print("✅ LevelManager: Töltés kész, signalok összekötve.")
+	wiring_finished.emit()
+
+# ---------------------------------------------------------------------------
+# Fade & Loading UI
+# ---------------------------------------------------------------------------
+
+func _build_fade_overlay() -> void:
+	_fade_canvas = CanvasLayer.new()
+	_fade_canvas.layer = 128 
+	add_child(_fade_canvas)
+
+	_fade_overlay = ColorRect.new()
+	_fade_overlay.color = Color(0, 0, 0, 0)
+	_fade_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_fade_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_fade_canvas.add_child(_fade_overlay)
+	
+	# Töltés felirat hozzáadása
+	_loading_label = Label.new()
+	_loading_label.text = "LOADING..."
+	_loading_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_loading_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_loading_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_loading_label.modulate.a = 0 # Alapból láthatatlan
+	_fade_overlay.add_child(_loading_label)
+
+func _fade_out() -> void:
+	var t: Tween = create_tween().set_parallel(true)
+	t.tween_property(_fade_overlay, "color:a", 1.0, fade_duration)
+	t.tween_property(_loading_label, "modulate:a", 1.0, fade_duration)
+	await t.finished
+
+func _fade_in() -> void:
+	var t: Tween = create_tween().set_parallel(true)
+	t.tween_property(_fade_overlay, "color:a", 0.0, fade_duration)
+	t.tween_property(_loading_label, "modulate:a", 0.0, fade_duration)
+	await t.finished
 
 ## Restart the current level (called on game over / player death).
 func reload_current_level() -> void:
@@ -77,7 +132,6 @@ func return_to_main_menu() -> void:
 	await _fade_out()
 	GameManager.go_to_mainmenu()
 	await _fade_in() # elvileg nem fut le
-
 
 # ---------------------------------------------------------------------------
 # Unlock system
@@ -117,33 +171,6 @@ func restore_unlocked_levels(saved: Array[int]) -> void:
 # ---------------------------------------------------------------------------
 # Fade helpers
 # ---------------------------------------------------------------------------
-
-## Creates a black full-screen rect on a high CanvasLayer.
-## It starts transparent and is animated by _fade_out / _fade_in.
-func _build_fade_overlay() -> void:
-	_fade_canvas = CanvasLayer.new()
-	_fade_canvas.layer = 128  # On top of everything.
-	add_child(_fade_canvas)
-
-	_fade_overlay = ColorRect.new()
-	_fade_overlay.color = Color(0, 0, 0, 0)  # Transparent to start.
-	_fade_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_fade_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_fade_canvas.add_child(_fade_overlay)
-
-
-## Animate alpha from 0 to 1 (screen goes black).
-func _fade_out() -> void:
-	var t: Tween = create_tween()
-	t.tween_property(_fade_overlay, "color:a", 1.0, fade_duration)
-	await t.finished
-
-
-## Animate alpha from 1 to 0 (screen reveals the new scene).
-func _fade_in() -> void:
-	var t: Tween = create_tween()
-	t.tween_property(_fade_overlay, "color:a", 0.0, fade_duration)
-	await t.finished
 
 func on_player_death() -> void:
 	# GameManager.runtime_data[KEY_STATISTICS][KEY_DEATHS] += 1 ; ha lesz ilyen statisztika, akkor valami hasonlót kell berakni

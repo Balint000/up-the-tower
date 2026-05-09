@@ -9,7 +9,7 @@ func _ready() -> void:
 	set_process(true)
 
 func _physics_process(_delta: float) -> void:
-	var target: BasePlayer = GameManager.current_player
+	var target: BasePlayer = LevelManager.current_player
 	if target == null or not is_instance_valid(target):
 		return
 	# Csak pozíciót frissítünk – a simítást a Camera2D Position Smoothing végzi

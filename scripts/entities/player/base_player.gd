@@ -70,6 +70,7 @@ var jump_force: float = 300.0
 # SIGNALOK – HUD / GAME LOGIC
 # ============================================================================
 
+signal character_take_damage(amount)
 signal character_stats_changed()
 signal character_died()
 
@@ -385,11 +386,13 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	else:
 		_state = State.DEAD
 		_on_died()
+		print("meghalttttttttttttt")
 
-	emit_signal("character_stats_changed")
+	emit_signal("character_take_damage", amount)
 	await get_tree().create_timer(0.2).timeout
 	if _state == State.HURT:
 		_state = State.IDLE
+	
 
 
 func _on_took_damage(amount: int) -> void:

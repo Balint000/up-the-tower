@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://ccaqpln0gwgwj"]
+
+[node name="CharacterSelectorStrip" type="PanelContainer" unique_id=1282129409]
+custom_minimum_size = Vector2(72, 0)
+
+[node name="StripVBox" type="VBoxContainer" parent="." unique_id=1887795443]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharBtn_Knight" type="Button" parent="StripVBox" unique_id=195123307]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Knight"
+
+[node name="CharIcon_Knight" type="TextureRect" parent="StripVBox/CharBtn_Knight" unique_id=1868368673]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Mage" type="Button" parent="StripVBox" unique_id=295420395]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Mage"
+
+[node name="CharIcon_Mage" type="TextureRect" parent="StripVBox/CharBtn_Mage" unique_id=133146079]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Archer" type="Button" parent="StripVBox" unique_id=786634081]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Archer"
+
+[node name="CharIcon_Archer" type="TextureRect" parent="StripVBox/CharBtn_Archer" unique_id=984729967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharBtn_Thief" type="Button" parent="StripVBox" unique_id=280160981]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Thief"
+
+[node name="CharIcon_Thief" type="TextureRect" parent="StripVBox/CharBtn_Thief" unique_id=1492855973]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
