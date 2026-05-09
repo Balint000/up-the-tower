@@ -18,7 +18,7 @@ var current_player: BasePlayer = null
 
 signal player_died
 signal level_completed
-signal wiring_finished # Új signal: akkor fut le, ha minden node a helyén van
+signal wiring_finished
 
 func _ready() -> void:
 	_build_fade_overlay()

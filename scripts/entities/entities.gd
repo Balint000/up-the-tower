@@ -23,10 +23,6 @@ var faction: String     = "neutral"   # "player" | "enemy" | "neutral"
 # ---------------------------------------------------------------------------
 ## HP vagy más stat megváltozott → HUD, inventory frissítéshez
 signal stats_changed(entity: Entity)
-## Csak BasePlayer leszármazottak emelik ki → LevelManager / HUD értesítéshez.
-## Ellenségek NEM emitálják.
-signal player_died(entity: Entity)
-
 # ---------------------------------------------------------------------------
 # Életciklus
 # ---------------------------------------------------------------------------

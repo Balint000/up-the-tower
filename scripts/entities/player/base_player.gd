@@ -2,6 +2,7 @@ class_name BasePlayer
 extends Entity
 
 signal character_take_damage(amount)
+signal player_died(entity: Entity)
 
 # ============================================================================
 # ÁLLAPOTGÉP
@@ -360,5 +361,6 @@ func _on_died() -> void:
 
 	## Rövid várakozás a halál animációhoz, majd LevelManager értesítés (újratöltés)
 	await get_tree().create_timer(0.7).timeout
+	queue_free()
 	if is_instance_valid(self) and LevelManager != null:
 		LevelManager.on_player_death()
