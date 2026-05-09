@@ -386,6 +386,7 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	else:
 		_state = State.DEAD
 		_on_died()
+		print("meghalttttttttttttt")
 
 	emit_signal("character_take_damage", amount)
 	await get_tree().create_timer(0.2).timeout

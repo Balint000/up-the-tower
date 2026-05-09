@@ -79,9 +79,9 @@ func _do_wiring(player: Node, hud: Node) -> void:
 			player.character_take_damage.connect(hud._on_character_take_damage)
 	
 	# Player -> LevelManager kapcsolat (Halál)
-	if player.has_signal("died"):
-		if not player.died.is_connected(on_player_death):
-			player.died.connect(on_player_death)
+	if player.has_signal("player_died"):
+		if not player.player_died.is_connected(on_player_death):
+			player.player_died.connect(on_player_death)
 			
 	print("✅ LevelManager: Töltés kész, signalok összekötve.")
 	wiring_finished.emit()
