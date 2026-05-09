@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 ## Player spawner: létrehozza az inventory-ban kiválasztott karakter példányát a pályán.
 ## A karakter scene_path-ját a CharacterResource.scene_path adja (DataDb + GameManager alapján).
 
@@ -51,5 +51,5 @@ func _spawn_player() -> void:
 	get_tree().get_current_scene().add_child.call_deferred(player_instance)
 
 	## 7) Opcionális: player referencia tárolása a GameManagerben
-	if GameManager.has_method("set_player"):
-		GameManager.set_player(player_instance)
+	if LevelManager.has_method("set_player"):
+		LevelManager.set_player(player_instance)

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bji7ey60ilwk7"]
+[gd_scene format=3 uid="uid://ceejs5kmyc1xr"]
 
 [ext_resource type="Script" uid="uid://dj0rnb7it8ko" path="res://scripts/entities/player/player_knight.gd" id="1_hgmf5"]
 [ext_resource type="Texture2D" uid="uid://ser3sd8luyjf" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_rh8th"]
@@ -246,10 +246,6 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2001592099]
-zoom = Vector2(2.5, 2.5)
-position_smoothing_enabled = true
 
 [node name="AbilityComponent" type="Node2D" parent="." unique_id=702418442]
 script = ExtResource("7_rh8th")

@@ -91,6 +91,7 @@ func _ready() -> void:
 	current_state = GameState.MAIN_MENU
 	print("GameManager Init : ", GameState.keys()[current_state])
 	load_game()
+	_update_player_stats()
 	print("DataDb from GameManager: ",DataDb.enemies)
 
 ## game save

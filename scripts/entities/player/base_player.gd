@@ -1,21 +1,7 @@
 class_name BasePlayer
 extends Entity
-## Közös 2D játszható karakter alap.
-##
-## Minden játszható karakter AZONOS viselkedése ITT van – leszármazott NEM
-## kell felülírja, csak akkor, ha valóban eltér:
-##
-##   ✔ Mozgás, ugrás, gravitáció, coyote time
-##   ✔ Alap melee támadás az "enemies" csoportra
-##   ✔ Sebzés kezelés (block csökkentés, knockback, HURT állapot, sprite flash)
-##   ✔ Halál (hitbox letiltás, statisztika mentés, LevelManager értesítés)
-##   ✔ CharacterResource + GameManager stat betöltés (_ready-ben)
-##   ✔ AbilityComponent tick
-##
-## Leszármazott CSAK ezeket override-olhatja, ha szükséges:
-##   • _get_animation_name() – ha a sprite sheet más névkonvenciót követ
-##   • _use_selected_item()  – ha a karakternek van inventory-ja
-##   • _on_took_damage()     – extra vizuális visszajelzéshez
+
+signal character_take_damage(amount)
 
 # ============================================================================
 # ÁLLAPOTGÉP
@@ -319,7 +305,7 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	## Entity alap sebzés; ha health == 0, Entity.take_damage() meghívja
 	## self.die() → BasePlayer.die() → player_died + _on_died()
 	super.take_damage(final_amount)
-
+	emit_signal("character_take_damage", final_amount)
 	if is_alive:
 		if knockback != Vector2.ZERO:
 			velocity = knockback
@@ -349,17 +335,13 @@ func _flash_sprite() -> void:
 		await get_tree().create_timer(hurt_flash_speed).timeout
 
 # ============================================================================
-# HALÁL – minden játszható karakterre azonos logika
+# Death
 # ============================================================================
-## Entity.die() override:
-##   1. is_alive = false (super)
-##   2. player_died signal (HUD / LevelManager kapcsolódik ide)
-##   3. aszinkron cleanup (_on_died)
 func die() -> void:
 	if not is_alive:
 		return
 	is_alive = false
-	emit_signal("player_died", self)
+	emit_signal("player_died")
 	_on_died()
 
 func _on_died() -> void:
