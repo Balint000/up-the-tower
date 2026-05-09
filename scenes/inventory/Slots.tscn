@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://b37asbl0cr3p2"]
 
+[ext_resource type="Script" uid="uid://c08se2uulseus" path="res://scripts/inventory/slots.gd" id="1_m7g27"]
+
 [node name="Slots" type="Panel" unique_id=1335748591]
 custom_minimum_size = Vector2(80, 80)
+script = ExtResource("1_m7g27")
 
 [node name="SlotLayout" type="VBoxContainer" parent="." unique_id=235017850]
 layout_mode = 0

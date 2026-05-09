@@ -39,6 +39,11 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 14
 
+[node name="BackButton" type="Button" parent="MainMargin/MainHBox" unique_id=1268771327]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back"
+
 [node name="CharacterSelectorStrip" parent="MainMargin/MainHBox" unique_id=1282129409 instance=ExtResource("2_4axmw")]
 layout_mode = 2
 

@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://ccaqpln0gwgwj"]
 
+[ext_resource type="Script" uid="uid://d4d7v45bvygxg" path="res://scripts/inventory/character_selector_strip.gd" id="1_smkd2"]
+
 [node name="CharacterSelectorStrip" type="PanelContainer" unique_id=1282129409]
 custom_minimum_size = Vector2(72, 0)
+script = ExtResource("1_smkd2")
 
 [node name="StripVBox" type="VBoxContainer" parent="." unique_id=1887795443]
 layout_mode = 2

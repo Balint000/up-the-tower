@@ -44,18 +44,12 @@ var runtime_data := {
 	
 	KEY_INVENTORY: {
 		"helm": [],
-		"weap": [],
+		"weap": ['basic_sword'],
 		"boots": [],
 		"cons": {
 			"beer": 0,
 			"apple": 0,
-			"heal_potion": 0,
-			"swift_potion": 0,
-			"cake": 0,
 			"key": 0,
-			"helm_bag": 1,
-			"wpn_bag": 0,
-			"boot_bag": 0
 		}
 	},
 	

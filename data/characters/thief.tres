@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://cc5xd0avhavr7"]
+
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_5vh76"]
+
+[resource]
+script = ExtResource("1_5vh76")
+character_id = "thief"
+character_name = "thief"
+ability_type = "double_jump"
+metadata/_custom_type_script = "uid://xxkmfki5unb6"

@@ -6,7 +6,9 @@ var items: Dictionary = {}
 
 @export var character_paths: Array[String] = [
 	"res://data/characters/knight.tres",
-	"res://data/characters/mage.tres", 
+	"res://data/characters/mage.tres",
+	"res://data/characters/archer.tres",
+	"res://data/characters/thief.tres", 
 	# add others
 ]
 
