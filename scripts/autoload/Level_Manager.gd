@@ -18,7 +18,7 @@ var current_player: BasePlayer = null
 
 signal player_died
 signal level_completed
-signal wiring_finished # Új signal: akkor fut le, ha minden node a helyén van
+signal wiring_finished
 
 func _ready() -> void:
 	_build_fade_overlay()
@@ -174,7 +174,7 @@ func restore_unlocked_levels(saved: Array[int]) -> void:
 
 func on_player_death() -> void:
 	# GameManager.runtime_data[KEY_STATISTICS][KEY_DEATHS] += 1 ; ha lesz ilyen statisztika, akkor valami hasonlót kell berakni
-	player_died.emit()
+	emit_signal("player_died")
 	GameManager.set_state(GameManager.GameState.GAME_OVER)
 	# Short pause so the death animation plays before we reload.
 	await get_tree().create_timer(1.2).timeout
