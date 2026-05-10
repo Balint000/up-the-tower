@@ -58,6 +58,30 @@ func load_level(index: int) -> void:
 	# 5. Csak most fedjük fel a játékot
 	await _fade_in()
 
+func load_next_level() -> void:
+	var next_index := current_level_index + 1
+	
+	# Van következő pálya
+	if next_index < levels.size():
+		unlock_level(next_index)
+		
+		# Elmentjük, hogy meddig jutott a player (runtime_data["level"])
+		GameManager.runtime_data[GameManager.KEY_LEVEL] = max(GameManager.runtime_data.get(GameManager.KEY_LEVEL, 1), next_index + 1)
+		GameManager.save_game()
+		
+		 # Betöltjük a következő pályát
+		await load_level(next_index)
+		return
+		
+		# NINCS több pálya -> játék vége + vissza főmenübe
+	await _handle_all_levels_completed()
+	
+func _handle_all_levels_completed() -> void:
+	# Beállíthatod statként is, hogy végigjátszotta
+	GameManager.set_state(GameManager.GameState.VICTORY)
+	GameManager.save_game()
+	await return_to_main_menu()
+	
 ## Biztonságos összekötés: addig próbálkozik, amíg meg nem találja a Player-t és a HUD-ot
 func _wait_and_setup_connections() -> void:
 	var player = get_tree().get_first_node_in_group("player")
