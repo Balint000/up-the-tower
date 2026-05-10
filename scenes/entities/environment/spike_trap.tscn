@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dkj8qq64qb8qi"]
+
+[ext_resource type="Texture2D" uid="uid://cs6md5jyh7dut" path="res://assets/textures/environments/Spike1.png" id="1_3d3en"]
+[ext_resource type="Script" uid="uid://ooi36h015l53" path="res://scripts/entities/environment/spike_trap.gd" id="1_ucyom"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucyom"]
+size = Vector2(15, 15)
+
+[node name="SpikeTrap" type="Area2D" unique_id=1909333191]
+script = ExtResource("1_ucyom")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1834079117]
+texture = ExtResource("1_3d3en")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2059997526]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ucyom")
