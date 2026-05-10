@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5v6oym2rf7y5" path="res://scenes/entities/enemies/EnemySpawner.tscn" id="4_tqoff"]
 [ext_resource type="PackedScene" uid="uid://bhbesdeaa4xp0" path="res://scenes/entities/environment/lever.tscn" id="6_p8gt5"]
 [ext_resource type="Script" uid="uid://bale1c3qebs4e" path="res://scripts/levels/level1_lever_puzzle_controller.gd" id="7_avroq"]
+[ext_resource type="PackedScene" uid="uid://dt7nf2crai7jg" path="res://scenes/levels/hud/Hud.tscn" id="8_ygbf3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_607xp"]
 texture = ExtResource("1_7w3lq")
@@ -282,10 +283,12 @@ position = Vector2(164, 47)
 
 [node name="SpikeTrap" parent="Traps" unique_id=1909333191 instance=ExtResource("2_mtxap")]
 position = Vector2(776, -359)
+damage = 40
 
 [node name="SpikeTrap2" parent="Traps" unique_id=844874084 instance=ExtResource("2_mtxap")]
 position = Vector2(775, -378)
 rotation = -3.1381233
+damage = 40
 
 [node name="Interactables" type="Node" parent="." unique_id=312243899]
 
@@ -306,3 +309,5 @@ script = ExtResource("7_avroq")
 lever_paths = Array[NodePath]([NodePath("../Interactables/Lever"), NodePath("../Interactables/Lever2"), NodePath("../Interactables/Lever3")])
 trap_paths = Array[NodePath]([NodePath("../Traps/SpikeTrap"), NodePath("../Traps/SpikeTrap2")])
 target_pattern = Array[bool]([false, true, false])
+
+[node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("8_ygbf3")]

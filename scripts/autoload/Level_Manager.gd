@@ -1,12 +1,12 @@
 extends Node
 
 ## Levels in play order.
-@export var levels: Array = ["res://scenes/levels/Level0/Level0.tscn"]
+@export var levels: Array = ["res://scenes/levels/Level0/Level0.tscn", "res://scenes/levels/Level1/Level1.tscn"]
 @export var main_menu_scene: PackedScene = null
 @export var fade_duration: float = 0.4
 
 var current_level_index: int = -1 
-var _unlocked_levels: Array[int] = [0]
+var _unlocked_levels: Array[int] = [0,1]
 
 # UI elemek a töltéshez
 var _fade_overlay: ColorRect = null
