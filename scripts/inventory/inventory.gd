@@ -7,6 +7,8 @@ extends Control
 @onready var weapon_btn = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponBtn
 @onready var boots_btn  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsBtn
 
+@onready var char_select  = $MainMargin/MainHBox/CharacterSelectorStrip
+
 @onready var selected_character_name  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/CharacterName
 
 @onready var grid = $MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid
@@ -26,6 +28,8 @@ var current_slot := "helmet"
 func _ready():
 
 	character_strip.character_selected.connect(_on_character_selected)
+	
+	character_strip.set_icons(DataDb)
 	
 	selected_char = GameManager.runtime_data[GameManager.KEY_SELECTED_CHARACTER]
 
@@ -58,9 +62,7 @@ func _get_equipped():
 func _mark_dirty():
 	_dirty = true
 
-# =========================
 # FILTER INVENTORY
-# =========================
 
 func _set_filter(slot: String) -> void:
 	current_slot = slot
@@ -91,9 +93,6 @@ func _rebuild_inventory():
 		var slot_scene = preload("res://scenes/inventory/Slots.tscn")
 		var slot = slot_scene.instantiate()
 
-		# ✅ csak item + id kell
-		slot.setup(item, item_id)
-
 		# highlight ha equipelt
 		slot.set_equipped(eq[current_slot] == item_id)
 
@@ -102,9 +101,11 @@ func _rebuild_inventory():
 		)
 
 		grid.add_child(slot)
-# =========================
+		
+				# ✅ csak item + id kell
+		slot.setup(item, item_id)
+		
 # EQUIP LOGIC
-# =========================
 
 func _equip_item(item_id: String) -> void:
 	var eq = GameManager.runtime_data[GameManager.KEY_EQUIPPED_ITEMS]
@@ -138,9 +139,7 @@ func _on_equipment_btn_pressed(slot: String) -> void:
 	# mindig filter váltás
 	_set_filter(_slot_to_ui(slot))
 
-# =========================
 # UI REFRESH
-# =========================
 
 func _refresh_all():
 	_refresh_character_name()

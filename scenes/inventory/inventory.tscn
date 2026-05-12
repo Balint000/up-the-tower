@@ -4,6 +4,70 @@
 [ext_resource type="PackedScene" uid="uid://ccaqpln0gwgwj" path="res://scenes/inventory/CharacterSelectorStrip.tscn" id="2_4axmw"]
 [ext_resource type="PackedScene" uid="uid://b37asbl0cr3p2" path="res://scenes/inventory/Slots.tscn" id="3_el5y6"]
 [ext_resource type="PackedScene" uid="uid://ehf8vcybbav0" path="res://scenes/inventory/StatsContainer.tscn" id="3_tvok8"]
+[ext_resource type="Texture2D" uid="uid://dnhfoq680as51" path="res://assets/textures/backgrounds/teszt.jpg" id="4_bxceu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kl7fi"]
+bg_color = Color(0.25490198, 0.45490196, 0.53333336, 0.39215687)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4j3l"]
+bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cit"]
+bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxst"]
+bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxceu"]
+bg_color = Color(0.25490198, 0.45490196, 0.53333336, 0.39215687)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8e04"]
+bg_color = Color(0.25490198, 0.45490196, 0.53333336, 0.39215687)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
 
 [node name="Inventory" type="Control" unique_id=1427752947]
 layout_mode = 3
@@ -52,14 +116,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.7
 
+[node name="TextureRect" type="TextureRect" parent="MainMargin/MainHBox/CharInfoPanel" unique_id=931233683]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("4_bxceu")
+stretch_mode = 1
+
 [node name="InfoVBox" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel" unique_id=920999517]
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="CharacterName" type="Label" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=485389502]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kl7fi")
 text = "KNIGHT"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NameSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1710272272]
 layout_mode = 2
@@ -95,18 +167,21 @@ alignment = 1
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select helmet"
+theme_override_styles/normal = SubResource("StyleBoxFlat_x4j3l")
 text = "🪖   Helmet     — Empty —"
 
 [node name="WeaponBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1480171882]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select weapon"
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6cit")
 text = "⚔   Weapon   — Empty —"
 
 [node name="BootsBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1144122359]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select boots"
+theme_override_styles/normal = SubResource("StyleBoxFlat_efxst")
 text = "👢   Boots      — Empty —"
 
 [node name="StatsSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1590236886]
@@ -119,14 +194,22 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="TextureRect" type="TextureRect" parent="MainMargin/MainHBox/InventoryPanel" unique_id=1969267125]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("4_bxceu")
+stretch_mode = 1
+
 [node name="InvVBox" type="VBoxContainer" parent="MainMargin/MainHBox/InventoryPanel" unique_id=317968972]
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="InventoryTitle" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=1426178664]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bxceu")
 text = "ITEMS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InvTitleSep" type="HSeparator" parent="MainMargin/MainHBox/InventoryPanel/InvVBox" unique_id=1458640943]
 layout_mode = 2
@@ -157,8 +240,10 @@ layout_mode = 2
 
 [node name="QuickSlotsLabel" type="Label" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea" unique_id=224955768]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_v8e04")
 text = "QUICK USE"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="QuickSlotsRow" type="HBoxContainer" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea" unique_id=421169216]
 layout_mode = 2

@@ -318,7 +318,6 @@ func go_to_inventorymenu() -> void:
 	set_state(GameState.INVENTORY)
 	get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
 
-
 func go_to_game() -> void:
 	_update_player_stats()
 	set_state(GameState.IN_GAME)
