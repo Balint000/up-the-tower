@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://duxrwjceybt2l"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_hpaic"]
+[ext_resource type="Texture2D" uid="uid://cwo4eg773mb0t" path="res://assets/sprites/items/apple2.png" id="1_j163c"]
+
+[resource]
+script = ExtResource("1_hpaic")
+id = "apple"
+name = "Apple"
+short_name = "Apple"
+description = "This is an Apple"
+icon = ExtResource("1_j163c")
+effect_hp = 5
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

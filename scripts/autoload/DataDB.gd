@@ -21,7 +21,9 @@ var items: Dictionary = {}
 	"res://data/items/basic_sword.tres",
 	"res://data/items/health_potion.tres",
 	"res://data/items/helm_bag.tres",
-	# ...
+	"res://data/items/apple.tres",
+	"res://data/items/beer.tres",
+	"res://data/items/key.tres"
 ]
 
 func _ready() -> void:

@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b37asbl0cr3p2" path="res://scenes/inventory/Slots.tscn" id="3_el5y6"]
 [ext_resource type="PackedScene" uid="uid://ehf8vcybbav0" path="res://scenes/inventory/StatsContainer.tscn" id="3_tvok8"]
 [ext_resource type="Texture2D" uid="uid://dnhfoq680as51" path="res://assets/textures/backgrounds/teszt.jpg" id="4_bxceu"]
+[ext_resource type="PackedScene" uid="uid://21l6q16tfdca" path="res://scenes/inventory/CharacterPreview.tscn" id="4_v8e04"]
+[ext_resource type="PackedScene" uid="uid://2ucxkuib610a" path="res://scenes/inventory/QuickSlots.tscn" id="7_kl7fi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kl7fi"]
 bg_color = Color(0.25490198, 0.45490196, 0.53333336, 0.39215687)
@@ -27,8 +29,70 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2a7vi"]
+content_margin_left = 70.0
+content_margin_right = 70.0
+bg_color = Color(0.047058824, 0.047058824, 0.047058824, 0.42352942)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j21gq"]
+content_margin_left = 70.0
+content_margin_right = 70.0
+bg_color = Color(0.30588236, 0.30588236, 0.30588236, 0.42352942)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cit"]
+content_margin_left = 70.0
+content_margin_right = 70.0
 bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t2sw"]
+content_margin_left = 70.0
+content_margin_right = 70.0
+bg_color = Color(0.047058824, 0.047058824, 0.047058824, 0.42352942)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1nyl"]
+content_margin_left = 70.0
+content_margin_right = 70.0
+bg_color = Color(0.30692267, 0.3069227, 0.3069227, 0.42352942)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -42,6 +106,34 @@ corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxst"]
 bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pph4"]
+content_margin_left = 70.0
+content_margin_right = 70.0
+bg_color = Color(0.047058824, 0.047058824, 0.047058824, 0.42352942)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll4hh"]
+bg_color = Color(0.30588236, 0.30588236, 0.30588236, 0.42352942)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -142,19 +234,13 @@ size_flags_vertical = 3
 theme_override_constants/separation = 12
 
 [node name="CharacterGraphicPanel" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=1110030680]
-custom_minimum_size = Vector2(148, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 
-[node name="CharacterSprite" type="TextureRect" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=1598908293]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
+[node name="CharacterPreview" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=669123381 instance=ExtResource("4_v8e04")]
+position = Vector2(131, 249)
+scale = Vector2(2, 2)
 
 [node name="EquipmentSlots" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=795979234]
 layout_mode = 2
@@ -168,21 +254,30 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select helmet"
 theme_override_styles/normal = SubResource("StyleBoxFlat_x4j3l")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2a7vi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j21gq")
 text = "🪖   Helmet     — Empty —"
+icon_alignment = 1
 
 [node name="WeaponBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1480171882]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select weapon"
 theme_override_styles/normal = SubResource("StyleBoxFlat_l6cit")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2t2sw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g1nyl")
 text = "⚔   Weapon   — Empty —"
+expand_icon = true
 
 [node name="BootsBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1144122359]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 tooltip_text = "Click to select boots"
 theme_override_styles/normal = SubResource("StyleBoxFlat_efxst")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1pph4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ll4hh")
 text = "👢   Boots      — Empty —"
+icon_alignment = 1
 
 [node name="StatsSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1590236886]
 layout_mode = 2
@@ -250,11 +345,11 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="AppleSlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=235655542 instance=ExtResource("3_el5y6")]
+[node name="AppleSlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=211213528 instance=ExtResource("7_kl7fi")]
 layout_mode = 2
 
-[node name="BeerSlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=602998603 instance=ExtResource("3_el5y6")]
+[node name="BeerSlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=1720352909 instance=ExtResource("7_kl7fi")]
 layout_mode = 2
 
-[node name="KeySlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=1548323706 instance=ExtResource("3_el5y6")]
+[node name="KeySlot" parent="MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow" unique_id=581894673 instance=ExtResource("7_kl7fi")]
 layout_mode = 2

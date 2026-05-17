@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_7gb6n")
 id = "basic_sword"
-name = "basic_sword"
-short_name = "basic_sword"
+name = "Stone Sword"
+short_name = "Stone Sword"
 description = "basic_sword"
 icon = ExtResource("1_gppk4")
 type = 0

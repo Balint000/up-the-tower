@@ -7,6 +7,10 @@ extends Control
 @onready var weapon_btn = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/WeaponBtn
 @onready var boots_btn  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BootsBtn
 
+@onready var apple_slot = $MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/AppleSlot
+@onready var beer_slot = $MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/BeerSlot
+@onready var key_slot = $MainMargin/MainHBox/InventoryPanel/InvVBox/QuickSlotsArea/QuickSlotsRow/KeySlot
+
 @onready var char_select  = $MainMargin/MainHBox/CharacterSelectorStrip
 
 @onready var selected_character_name  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/CharacterName
@@ -120,7 +124,7 @@ func _equip_item(item_id: String) -> void:
 
 	_refresh_equipment()
 	_refresh_stats()
-	_rebuild_inventory() # 🔥 ez hiányzik nálad
+	_rebuild_inventory() 
 	_mark_dirty()
 
 func _on_equipment_btn_pressed(slot: String) -> void:
@@ -145,6 +149,7 @@ func _refresh_all():
 	_refresh_character_name()
 	_refresh_equipment()
 	_refresh_stats()
+	_refresh_quickslots()
 
 func _refresh_equipment():
 
@@ -154,15 +159,25 @@ func _refresh_equipment():
 	_set_btn(weapon_btn, "⚔", "Weapon", eq[GameManager.KEY_WEAPON])
 	_set_btn(boots_btn, "👢", "Boots", eq[GameManager.KEY_BOOTS])
 
+func _refresh_quickslots():
+
+	var cons = GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"]
+
+	apple_slot.setup("apple", cons["apple"])
+	beer_slot.setup("beer", cons["beer"])
+	key_slot.setup("key", cons["key"])
+
 func _set_btn(btn, icon, label, id):
 
 	if id == "":
 		btn.text = "%s %s — Empty —" % [icon, label]
+		btn.icon = null
 		return
 
 	var item = DataDb.get_item(id)
 	if item:
-		btn.text = "%s %s" % [icon, item.name]
+		btn.text = "%s" % [item.name]
+		btn.icon = item.icon
 
 # =========================
 # STATS

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://dvmqam6oxpmno"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_itw4w"]
+[ext_resource type="Texture2D" uid="uid://d4gstr16acjpq" path="res://assets/sprites/items/beer.png" id="1_r7mr4"]
+
+[resource]
+script = ExtResource("1_itw4w")
+id = "beer"
+name = "Beer"
+short_name = "Beer"
+description = "This is a Beer"
+icon = ExtResource("1_r7mr4")
+effect_hp = 10
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

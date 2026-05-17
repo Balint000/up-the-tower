@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://21l6q16tfdca"]
+
+[node name="CharacterPreview" type="Node2D" unique_id=669123381]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1132719995]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1651277296]
