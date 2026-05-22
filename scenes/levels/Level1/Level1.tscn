@@ -274,7 +274,7 @@ script = ExtResource("2_607xp")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1307181983]
 position = Vector2(3, 0)
 offset = Vector2(0, -5)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(5, 5)
 script = ExtResource("3_et5g2")
 
 [node name="Enemies" type="Node" parent="." unique_id=1449040667]
