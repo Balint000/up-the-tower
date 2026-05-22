@@ -11,6 +11,7 @@ var _unlocked_levels: Array[int] = [0]
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
 var _loading_label: Label = null
+var _is_reloading: bool = false
 
 var current_player: BasePlayer = null
 
@@ -146,10 +147,16 @@ func restore_unlocked_levels(saved: Array) -> void:
 		_unlocked_levels.append(0)
 
 func on_player_death() -> void:
+	if _is_reloading:
+		return
+	_is_reloading = true
+	
 	emit_signal("player_died")
 	GameManager.set_state(GameManager.GameState.GAME_OVER)
 	await get_tree().create_timer(1.2).timeout
 	LevelManager.reload_current_level()
+	
+	_is_reloading = false
 
 func on_level_complete() -> void:
 	level_completed.emit()
