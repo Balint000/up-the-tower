@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://c35swqf5dbmst"]
+
+[ext_resource type="Texture2D" uid="uid://dmnqtccaxe7pm" path="res://assets/sprites/items/sword_epic.png" id="1_a72ox"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_couy1"]
+
+[resource]
+script = ExtResource("1_couy1")
+id = "sword_epic"
+name = "Epic Sword"
+short_name = "Epic Sword"
+description = "This is an epic sword."
+icon = ExtResource("1_a72ox")
+type = 0
+slot = 2
+rarity = "epic"
+dmg = 30
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

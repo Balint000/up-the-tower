@@ -1,7 +1,69 @@
 [gd_scene format=3 uid="uid://ccaqpln0gwgwj"]
 
+[ext_resource type="Script" uid="uid://d4d7v45bvygxg" path="res://scripts/inventory/character_selector_strip.gd" id="1_smkd2"]
+[ext_resource type="Texture2D" uid="uid://dnhfoq680as51" path="res://assets/textures/backgrounds/teszt.jpg" id="2_hhup6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3jmf"]
+bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhup6"]
+bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3asbx"]
+bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8psk5"]
+bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
 [node name="CharacterSelectorStrip" type="PanelContainer" unique_id=1282129409]
 custom_minimum_size = Vector2(72, 0)
+script = ExtResource("1_smkd2")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=68655627]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("2_hhup6")
+stretch_mode = 1
 
 [node name="StripVBox" type="VBoxContainer" parent="." unique_id=1887795443]
 layout_mode = 2
@@ -13,6 +75,7 @@ custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Knight"
+theme_override_styles/normal = SubResource("StyleBoxFlat_n3jmf")
 
 [node name="CharIcon_Knight" type="TextureRect" parent="StripVBox/CharBtn_Knight" unique_id=1868368673]
 layout_mode = 1
@@ -33,6 +96,7 @@ custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Mage"
+theme_override_styles/normal = SubResource("StyleBoxFlat_hhup6")
 
 [node name="CharIcon_Mage" type="TextureRect" parent="StripVBox/CharBtn_Mage" unique_id=133146079]
 layout_mode = 1
@@ -53,6 +117,7 @@ custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Archer"
+theme_override_styles/normal = SubResource("StyleBoxFlat_3asbx")
 
 [node name="CharIcon_Archer" type="TextureRect" parent="StripVBox/CharBtn_Archer" unique_id=984729967]
 layout_mode = 1
@@ -73,6 +138,7 @@ custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Thief"
+theme_override_styles/normal = SubResource("StyleBoxFlat_8psk5")
 
 [node name="CharIcon_Thief" type="TextureRect" parent="StripVBox/CharBtn_Thief" unique_id=1492855973]
 layout_mode = 1

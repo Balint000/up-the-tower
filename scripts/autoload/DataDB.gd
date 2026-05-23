@@ -6,7 +6,9 @@ var items: Dictionary = {}
 
 @export var character_paths: Array[String] = [
 	"res://data/characters/knight.tres",
-	"res://data/characters/mage.tres", 
+	"res://data/characters/mage.tres",
+	"res://data/characters/archer.tres",
+	"res://data/characters/thief.tres", 
 	# add others
 ]
 
@@ -21,8 +23,21 @@ var items: Dictionary = {}
 @export var item_paths: Array[String] = [
 	"res://data/items/basic_sword.tres",
 	"res://data/items/health_potion.tres",
-	"res://data/items/helm_bag.tres",
-	# ...
+	"res://data/items/bag.tres",
+	"res://data/items/apple.tres",
+	"res://data/items/beer.tres",
+	"res://data/items/key.tres",
+	"res://data/items/sword_common.tres",
+	"res://data/items/sword_rare.tres",
+	"res://data/items/sword_epic.tres",
+	"res://data/items/basic_boot.tres",
+	"res://data/items/boot_common.tres",
+	"res://data/items/boot_rare.tres",
+	"res://data/items/boot_epic.tres",
+	"res://data/items/basic_helmet.tres",
+	"res://data/items/helmet_common.tres",
+	"res://data/items/helmet_rare.tres",
+	"res://data/items/helmet_epic.tres"
 ]
 
 func _ready() -> void:

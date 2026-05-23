@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://c7ep0i2vo827e"]
+
+[ext_resource type="Texture2D" uid="uid://cjjyxq2xn05j8" path="res://assets/sprites/items/boots_common.png" id="1_vkh2c"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="2_omf57"]
+
+[resource]
+script = ExtResource("2_omf57")
+id = "boot_common"
+name = "Common Boot"
+short_name = "Common Boot"
+description = "This is a common boot."
+icon = ExtResource("1_vkh2c")
+type = 0
+slot = 3
+spd = 15
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

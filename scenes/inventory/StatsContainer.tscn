@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ehf8vcybbav0"]
 
+[ext_resource type="Script" uid="uid://q4hikq1cejg7" path="res://scripts/inventory/stats_container.gd" id="1_kmb1v"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt3jt"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 20
@@ -50,6 +52,7 @@ corner_detail = 20
 
 [node name="StatsContainer" type="HBoxContainer" unique_id=1707415378]
 theme_override_constants/separation = 4
+script = ExtResource("1_kmb1v")
 
 [node name="Stat_HP" type="VBoxContainer" parent="." unique_id=687814205]
 layout_mode = 2

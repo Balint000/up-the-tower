@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://bidbu4peq2003"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_bxant"]
+
+[resource]
+script = ExtResource("1_bxant")
+id = "bag"
+name = "Bag"
+short_name = "Bag"
+description = "This is a Bag"
+type = 3
+pool = Array[String](["basic_sword", "apple", "sword_common"])
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

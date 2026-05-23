@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://dui62wwn17wg7"]
+
+[ext_resource type="Texture2D" uid="uid://bqtdfsaom8n7h" path="res://assets/sprites/items/sword_common.png" id="1_frrte"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_rlch7"]
+
+[resource]
+script = ExtResource("1_rlch7")
+id = "sword_common"
+name = "Common Sword"
+short_name = "Common Sword"
+description = "Its a common sword"
+icon = ExtResource("1_frrte")
+type = 0
+slot = 2
+dmg = 15
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

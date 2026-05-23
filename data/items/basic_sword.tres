@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://k33hv3iqdh13"]
 
 [ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_7gb6n"]
+[ext_resource type="Texture2D" uid="uid://c2kasc65uarjg" path="res://assets/sprites/items/sword.png" id="1_gppk4"]
 
 [resource]
 script = ExtResource("1_7gb6n")
 id = "basic_sword"
-name = "basic_sword"
-short_name = "basic_sword"
+name = "Stone Sword"
+short_name = "Stone Sword"
 description = "basic_sword"
+icon = ExtResource("1_gppk4")
 type = 0
 slot = 2
 dmg = 10

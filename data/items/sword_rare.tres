@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://ch0dhs0k6d8x8"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_nw1an"]
+[ext_resource type="Texture2D" uid="uid://c74fw5615g05p" path="res://assets/sprites/items/sword_rare.png" id="1_p7juj"]
+
+[resource]
+script = ExtResource("1_nw1an")
+id = "sword_rare"
+name = "Rare Sword"
+short_name = "Rare Sword"
+description = "this is a rare sword"
+icon = ExtResource("1_p7juj")
+type = 0
+slot = 2
+rarity = "rare"
+dmg = 20
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

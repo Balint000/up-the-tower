@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://bmd0go1tcao6c"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_j3kt7"]
+[ext_resource type="Texture2D" uid="uid://dk7nip7ux7jor" path="res://assets/sprites/items/boots_epic.png" id="1_o6103"]
+
+[resource]
+script = ExtResource("1_j3kt7")
+id = "boot_epic"
+name = "Epic Boot"
+short_name = "Epic Boot"
+description = "This is an epic boot."
+icon = ExtResource("1_o6103")
+type = 0
+slot = 3
+rarity = "epic"
+spd = 30
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

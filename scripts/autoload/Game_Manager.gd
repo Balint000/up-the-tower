@@ -27,7 +27,8 @@ const KEY_HP := "health"
 const KEY_SPEED := "speed"
 const KEY_BOOTS := "boots"
 const KEY_QUICK_SLOTS := "quick_slots"
-const KEY_ABILITY := "ability"
+const KEY_BAG = "bag"
+const KEY_OPENED_BAGS = "opened_bags"
 
 ## Signals
 signal state_changed(new_state: GameState)
@@ -45,18 +46,13 @@ var runtime_data := {
 	
 	KEY_INVENTORY: {
 		"helm": [],
-		"weap": [],
+		"weap": ['basic_sword'],
 		"boots": [],
 		"cons": {
 			"beer": 0,
 			"apple": 0,
-			"heal_potion": 0,
-			"swift_potion": 0,
-			"cake": 0,
 			"key": 0,
-			"helm_bag": 1,
-			"wpn_bag": 0,
-			"boot_bag": 0
+			KEY_BAG: 2
 		}
 	},
 	
@@ -71,9 +67,7 @@ var runtime_data := {
 		KEY_WEAPON: "",
 		KEY_HELMET: "",
 		KEY_BOOTS: ""
-	},
-	
-	KEY_QUICK_SLOTS: ["","",""]
+	}
 }
 
 ## Player Data
@@ -329,7 +323,6 @@ func go_to_inventorymenu() -> void:
 	print("Under maintenance")
 	# set_state(GameState.INVENTORY)
 	# get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
-
 
 func go_to_game() -> void:
 	_update_player_stats()

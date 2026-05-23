@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b37asbl0cr3p2"]
+[gd_scene format=3 uid="uid://2ucxkuib610a"]
 
-[ext_resource type="Script" uid="uid://c08se2uulseus" path="res://scripts/inventory/slots.gd" id="1_m7g27"]
+[ext_resource type="Script" uid="uid://c1meerjwxwfm6" path="res://scripts/inventory/quick_slots.gd" id="1_6g8wk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgj6c"]
 bg_color = Color(0.08035893, 0.17253742, 0.20988566, 1)
@@ -15,8 +15,6 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 20
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m7g27"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7g27"]
 bg_color = Color(0.19130796, 0.35907996, 0.42224014, 1)
 corner_radius_top_left = 40
@@ -26,11 +24,11 @@ corner_radius_bottom_left = 40
 corner_detail = 20
 shadow_size = 3
 
-[node name="Slots" type="Panel" unique_id=1335748591]
+[node name="QuickSlots" type="Panel" unique_id=1335748591]
 custom_minimum_size = Vector2(80, 80)
 scale = Vector2(0.9864019, 0.9840993)
 theme_override_styles/panel = SubResource("StyleBoxFlat_hgj6c")
-script = ExtResource("1_m7g27")
+script = ExtResource("1_6g8wk")
 
 [node name="SlotLayout" type="VBoxContainer" parent="." unique_id=235017850]
 layout_mode = 1
@@ -52,16 +50,23 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("CompressedTexture2D_m7g27")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Name" type="Label" parent="SlotLayout" unique_id=2081399302]
 layout_mode = 2
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 20
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_m7g27")
 text = "teszt"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quantity" type="Label" parent="SlotLayout" unique_id=1597036611]
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 20
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
