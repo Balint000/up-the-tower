@@ -1,0 +1,14 @@
+{
+	"id": "level1_outro",
+	"type": "cutscene",
+	"lines": [
+		{
+			"speaker": "",
+			"text": "Az első szint végén egy félholt katona vonaglik a kövön. Ő is a zsarnok kísérleteinek áldozata."
+		},
+		{
+			"speaker": "",
+			"text": "A katona elhallgat. Valahol feljebb a toronyban valami mozog."
+		}
+	]
+}

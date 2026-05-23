@@ -1,0 +1,14 @@
+{
+	"id": "level1_intro",
+	"type": "cutscene",
+	"lines": [
+		{
+			"speaker": "",
+			"text": "A vár bejárata mögött romos, sötét folyosók nyílnak. A levegőben penész és vér szaga terjeng."
+		},
+		{
+			"speaker": "",
+			"text": "Az élők — ha még lehet őket annak nevezni — nem fogadnak barátságosan."
+		}
+	]
+}

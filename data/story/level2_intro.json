@@ -1,0 +1,18 @@
+{
+	"id": "level2_intro",
+	"type": "cutscene",
+	"lines": [
+		{
+			"speaker": "",
+			"text": "A második szint a zsarnok könyvtára és alkímia-terme. A polcok tele vannak tiltott könyvekkel és befőttesüvegbe zárt, furcsa teremtményekkel."
+		},
+		{
+			"speaker": "",
+			"text": "Egy nyitott naplón az utolsó bejegyzés: 'A Máguskő aktiválása sikerült. Az áldozatok száma nem számít, az öröklét az enyém!'"
+		},
+		{
+			"speaker": "",
+			"text": "Tehát nem halt meg a háborúban..."
+		}
+	]
+}

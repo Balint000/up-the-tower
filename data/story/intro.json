@@ -1,0 +1,42 @@
+{
+	"id": "intro",
+	"type": "cutscene",
+	"lines": [
+		{
+			"speaker": "",
+			"text": "Egykor ez a világ élettel teli, varázslatos hely volt..."
+		},
+		{
+			"speaker": "",
+			"text": "Aztán jött az eretnek háború. Városok dőltek romba, emberek ezrei vesztek oda. A túlélők elszigetelten, csendben próbáltak élni tovább."
+		},
+		{
+			"speaker": "",
+			"text": "Néhányan mégis próbálják újraépíteni a régi rendet de a sebek még frissek, és a sötétség nem vonult vissza teljesen."
+		},
+		{
+			"speaker": "",
+			"text": "Egy lovas vágtat az erdők és hóborított hegyek által körbezárt völgybe. Előtte magányos vár áll..."
+		},
+		{
+			"speaker": "",
+			"text": "Azt suttogják: itt egykor egy zsarnok uralkodott, aki minél halálosabb fegyvereket, mágiát akart létrehozni, hogy félelemmel tartsa fenn hatalmát."
+		},
+		{
+			"speaker": "",
+			"text": "Ki ez a rejtélyes alak? Ki küldte ide? Mi a végső feladat?"
+		},
+		{
+			"speaker": "",
+			"text": "A vár falai közül sikolyok szűrődnek ki. Törött ablakok, koromfekete falak."
+		},
+		{
+			"speaker": "",
+			"text": "A hős leszáll lováról. Arcán ott van a felkészültség."
+		},
+		{
+			"speaker": "",
+			"text": "Most már csak rajta múlik, mi vár a sötét torony mélyén."
+		}
+	]
+}

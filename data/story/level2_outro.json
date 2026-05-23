@@ -1,0 +1,18 @@
+{
+	"id": "level2_outro",
+	"type": "cutscene",
+	"lines": [
+		{
+			"speaker": "",
+			"text": "A második szint végén egy régi, megkopott kép lóg a falon. Egy fiatal férfi, mellette egy gyerek — és alul egy felirat: 'Aldric és fia, a háború előtti utolsó békeévben.'"
+		},
+		{
+			"speaker": "",
+			"text": "A hős hosszan néz a képre. Aldric — ez a neve a zsarnoknak. De valaha ő is csak egy ember volt."
+		},
+		{
+			"speaker": "",
+			"text": "Nem számít. Amit tett, nem lehet megbocsátani. A torony csúcsa vár."
+		}
+	]
+}
