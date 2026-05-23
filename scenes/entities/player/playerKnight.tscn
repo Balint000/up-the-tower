@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bji7ey60ilwk7"]
+[gd_scene format=3 uid="uid://ceejs5kmyc1xr"]
 
 [ext_resource type="Script" uid="uid://dj0rnb7it8ko" path="res://scripts/entities/player/player_knight.gd" id="1_hgmf5"]
 [ext_resource type="Texture2D" uid="uid://ser3sd8luyjf" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_rh8th"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dc2g7m1p01s7v" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_vm3kj"]
 [ext_resource type="Texture2D" uid="uid://di0oh4ubnh5qk" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="5_0x2ry"]
 [ext_resource type="Texture2D" uid="uid://diiuyp76hhcyr" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="6_34lkl"]
+[ext_resource type="Script" uid="uid://bxmsu07jj6ajk" path="res://scripts/entities/player/ability_component.gd" id="7_rh8th"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kanyx"]
 atlas = ExtResource("2_rh8th")
@@ -245,3 +246,6 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
+
+[node name="AbilityComponent" type="Node2D" parent="." unique_id=702418442]
+script = ExtResource("7_rh8th")

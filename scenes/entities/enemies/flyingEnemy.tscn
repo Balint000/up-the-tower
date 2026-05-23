@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://dap8aaiqn2xcl"]
+
+[ext_resource type="Texture2D" uid="uid://i2hckru5jqya" path="res://assets/sprites/enemies/flyingEnemy.png" id="1_0bvu4"]
+[ext_resource type="Script" uid="uid://wegmltaseyan" path="res://scripts/entities/enemies/flying_enemy.gd" id="1_i17n2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i17n2"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(0, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lu1ao"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(64, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d571"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(128, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfpom"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(192, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwr1y"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(256, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ephym"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(320, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0saty"]
+atlas = ExtResource("1_0bvu4")
+region = Rect2(384, 0, 64, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb4oj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i17n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lu1ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d571")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfpom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwr1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ephym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0saty")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n7g7p"]
+radius = 7.0
+height = 22.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=79643289]
+script = ExtResource("1_i17n2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=104506277]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_lb4oj")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1151813194]
+shape = SubResource("CapsuleShape2D_n7g7p")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1456296783]
+target_position = Vector2(23, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=986695663]
+target_position = Vector2(-24, 0)

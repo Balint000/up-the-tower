@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bhbesdeaa4xp0"]
+
+[ext_resource type="Texture2D" uid="uid://cjqv2xyctxmxe" path="res://assets/textures/environments/Lever1.png" id="1_g7saj"]
+[ext_resource type="Script" uid="uid://cembadnuh1ye0" path="res://scripts/environment/lever.gd" id="1_i68ox"]
+[ext_resource type="Texture2D" uid="uid://cgbett74u6lxx" path="res://assets/textures/environments/Lever2.png" id="3_sbqix"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qiupm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sbqix")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g7saj")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i68ox"]
+radius = 9.0
+
+[node name="Lever" type="Area2D" unique_id=1626468247]
+script = ExtResource("1_i68ox")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1715963124]
+sprite_frames = SubResource("SpriteFrames_qiupm")
+animation = &"on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=826968882]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_i68ox")

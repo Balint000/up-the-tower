@@ -228,13 +228,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2lx5"]
-radius = 11.0
+radius = 7.0
+height = 20.0
 
 [node name="SoldierEnemy" type="CharacterBody2D" unique_id=561237851]
 script = ExtResource("1_cvcjg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=831473788]
-position = Vector2(0, -33)
+position = Vector2(2, -19)
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_wnjwp")
 animation = &"death"
 autoplay = "idle"
@@ -248,4 +250,4 @@ shape = SubResource("CapsuleShape2D_y2lx5")
 target_position = Vector2(18, 0)
 
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1828440349]
-target_position = Vector2(-24, 0)
+target_position = Vector2(-16, 0)

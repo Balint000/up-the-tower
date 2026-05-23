@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://3ibey1idcaxf" path="res://assets/textures/backgrounds/sky.png" id="6_v05ac"]
 [ext_resource type="Texture2D" uid="uid://bvgx51q8c6ew1" path="res://assets/textures/backgrounds/clouds.png" id="7_b0ar5"]
 [ext_resource type="Texture2D" uid="uid://cmvig8wl1kuxs" path="res://assets/textures/backgrounds/hill.png" id="8_6osqn"]
-[ext_resource type="Script" uid="uid://48u1ljr4wwom" path="res://scripts/environment/camera.gd" id="11_231nj"]
+[ext_resource type="Script" path="res://scripts/environment/camera.gd" id="11_231nj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6vkx"]
 texture = ExtResource("1_rrms0")

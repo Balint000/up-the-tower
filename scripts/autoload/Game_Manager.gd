@@ -74,7 +74,8 @@ var runtime_data := {
 var player_data := {
 	KEY_DMG: 1,
 	KEY_HP: 1,
-	KEY_SPEED: 1
+	KEY_SPEED: 1,
+	KEY_ABILITY: "dash"
 }
 
 ## Current State
@@ -263,6 +264,7 @@ func _update_player_stats() -> void:
 	var hp = char_data.base_hp
 	var dmg = char_data.base_dmg
 	var spd = char_data.base_spd
+	var ability = char_data.ability_type
 	
 	var equipped = runtime_data.get(KEY_EQUIPPED_ITEMS, {})
 	
@@ -278,6 +280,7 @@ func _update_player_stats() -> void:
 	player_data[KEY_HP] = hp
 	player_data[KEY_DMG] = dmg
 	player_data[KEY_SPEED] = spd
+	player_data[KEY_ABILITY] = ability
 
 func get_state() -> GameState:
 	return current_state
@@ -316,8 +319,10 @@ func go_to_levelmenu() -> void:
 
 ## change scene --> InventoryMenu
 func go_to_inventorymenu() -> void:
-	set_state(GameState.INVENTORY)
-	get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
+	print("GameState: mainmenu -> inventory, inventory -> mainmenu")
+	print("Under maintenance")
+	# set_state(GameState.INVENTORY)
+	# get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
 
 func go_to_game() -> void:
 	_update_player_stats()
