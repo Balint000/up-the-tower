@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://makuymrpdmxa"]
+
+[ext_resource type="Texture2D" uid="uid://m25eotq6so2u" path="res://assets/sprites/items/boots.png" id="1_o2ua3"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="2_eheb4"]
+
+[resource]
+script = ExtResource("2_eheb4")
+id = "basic_boot"
+name = "Basic Boot"
+short_name = "Basic Boot"
+description = "This is a basic boot."
+icon = ExtResource("1_o2ua3")
+type = 0
+slot = 3
+spd = 10
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

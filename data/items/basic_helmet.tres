@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://chnacijeqxurq"]
+
+[ext_resource type="Texture2D" uid="uid://siqi1nedrtum" path="res://assets/sprites/items/helmet.png" id="1_cxeur"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_oaf8d"]
+
+[resource]
+script = ExtResource("1_oaf8d")
+id = "basic_helmet"
+name = "Basic Helmet"
+short_name = "Basic Helmet"
+description = "This is a basic helmet."
+icon = ExtResource("1_cxeur")
+type = 0
+slot = 1
+hp = 10
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://bhdgj66l4es7a"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_2ahyy"]
+[ext_resource type="Texture2D" uid="uid://deqvmwdn3q88g" path="res://assets/sprites/items/helmet_rare.png" id="1_ba22p"]
+
+[resource]
+script = ExtResource("1_2ahyy")
+id = "helmet_rare"
+name = "Rare Helmet"
+short_name = "Rare Helmet"
+description = "This is a rare helmet."
+icon = ExtResource("1_ba22p")
+type = 0
+slot = 1
+rarity = "rare"
+hp = 40
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

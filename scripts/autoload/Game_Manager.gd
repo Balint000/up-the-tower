@@ -27,6 +27,8 @@ const KEY_HP := "health"
 const KEY_SPEED := "speed"
 const KEY_BOOTS := "boots"
 const KEY_QUICK_SLOTS := "quick_slots"
+const KEY_BAG = "bag"
+const KEY_OPENED_BAGS = "opened_bags"
 
 ## Signals
 signal state_changed(new_state: GameState)
@@ -50,6 +52,7 @@ var runtime_data := {
 			"beer": 0,
 			"apple": 0,
 			"key": 0,
+			KEY_BAG: 2
 		}
 	},
 	
@@ -64,9 +67,7 @@ var runtime_data := {
 		KEY_WEAPON: "",
 		KEY_HELMET: "",
 		KEY_BOOTS: ""
-	},
-	
-	KEY_QUICK_SLOTS: ["","",""]
+	}
 }
 
 ## Player Data

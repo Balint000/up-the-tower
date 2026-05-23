@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cucpfct5mm125"]
+
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_5bvqd"]
+[ext_resource type="Texture2D" uid="uid://chreixwlilcqi" path="res://assets/sprites/items/helmet_epic.png" id="1_xtamc"]
+
+[resource]
+script = ExtResource("1_5bvqd")
+id = "helmet_epic"
+name = "Epic Helmet"
+short_name = "Epic Helmet"
+description = "This is an epic helmet"
+icon = ExtResource("1_xtamc")
+type = 0
+slot = 1
+rarity = "epic"
+hp = 60
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

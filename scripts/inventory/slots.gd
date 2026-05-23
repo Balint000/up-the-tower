@@ -1,23 +1,31 @@
 extends Panel
 
+var icon: TextureRect
+var item_name: Label
+
 signal slot_clicked(item_id: String)
 
 var item_id := ""
 var is_equipped := false
 
-@onready var icon: TextureRect = $SlotLayout/ItemIcon
-@onready var item_name: Label = $SlotLayout/Name
-@onready var qty: Label = $SlotLayout/Quantity
+func _ready():
+	icon = get_node_or_null("SlotLayout/ItemIcon")
+	item_name = get_node_or_null("SlotLayout/Name")
 
-func setup(item_data, id: String, count: int = 1) -> void:
+func setup(item_data, id: String) -> void:
 	item_id = id
-
+	
+	if icon == null:
+		icon = get_node_or_null("SlotLayout/ItemIcon")
+	
+	if item_name == null:
+		item_name = get_node_or_null("SlotLayout/Name")
+	
 	if item_data == null:
 		return
 
 	icon.texture = item_data.icon
 	item_name.text = item_data.short_name if item_data.short_name != "" else item_data.name
-	qty.text = str(count)
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.pressed:

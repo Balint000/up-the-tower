@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://bv8qdjt3ilfyc"]
+
+[ext_resource type="Texture2D" uid="uid://cnp7ah1fam15q" path="res://assets/sprites/items/boots_rare.png" id="1_0hdh6"]
+[ext_resource type="Script" uid="uid://cbu1nshdmxwv" path="res://scripts/classes/item_resource.gd" id="1_adw41"]
+
+[resource]
+script = ExtResource("1_adw41")
+id = "boot_rare"
+name = "Rare Boot"
+short_name = "Rare Boot"
+description = "This is a rare boot."
+icon = ExtResource("1_0hdh6")
+type = 0
+slot = 3
+rarity = "rare"
+spd = 20
+metadata/_custom_type_script = "uid://cbu1nshdmxwv"

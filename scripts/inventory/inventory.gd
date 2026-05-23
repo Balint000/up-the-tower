@@ -13,17 +13,23 @@ extends Control
 
 @onready var char_select  = $MainMargin/MainHBox/CharacterSelectorStrip
 
+@onready var bag_btn = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BagBtn
+
 @onready var selected_character_name  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/CharacterName
 
 @onready var grid = $MainMargin/MainHBox/InventoryPanel/InvVBox/InventoryGrid
 
 @onready var back_btn = $MainMargin/MainHBox/BackButton
 
+var bag_overlay: Control = null
+
 var selected_char := "knight"
 
 var _dirty := false
 
 var current_slot := "helmet"
+
+var quickslots := {}
 
 # =========================
 # READY
@@ -42,13 +48,107 @@ func _ready():
 	boots_btn.pressed.connect(func(): _on_equipment_btn_pressed(GameManager.KEY_BOOTS))
 	
 	back_btn.pressed.connect(_on_back_pressed)
-
+	bag_btn.pressed.connect(_on_bag_open)
+	
+	quickslots = { 
+		"apple": apple_slot, 
+		"beer": beer_slot, 
+		"key": key_slot 
+	}
+		
 	_refresh_all()
 	_set_filter("helmet")
+	
+	_init_bag_overlay()
 
 # =========================
 # CHARACTER
 # =========================
+
+func _init_bag_overlay() -> void:
+	var bag_scene = preload("res://scenes/inventory/BagOpen.tscn")
+	bag_overlay = bag_scene.instantiate()
+	add_child(bag_overlay)
+	
+	bag_overlay.loot_taken.connect(_on_loot_taken)
+
+func _on_bag_open() -> void:
+	if not bag_overlay or bag_overlay._is_open: 
+		return
+	
+	var bag_item_id := _find_openable_bag()
+	
+	if bag_item_id == "": 
+		return
+		
+	var bag_item: ItemResource = DataDb.get_item(bag_item_id)
+	
+	if not bag_item: 
+		return
+	_consume_bag(bag_item_id) 
+	bag_overlay.open(bag_item_id, bag_item.pool) 
+	_refresh_inventory_ui() 
+	_mark_dirty()
+
+func _on_loot_taken() -> void:
+	_refresh_quickslots()
+	_refresh_bag_btn()
+	_rebuild_inventory()
+	_mark_dirty()
+
+func _find_openable_bag() -> String:
+	var cons = GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"] 
+	for item_id in cons: 
+		if cons[item_id] <= 0:
+			continue 
+			
+		var item: ItemResource = DataDb.get_item(item_id) 
+		if item and item.type == ItemResource.ItemType.BAG:
+			return item_id
+			
+	return ""
+
+func _consume_bag(item_id: String) -> void:
+	var cons = GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"]
+	if not cons.has(item_id):
+		return 
+	cons[item_id] -= 1
+	
+	if cons[item_id] <= 0: 
+		cons.erase(item_id)
+
+func _refresh_bag_btn() -> void:
+	var bag_item_id := _find_openable_bag()
+	var bag_count := _get_bag_count()
+	
+	if bag_item_id == "":
+		bag_btn.text = "🎒 Bag — Empty —"
+		bag_btn.disabled = true
+		bag_btn.modulate.a = 0.5
+		return
+	
+	var item: ItemResource = DataDb.get_item(bag_item_id)
+	
+	if item:
+		bag_btn.text = "🎒 %s x%d" % [item.name, bag_count]
+		bag_btn.icon = item.icon
+	else:
+		bag_btn.text = "🎒 Bag  x%d" % bag_count
+	
+	bag_btn.disabled = false
+	bag_btn.modulate.a = 1.0
+
+func _get_bag_count() -> int:
+	var cons := GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"] as Dictionary
+	var total := 0
+	
+	for item_id in cons:
+		var item: ItemResource = DataDb.get_item(item_id)
+
+		if item and item.type == ItemResource.ItemType.BAG:
+			total += cons[item_id]
+
+	return total
 
 func _on_character_selected(id: String):
 	selected_char = id
@@ -76,40 +176,40 @@ func _refresh_character_name():
 	selected_character_name.text = selected_char.to_upper()
 
 func _rebuild_inventory():
-
 	for c in grid.get_children():
 		c.queue_free()
 
 	var inv = GameManager.runtime_data[GameManager.KEY_INVENTORY]
-	var eq = GameManager.runtime_data[GameManager.KEY_EQUIPPED_ITEMS]
-
+	var eq = _get_equipped()
 	var category = _slot_to_category(current_slot)
-	var equipped_items = _get_equipped().values()
-
+	var equipped_items = eq.values()
+	
 	for item_id in inv.get(category, []):
 		if item_id in equipped_items:
-			continue  # 🔥 ne mutassa az equipped itemet
-
+			continue
 		var item = DataDb.get_item(item_id)
 		if not item:
 			continue
-
-		var slot_scene = preload("res://scenes/inventory/Slots.tscn")
-		var slot = slot_scene.instantiate()
-
-		# highlight ha equipelt
-		slot.set_equipped(eq[current_slot] == item_id)
-
-		slot.slot_clicked.connect(func(id):
-			_equip_item(id)
+		var slot = _create_inventory_slot(
+			item, 
+			item_id, 
+			eq[current_slot] == item_id 
 		)
-
 		grid.add_child(slot)
-		
-				# ✅ csak item + id kell
-		slot.setup(item, item_id)
-		
-# EQUIP LOGIC
+
+func _create_inventory_slot( item, item_id: String, equipped: bool ) -> Control:
+	var slot_scene = preload("res://scenes/inventory/Slots.tscn")
+	var slot = slot_scene.instantiate()
+	
+	slot.setup(item, item_id)
+	slot.set_equipped(equipped)
+	
+	slot.slot_clicked.connect(func(id):
+		_equip_item(id) 
+	)
+
+	
+	return slot
 
 func _equip_item(item_id: String) -> void:
 	var eq = GameManager.runtime_data[GameManager.KEY_EQUIPPED_ITEMS]
@@ -146,10 +246,18 @@ func _on_equipment_btn_pressed(slot: String) -> void:
 # UI REFRESH
 
 func _refresh_all():
+	_refresh_character_ui()
+	_refresh_inventory_ui()
+
+func _refresh_inventory_ui():
+	_refresh_quickslots()
+	_refresh_bag_btn()
+	_rebuild_inventory()
+
+func _refresh_character_ui():
 	_refresh_character_name()
 	_refresh_equipment()
 	_refresh_stats()
-	_refresh_quickslots()
 
 func _refresh_equipment():
 
@@ -160,23 +268,22 @@ func _refresh_equipment():
 	_set_btn(boots_btn, "👢", "Boots", eq[GameManager.KEY_BOOTS])
 
 func _refresh_quickslots():
-
 	var cons = GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"]
+	for item_id in quickslots:
+		quickslots[item_id].setup(
+			item_id,
+			cons.get(item_id, 0)
+		)
 
-	apple_slot.setup("apple", cons["apple"])
-	beer_slot.setup("beer", cons["beer"])
-	key_slot.setup("key", cons["key"])
-
-func _set_btn(btn, icon, label, id):
-
-	if id == "":
+func _set_btn( btn: Button, icon: String, label: String, item_id: String ) -> void:
+	if item_id == "":
 		btn.text = "%s %s — Empty —" % [icon, label]
 		btn.icon = null
 		return
+	var item = DataDb.get_item(item_id)
 
-	var item = DataDb.get_item(id)
 	if item:
-		btn.text = "%s" % [item.name]
+		btn.text = item.name
 		btn.icon = item.icon
 
 # =========================

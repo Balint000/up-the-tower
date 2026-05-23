@@ -17,8 +17,6 @@ corner_radius_bottom_left = 20
 corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4j3l"]
-content_margin_left = 70.0
-content_margin_right = 70.0
 bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
 border_width_left = 2
 border_width_top = 2
@@ -107,8 +105,6 @@ corner_radius_bottom_left = 20
 corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxst"]
-content_margin_left = 70.0
-content_margin_right = 70.0
 bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
 border_width_left = 2
 border_width_top = 2
@@ -137,49 +133,6 @@ corner_radius_bottom_left = 20
 corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll4hh"]
-bg_color = Color(0.30588236, 0.30588236, 0.30588236, 0.42352942)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1q2qg"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.10980392, 0.10980392, 0.10980392, 0.78431374)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_folsp"]
-bg_color = Color(0.047058824, 0.047058824, 0.047058824, 0.42352942)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yn6ie"]
 bg_color = Color(0.30588236, 0.30588236, 0.30588236, 0.42352942)
 border_width_left = 2
 border_width_top = 2
@@ -281,12 +234,12 @@ size_flags_vertical = 3
 theme_override_constants/separation = 12
 
 [node name="CharacterGraphicPanel" type="Panel" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=1110030680]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="CharacterPreview" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=669123381 instance=ExtResource("4_v8e04")]
-position = Vector2(193, 452)
+position = Vector2(131, 249)
 scale = Vector2(2, 2)
 
 [node name="EquipmentSlots" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=795979234]
@@ -297,20 +250,18 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="HelmetBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=42118199]
-custom_minimum_size = Vector2(350, 52)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-size_flags_horizontal = 4
 tooltip_text = "Click to select helmet"
 theme_override_styles/normal = SubResource("StyleBoxFlat_x4j3l")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2a7vi")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j21gq")
 text = "🪖   Helmet     — Empty —"
-expand_icon = true
+icon_alignment = 1
 
 [node name="WeaponBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1480171882]
-custom_minimum_size = Vector2(350, 52)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-size_flags_horizontal = 4
 tooltip_text = "Click to select weapon"
 theme_override_styles/normal = SubResource("StyleBoxFlat_l6cit")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2t2sw")
@@ -319,27 +270,18 @@ text = "⚔   Weapon   — Empty —"
 expand_icon = true
 
 [node name="BootsBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=1144122359]
-custom_minimum_size = Vector2(350, 52)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-size_flags_horizontal = 4
 tooltip_text = "Click to select boots"
 theme_override_styles/normal = SubResource("StyleBoxFlat_efxst")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_1pph4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ll4hh")
 text = "👢   Boots      — Empty —"
-
-[node name="NameSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=747825338]
-layout_mode = 2
-theme_override_constants/separation = 50
+icon_alignment = 1
 
 [node name="BagBtn" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=183651305]
-custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_1q2qg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_folsp")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yn6ie")
 text = "Bag Open"
 
 [node name="StatsSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1590236886]
