@@ -172,12 +172,14 @@ layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="BagCenter/BagPanel/VBox" unique_id=1258986042]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="ItemGrid" type="GridContainer" parent="BagCenter/BagPanel/VBox/ScrollContainer" unique_id=941759839]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
 columns = 3

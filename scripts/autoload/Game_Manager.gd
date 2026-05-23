@@ -29,6 +29,7 @@ const KEY_BOOTS := "boots"
 const KEY_QUICK_SLOTS := "quick_slots"
 const KEY_BAG = "bag"
 const KEY_OPENED_BAGS = "opened_bags"
+const KEY_ABILITY = "ability"
 
 ## Signals
 signal state_changed(new_state: GameState)
@@ -52,7 +53,7 @@ var runtime_data := {
 			"beer": 0,
 			"apple": 0,
 			"key": 0,
-			KEY_BAG: 2
+			KEY_BAG: 40
 		}
 	},
 	
@@ -319,10 +320,8 @@ func go_to_levelmenu() -> void:
 
 ## change scene --> InventoryMenu
 func go_to_inventorymenu() -> void:
-	print("GameState: mainmenu -> inventory, inventory -> mainmenu")
-	print("Under maintenance")
-	# set_state(GameState.INVENTORY)
-	# get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
+	set_state(GameState.INVENTORY)
+	get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
 
 func go_to_game() -> void:
 	_update_player_stats()

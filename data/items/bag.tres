@@ -9,5 +9,5 @@ name = "Bag"
 short_name = "Bag"
 description = "This is a Bag"
 type = 3
-pool = Array[String](["basic_sword", "apple", "sword_common"])
+pool = Array[String](["basic_sword", "apple", "sword_common", "basic_helmet", "basic_boot", "sword_rare", "sword_epic", "boot_common", "boot_rare", "boot_epic", "helmet_common", "helmet_rare", "helmet_epic"])
 metadata/_custom_type_script = "uid://cbu1nshdmxwv"
