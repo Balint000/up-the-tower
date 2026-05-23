@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bf7rmed5euj4c"]
+
+[ext_resource type="Script" uid="uid://bptajdhys1x6e" path="res://scripts/entities/enemies/archer_enemy.gd" id="1_go7wf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4tbk4"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_go7wf"]
+radius = 7.0
+height = 22.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1088924728]
+script = ExtResource("1_go7wf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=515820498]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_4tbk4")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=215881258]
+shape = SubResource("CapsuleShape2D_go7wf")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=565815490]
+target_position = Vector2(23, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1309283320]
+target_position = Vector2(-24, 0)

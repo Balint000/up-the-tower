@@ -15,7 +15,8 @@ func _on_play_btn_pressed() -> void:
 	GameManager.go_to_levelmenu()
 
 func _on_invertory_btn_pressed() -> void:
-	GameManager.go_to_inventorymenu()
+	# GameManager.go_to_inventorymenu()
+	$VBoxContainer/Label.text = "Under maintenance"
 
 func _on_exit_btn_pressed() -> void:
 	GameManager.quit_game()

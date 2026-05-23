@@ -325,8 +325,10 @@ func go_to_levelmenu() -> void:
 
 ## change scene --> InventoryMenu
 func go_to_inventorymenu() -> void:
-	set_state(GameState.INVENTORY)
-	get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
+	print("GameState: mainmenu -> inventory, inventory -> mainmenu")
+	print("Under maintenance")
+	# set_state(GameState.INVENTORY)
+	# get_tree().change_scene_to_file("res://scenes/inventory/inventory.tscn")
 
 
 func go_to_game() -> void:

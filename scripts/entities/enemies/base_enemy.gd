@@ -225,7 +225,9 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 		velocity = knockback
 		
 	await get_tree().create_timer(0.4).timeout
-	_set_state(State.AGGRO)
+	if _state != State.HURT:
+			return
+	_set_state(State.AGGRO if _player != null else State.PATROL)
 
 func _on_took_damage(amount: int) -> void:
 	## Default: csak logol – konkrét karakter (PlayerKnight) teheti hozzá a flash effektet.

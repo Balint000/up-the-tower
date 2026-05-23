@@ -12,6 +12,9 @@ var items: Dictionary = {}
 
 @export var enemies_paths: Array[String] = [
 	"res://data/enemies/enemy_knight.tres",
+	"res://data/enemies/enemy_flying.tres",
+	"res://data/enemies/enemy_archer.tres",
+	"res://data/enemies/enemy_charger.tres",
 	# add others
 ]
 

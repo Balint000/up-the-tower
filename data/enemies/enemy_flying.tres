@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://b4rcda5ko5sp"]
+
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_m8sun"]
+
+[resource]
+script = ExtResource("1_m8sun")
+character_id = "enemy_flying"
+character_name = "enemy_flying"
+description = "enemy_flying"
+base_dmg = 5
+scene_path = "uid://dap8aaiqn2xcl"
+metadata/_custom_type_script = "uid://xxkmfki5unb6"
