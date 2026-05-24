@@ -16,8 +16,34 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vovkx"]
+bg_color = Color(0.16398731, 0.3149077, 0.3779564, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhup6"]
 bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7twde"]
+bg_color = Color(0.16470589, 0.3137255, 0.3764706, 0.62352943)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -42,8 +68,34 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c257u"]
+bg_color = Color(0.16470589, 0.3137255, 0.3764706, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8psk5"]
 bg_color = Color(0.078431375, 0.17254902, 0.21176471, 0.62352943)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvo78"]
+bg_color = Color(0.16470589, 0.3137255, 0.3764706, 0.62352943)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -76,6 +128,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Knight"
 theme_override_styles/normal = SubResource("StyleBoxFlat_n3jmf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vovkx")
 
 [node name="CharIcon_Knight" type="TextureRect" parent="StripVBox/CharBtn_Knight" unique_id=1868368673]
 layout_mode = 1
@@ -97,6 +150,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Mage"
 theme_override_styles/normal = SubResource("StyleBoxFlat_hhup6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7twde")
 
 [node name="CharIcon_Mage" type="TextureRect" parent="StripVBox/CharBtn_Mage" unique_id=133146079]
 layout_mode = 1
@@ -118,6 +172,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Archer"
 theme_override_styles/normal = SubResource("StyleBoxFlat_3asbx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c257u")
 
 [node name="CharIcon_Archer" type="TextureRect" parent="StripVBox/CharBtn_Archer" unique_id=984729967]
 layout_mode = 1
@@ -139,6 +194,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Thief"
 theme_override_styles/normal = SubResource("StyleBoxFlat_8psk5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wvo78")
 
 [node name="CharIcon_Thief" type="TextureRect" parent="StripVBox/CharBtn_Thief" unique_id=1492855973]
 layout_mode = 1

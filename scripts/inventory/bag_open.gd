@@ -26,7 +26,7 @@ var loot_table: Dictionary = {}
 
 # ── Bag beállítások ────────────────────────────
 @export var bag_item_count_min: int = 1
-@export var bag_item_count_max: int = 3
+@export var bag_item_count_max: int = 2
 @export var animation_duration_open: float = 0.55
 @export var animation_duration_close: float = 0.35
 @export var item_reveal_delay: float = 0.10
@@ -42,10 +42,6 @@ var loot_table: Dictionary = {}
 @onready var take_btn: Button = $BagCenter/BagPanel/VBox/HBox/TakeBtn
 @onready var close_btn: Button = $BagCenter/BagPanel/VBox/HBox/CloseBtn
 
-
-# ═════════════════════════════════════════════════
-#  LIFECYCLE
-# ═════════════════════════════════════════════════
 
 func _ready() -> void:
 	modulate.a = 0.0
@@ -65,10 +61,6 @@ func _input(event: InputEvent) -> void:
 		close()
 		get_viewport().set_input_as_handled()
 
-
-# ═════════════════════════════════════════════════
-#  PUBLIC API
-# ═════════════════════════════════════════════════
 
 ## Megnyitja a bag overlay-t animációval
 ## source_item_id: a bag item id-ja (pl. "iron_chest") a már-nyitott ellenőrzéshez
@@ -208,7 +200,6 @@ func _generate_loot() -> void:
 	var max_attempts := count * 10
 
 	while _loot.size() < count and attempts < max_attempts:
-		attempts += 1
 		var item_id := _weighted_random_item()
 		if item_id == "":
 			break
@@ -221,6 +212,7 @@ func _generate_loot() -> void:
 				continue
 
 		# Consumable / key_item: mindig engedjük (többször is)
+		attempts += 1
 		_loot.append(item_id)
 
 ## Cím beállítása a bag item nevére

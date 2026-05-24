@@ -13,5 +13,5 @@ icon = ExtResource("1_o6103")
 type = 0
 slot = 3
 rarity = "epic"
-spd = 30
+spd = 100
 metadata/_custom_type_script = "uid://cbu1nshdmxwv"
