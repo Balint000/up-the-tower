@@ -1,10 +1,17 @@
 [gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://cc5xd0avhavr7"]
 
-[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_5vh76"]
+[ext_resource type="Texture2D" uid="uid://c4rkg12kausrk" path="res://assets/sprites/player/portraits/thiefPortrait.png" id="1_7ovhk"]
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="2_smw7c"]
 
 [resource]
-script = ExtResource("1_5vh76")
+script = ExtResource("2_smw7c")
 character_id = "thief"
 character_name = "thief"
-ability_type = "double_jump"
+description = "thief"
+portrait = ExtResource("1_7ovhk")
+base_hp = 60
+base_dmg = 25
+base_spd = 200.0
+ability_type = "dash"
+scene_path = "uid://b8yyfd8jg4oyc"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"

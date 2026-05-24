@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlftncw85ogp1"
-path="res://.godot/imported/Varazslo_2.png-86f8f085b5d24d2032ff816120a7d962.ctex"
+uid="uid://dq00xkjg4jct7"
+path="res://.godot/imported/thief.png-8be132b5f059a5a53ccd63c176d6bfb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entities/player/Varazslo_2.png"
-dest_files=["res://.godot/imported/Varazslo_2.png-86f8f085b5d24d2032ff816120a7d962.ctex"]
+source_file="res://assets/sprites/player/thief.png"
+dest_files=["res://.godot/imported/thief.png-8be132b5f059a5a53ccd63c176d6bfb1.ctex"]
 
 [params]
 
