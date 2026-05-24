@@ -7,7 +7,7 @@ extends BaseEnemy
 ## Kiszeles ideje (mp) – a player látja, hogy jön a roham
 @export var windup_time: float = 0.7
 ## Kábulás ideje roham után
-@export var stun_duration: float = 0.8
+@export var stun_duration: float = 1.2
 
 var _is_charging: bool = false
 var _is_stunned:  bool = false

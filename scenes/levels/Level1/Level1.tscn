@@ -294,14 +294,54 @@ enemy_id = "enemy_charger"
 
 [node name="Traps" type="Node" parent="." unique_id=1397943161]
 
-[node name="SpikeTrap" parent="Traps" unique_id=1909333191 instance=ExtResource("2_mtxap")]
+[node name="SpikeTrap_w_lever" parent="Traps" unique_id=1909333191 instance=ExtResource("2_mtxap")]
 position = Vector2(776, -359)
 damage = 40
 
-[node name="SpikeTrap2" parent="Traps" unique_id=844874084 instance=ExtResource("2_mtxap")]
+[node name="SpikeTrap2_w_lever" parent="Traps" unique_id=844874084 instance=ExtResource("2_mtxap")]
 position = Vector2(775, -378)
 rotation = -3.1381233
 damage = 40
+
+[node name="SpikeTrap" parent="Traps" unique_id=1218752772 instance=ExtResource("2_mtxap")]
+position = Vector2(776, -40)
+damage = 300
+
+[node name="SpikeTrap2" parent="Traps" unique_id=1539134377 instance=ExtResource("2_mtxap")]
+position = Vector2(776, -152)
+damage = 300
+
+[node name="SpikeTrap3" parent="Traps" unique_id=955763651 instance=ExtResource("2_mtxap")]
+position = Vector2(681, -6)
+damage = 10
+
+[node name="SpikeTrap4" parent="Traps" unique_id=825870934 instance=ExtResource("2_mtxap")]
+position = Vector2(-40, 88)
+damage = 300
+
+[node name="SpikeTrap5" parent="Traps" unique_id=1771303837 instance=ExtResource("2_mtxap")]
+position = Vector2(566.945, 36.44)
+rotation = 3.1415927
+
+[node name="SpikeTrap6" parent="Traps" unique_id=988210818 instance=ExtResource("2_mtxap")]
+position = Vector2(374.68, 261.095)
+rotation = 3.1415927
+
+[node name="SpikeTrap7" parent="Traps" unique_id=1124033458 instance=ExtResource("2_mtxap")]
+position = Vector2(389.74, 258.065)
+rotation = 3.1415927
+
+[node name="SpikeTrap8" parent="Traps" unique_id=2011046777 instance=ExtResource("2_mtxap")]
+position = Vector2(404.86, 259.645)
+rotation = 3.1415927
+
+[node name="SpikeTrap9" parent="Traps" unique_id=2112882224 instance=ExtResource("2_mtxap")]
+position = Vector2(420.105, 261.095)
+rotation = 3.1415927
+
+[node name="SpikeTrap10" parent="Traps" unique_id=1467572646 instance=ExtResource("2_mtxap")]
+position = Vector2(435.205, 260.745)
+rotation = 3.1415927
 
 [node name="Interactables" type="Node" parent="." unique_id=312243899]
 
@@ -320,10 +360,14 @@ is_on = true
 [node name="Node2D" type="Node2D" parent="." unique_id=470416266]
 script = ExtResource("7_avroq")
 lever_paths = Array[NodePath]([NodePath("../Interactables/Lever"), NodePath("../Interactables/Lever2"), NodePath("../Interactables/Lever3")])
-trap_paths = Array[NodePath]([NodePath("../Traps/SpikeTrap"), NodePath("../Traps/SpikeTrap2")])
+trap_paths = Array[NodePath]([NodePath("../Traps/SpikeTrap_w_lever"), NodePath("../Traps/SpikeTrap2_w_lever")])
 target_pattern = Array[bool]([false, true, false])
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("8_ygbf3")]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
 
 [node name="Goal" parent="." unique_id=89516015 instance=ExtResource("9_63pat")]
 position = Vector2(755, -464)
