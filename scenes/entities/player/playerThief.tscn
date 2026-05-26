@@ -154,16 +154,18 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wf3kh"]
 radius = 5.0
-height = 14.0
+height = 16.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=832308272]
 script = ExtResource("1_xuk0c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1719260629]
-position = Vector2(9.52, -8.54)
+position = Vector2(11, -11)
+scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_pxuga")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.2579537
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
