@@ -232,7 +232,7 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 func _on_took_damage(amount: int) -> void:
 	## Default: csak logol – konkrét karakter (PlayerKnight) teheti hozzá a flash effektet.
 	_flash_sprite()
-	print("[BaseCharacter] Took damage: -%d | HP: %d / %d" % [amount, health, max_health])
+	print("[Enemy] Took damage: -%d | HP: %d / %d" % [amount, health, max_health])
 
 func _flash_sprite() -> void:
 	if _sprite == null:

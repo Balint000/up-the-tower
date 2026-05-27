@@ -163,10 +163,10 @@ script = ExtResource("1_xuk0c")
 position = Vector2(0, -10)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_pxuga")
-animation = &"attack"
+animation = &"walk"
 autoplay = "idle"
 frame = 2
-frame_progress = 0.27531895
+frame_progress = 0.4471313
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
