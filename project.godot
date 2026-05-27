@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="up-the-tower"
-run/main_scene="uid://cuysyqnl2kypp"
+run/main_scene="uid://v26ndoyioyqb"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

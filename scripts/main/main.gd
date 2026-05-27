@@ -6,28 +6,14 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
-
-func _on_play_btn_pressed() -> void:
+func _on_btn_play_pressed() -> void:
 	GameManager.go_to_levelmenu()
 
-func _on_invertory_btn_pressed() -> void:
+func _on_btn_inventory_pressed() -> void:
 	GameManager.go_to_inventorymenu()
 
-func _on_exit_btn_pressed() -> void:
+func _on_btn_quit_pressed() -> void:
 	GameManager.quit_game()
-
-func _on_demo_save_pressed() -> void:
-	GameManager.save_game()
-
-func _on_demo_load_pressed() -> void:
-	GameManager.load_game()
-	
-	$VBoxContainer/Label.text = " Level: %s \n XP: %s \n Inventory: %s \n Kills: %s" % [
-		GameManager.runtime_data[GameManager.KEY_LEVEL],
-		GameManager.runtime_data[GameManager.KEY_XP],
-		GameManager.runtime_data[GameManager.KEY_INVENTORY][0],
-		GameManager.runtime_data[GameManager.KEY_STATISTICS][GameManager.KEY_KILLS]
-	]

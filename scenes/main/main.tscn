@@ -1,8 +1,10 @@
-[gd_scene format=3 uid="uid://cuysyqnl2kypp"]
+[gd_scene format=3 uid="uid://v26ndoyioyqb"]
 
 [ext_resource type="Script" uid="uid://bdbjhrd7cda1l" path="res://scripts/main/main.gd" id="1_hyk8p"]
+[ext_resource type="Texture2D" uid="uid://cgmnrn6qefwlq" path="res://assets/textures/menus/background_basic.png" id="2_k2fmo"]
+[ext_resource type="FontFile" uid="uid://7uwmfv5hh80v" path="res://assets/fonts/GomePixel-ARJd7.otf" id="3_l3cfh"]
 
-[node name="Main" type="Control" unique_id=1400215831]
+[node name="MainMenu" type="Control" unique_id=1797444588]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +13,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hyk8p")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1750699430]
+[node name="Background" type="TextureRect" parent="." unique_id=55366533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_k2fmo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=940426872]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = 57.0
+offset_right = 1.0
+offset_bottom = 127.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=910467525]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l3cfh")
+theme_override_font_sizes/font_size = 70
+text = "Up The Tower"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1977880196]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,45 +50,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1166052576]
-custom_minimum_size = Vector2(300, 400)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="play_btn" type="Button" parent="VBoxContainer" unique_id=714191871]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=729519250]
 layout_mode = 2
-size_flags_vertical = 8
+theme_override_constants/separation = 16
+
+[node name="Btn_Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2144802658]
+custom_minimum_size = Vector2(240, 52)
+layout_mode = 2
+action_mode = 0
 text = "Play"
 
-[node name="invertory_btn" type="Button" parent="VBoxContainer" unique_id=1230821618]
+[node name="Btn_Inventory" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1817456627]
+custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
-size_flags_vertical = 0
-text = "Invertory"
+action_mode = 0
+text = "Inventory"
 
-[node name="exit_btn" type="Button" parent="VBoxContainer" unique_id=1964181973]
+[node name="Btn_Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1642236206]
+custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
-size_flags_vertical = 2
-text = "Exit"
+action_mode = 0
+text = "Settings"
 
-[node name="demo_save" type="Button" parent="VBoxContainer" unique_id=1198821246]
+[node name="Btn_Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1119076543]
+custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
-text = "Demo Save"
+action_mode = 0
+text = "Quit"
 
-[node name="demo_load" type="Button" parent="VBoxContainer" unique_id=1027811412]
-layout_mode = 2
-text = "Demo Load"
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=653824809]
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/play_btn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/invertory_btn" to="." method="_on_invertory_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/exit_btn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/demo_save" to="." method="_on_demo_save_pressed"]
-[connection signal="pressed" from="VBoxContainer/demo_load" to="." method="_on_demo_load_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Btn_Play" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Btn_Inventory" to="." method="_on_btn_inventory_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Btn_Quit" to="." method="_on_btn_quit_pressed"]

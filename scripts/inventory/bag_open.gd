@@ -200,6 +200,7 @@ func _generate_loot() -> void:
 	var max_attempts := count * 10
 
 	while _loot.size() < count and attempts < max_attempts:
+		attempts += 1
 		var item_id := _weighted_random_item()
 		if item_id == "":
 			break
@@ -209,10 +210,10 @@ func _generate_loot() -> void:
 		# Equippable: ha már van ilyen az inventoryban, kihagyjuk
 		if item and item.type == ItemResource.ItemType.EQUIPPABLE:
 			if item_id in already_owned:
+				_loot.append("apple") # elveszi a fegyvert de kap helyette almát :D XD
 				continue
 
 		# Consumable / key_item: mindig engedjük (többször is)
-		attempts += 1
 		_loot.append(item_id)
 
 ## Cím beállítása a bag item nevére

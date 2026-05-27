@@ -53,7 +53,7 @@ var runtime_data := {
 			"beer": 0,
 			"apple": 0,
 			"key": 0,
-			KEY_BAG: 40
+			KEY_BAG: 10
 		}
 	},
 	

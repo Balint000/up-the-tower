@@ -349,6 +349,11 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_folsp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yn6ie")
 text = "Bag Open"
 
+[node name="BagADD" type="Button" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots" unique_id=365341214]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Bag ADD x5"
+
 [node name="StatsSeparator" type="HSeparator" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox" unique_id=1590236886]
 layout_mode = 2
 

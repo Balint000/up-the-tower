@@ -13,6 +13,8 @@ extends Control
 
 @onready var char_select  = $MainMargin/MainHBox/CharacterSelectorStrip
 
+@onready var bag_add  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BagADD
+
 @onready var bag_btn = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/EquipmentSlots/BagBtn
 
 @onready var selected_character_name  = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/CharacterName
@@ -47,6 +49,7 @@ func _ready():
 	weapon_btn.pressed.connect(func(): _on_equipment_btn_pressed(GameManager.KEY_WEAPON))
 	boots_btn.pressed.connect(func(): _on_equipment_btn_pressed(GameManager.KEY_BOOTS))
 	
+	bag_add.pressed.connect(_bag_add)
 	back_btn.pressed.connect(_on_back_pressed)
 	bag_btn.pressed.connect(_on_bag_open)
 	
@@ -115,7 +118,7 @@ func _consume_bag(item_id: String) -> void:
 	cons[item_id] -= 1
 	
 	if cons[item_id] <= 0: 
-		cons.erase(item_id)
+		cons[item_id] = 0
 
 func _refresh_bag_btn() -> void:
 	var bag_item_id := _find_openable_bag()
@@ -149,6 +152,11 @@ func _get_bag_count() -> int:
 			total += cons[item_id]
 
 	return total
+	
+func _bag_add() -> void:
+	var add_bag = 5
+	GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"][GameManager.KEY_BAG] += add_bag 
+	_refresh_all()
 
 func _on_character_selected(id: String):
 	selected_char = id
