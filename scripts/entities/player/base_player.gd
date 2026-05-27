@@ -272,7 +272,7 @@ func _on_died() -> void:
 	print("[%s] Meghalt" % entity_name)
 
 	if _hitbox != null:
-		_hitbox.disabled = true
+		_hitbox.set_deferred("disabled",true)
 
 	if GameManager != null:
 		var stats: Dictionary = GameManager.runtime_data.get(GameManager.KEY_STATISTICS, {})
