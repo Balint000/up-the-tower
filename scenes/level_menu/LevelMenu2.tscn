@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://lqfattsan8j7"]
 
+[ext_resource type="Texture2D" uid="uid://cgmnrn6qefwlq" path="res://assets/textures/menus/background_basic.png" id="1_80akc"]
+[ext_resource type="Texture2D" uid="uid://c2uo5y3vynpcq" path="res://assets/textures/menus/lvl1_icon.png" id="2_3q6hh"]
+[ext_resource type="Texture2D" uid="uid://dqs40vtn8eh2d" path="res://assets/textures/menus/lvl2_icon.png" id="3_u0x6p"]
+[ext_resource type="Texture2D" uid="uid://xyx50i8w8s8x" path="res://assets/textures/menus/lvl3_icon.png" id="4_al64v"]
+
 [node name="LevelSelect" type="Control" unique_id=311286508]
 layout_mode = 3
 anchors_preset = 15
@@ -27,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("1_80akc")
 expand_mode = 3
 stretch_mode = 6
 
@@ -102,6 +108,7 @@ layout_mode = 2
 [node name="CardBG_01" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_01" unique_id=465619977]
 layout_mode = 2
 mouse_filter = 2
+texture = ExtResource("2_3q6hh")
 expand_mode = 1
 stretch_mode = 4
 
@@ -141,6 +148,7 @@ layout_mode = 2
 [node name="CardBG_02" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_02" unique_id=1320408000]
 layout_mode = 2
 mouse_filter = 2
+texture = ExtResource("3_u0x6p")
 expand_mode = 1
 stretch_mode = 4
 
@@ -180,6 +188,7 @@ layout_mode = 2
 [node name="CardBG_03" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_03" unique_id=1719203999]
 layout_mode = 2
 mouse_filter = 2
+texture = ExtResource("4_al64v")
 expand_mode = 1
 stretch_mode = 4
 

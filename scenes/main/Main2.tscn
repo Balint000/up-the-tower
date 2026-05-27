@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://v26ndoyioyqb"]
 
 [ext_resource type="FontFile" uid="uid://7uwmfv5hh80v" path="res://assets/fonts/GomePixel-ARJd7.otf" id="1_aj3wu"]
+[ext_resource type="Texture2D" uid="uid://cgmnrn6qefwlq" path="res://assets/textures/menus/background_basic.png" id="1_fcp2m"]
 
 [node name="MainMenu" type="Control" unique_id=1797444588]
 layout_mode = 3
@@ -18,6 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("1_fcp2m")
 expand_mode = 1
 stretch_mode = 4
 
