@@ -6,7 +6,7 @@ extends Node
 
 var current_level_index: int = -1
 ## FIX: volt [0,1] → has_save_data() rögtön true-t adott vissza, teszt bukott
-var _unlocked_levels: Array[int] = [0]
+var _unlocked_levels: Array[int] = [0,1]
 
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null

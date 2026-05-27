@@ -1,7 +1,7 @@
 extends BaseEnemy
 
 ## Roham sebessége
-@export var charge_speed: float = 300.0
+@export var charge_speed: float = 450.0
 ## Roham időtartama (mp)
 @export var charge_duration: float = 0.45
 ## Kiszeles ideje (mp) – a player látja, hogy jön a roham
@@ -18,7 +18,8 @@ var _stun_timer:   float = 0.0
 
 func _ready() -> void:
 	super._ready()
-	attack_range    = 60.0
+	attack_range    = 40.0
+	aggro_range = 170.0
 	attack_cooldown = charge_duration + windup_time + stun_duration + 0.3
 
 func _physics_process(delta: float) -> void:
@@ -35,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	# Kábulat kezelése
 	if _is_stunned:
 		_stun_timer -= delta
-		velocity.x = move_toward(velocity.x, 0.0, 400.0)
+		velocity.x = move_toward(velocity.x, 0.0, 300.0)
 		if _stun_timer <= 0.0:
 			_is_stunned = false
 			_set_state(State.AGGRO)
@@ -71,7 +72,7 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			if _windup_timer > 0.0:
 				_windup_timer -= delta
-				velocity.x = move_toward(velocity.x, 0.0, 300.0)
+				velocity.x = move_toward(velocity.x, 0.0, 350.0)
 			elif not _is_charging:
 				_begin_charge()
 		State.HURT:     pass

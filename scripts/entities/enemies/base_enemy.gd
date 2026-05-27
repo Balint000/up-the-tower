@@ -34,7 +34,7 @@ var character_res: CharacterResource = null
 @export var lose_aggro_range: float   = 220.0
 ## @var attack_range
 ## @brief Distance at which the enemy starts a melee attack (pixels).
-@export var attack_range: float       = 35.0
+@export var attack_range: float       = 30.0
 ## @var attack_cooldown
 ## @brief Minimum time between two attacks (seconds).
 @export var attack_cooldown: float    = 1.4
