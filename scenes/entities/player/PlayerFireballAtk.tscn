@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bhibfnppdxa8c"]
+
+[ext_resource type="Script" uid="uid://u44lumak567n" path="res://scripts/entities/player/player_fireball_atk.gd" id="1_ihwdi"]
+[ext_resource type="Texture2D" uid="uid://bdisspuhkyvyu" path="res://assets/projectiles/fireballAbility.png" id="1_n1qjp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1qjp"]
+radius = 7.071068
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfvgd"]
+atlas = ExtResource("1_n1qjp")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ugb0"]
+atlas = ExtResource("1_n1qjp")
+region = Rect2(48, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwinr"]
+atlas = ExtResource("1_n1qjp")
+region = Rect2(96, 0, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nmweo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfvgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ugb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwinr")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 12.0
+}]
+
+[node name="PlayerFireball" type="Area2D" unique_id=1545266567]
+script = ExtResource("1_ihwdi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157786489]
+shape = SubResource("CircleShape2D_n1qjp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1729590394]
+sprite_frames = SubResource("SpriteFrames_nmweo")
+animation = &"attack"
+frame_progress = 0.59781337

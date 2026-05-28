@@ -14,5 +14,6 @@ base_dmg = 30
 base_spd = 140.0
 ability_type = "fireball"
 ability_cooldown = 5.0
+ability_power = 2.0
 scene_path = "uid://bba3i1jo34plg"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"

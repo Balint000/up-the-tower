@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bale1c3qebs4e" path="res://scripts/levels/level1_lever_puzzle_controller.gd" id="7_avroq"]
 [ext_resource type="PackedScene" uid="uid://dt7nf2crai7jg" path="res://scenes/levels/hud/Hud.tscn" id="8_ygbf3"]
 [ext_resource type="PackedScene" uid="uid://ccaorauqs2lo0" path="res://scenes/entities/environment/goal.tscn" id="9_63pat"]
+[ext_resource type="AudioStream" uid="uid://de2lpetlak0r5" path="res://assets/musics/upTheTower_02.mp3" id="10_qwrgn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_607xp"]
 texture = ExtResource("1_7w3lq")
@@ -371,3 +372,9 @@ offset_bottom = 1.0
 
 [node name="Goal" parent="." unique_id=89516015 instance=ExtResource("9_63pat")]
 position = Vector2(755, -464)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=553368785]
+stream = ExtResource("10_qwrgn")
+volume_db = -20.049
+autoplay = true
+parameters/looping = true

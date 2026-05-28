@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://simx3loifl33" path="res://scripts/entities/player/player_mage.gd" id="1_2w6gr"]
 [ext_resource type="Texture2D" uid="uid://bkn52ss4nrd0l" path="res://assets/sprites/player/mage.png" id="2_2w6gr"]
+[ext_resource type="PackedScene" uid="uid://cp77w54agqex0" path="res://scenes/entities/player/PlayerFireballAbl.tscn" id="2_n4q3n"]
+[ext_resource type="PackedScene" uid="uid://bhibfnppdxa8c" path="res://scenes/entities/player/PlayerFireballAtk.tscn" id="3_qc4bl"]
 [ext_resource type="Texture2D" uid="uid://do7g337dfmbkq" path="res://assets/placeholder assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="3_xpay5"]
 [ext_resource type="Script" uid="uid://bxmsu07jj6ajk" path="res://scripts/entities/player/ability_component.gd" id="7_nccva"]
 
@@ -158,6 +160,8 @@ height = 14.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=832308272]
 script = ExtResource("1_2w6gr")
+big_fireball_scene = ExtResource("2_n4q3n")
+projectile_scene = ExtResource("3_qc4bl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1719260629]
 position = Vector2(0, -1)
