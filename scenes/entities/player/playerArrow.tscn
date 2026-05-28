@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bonig5cjakwx0"]
+
+[ext_resource type="Texture2D" uid="uid://dj3b8mvybydia" path="res://assets/projectiles/Arrow01(32x32).png" id="1_44200"]
+[ext_resource type="Script" uid="uid://ty58qj3rbpws" path="res://scripts/entities/player/player_arrow.gd" id="1_w4vl8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w4vl8"]
+radius = 3.0
+height = 20.0
+
+[node name="PlayerArrow" type="Area2D" unique_id=640467001]
+script = ExtResource("1_w4vl8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=244263946]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_w4vl8")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1870098659]
+texture = ExtResource("1_44200")
