@@ -1,42 +1,41 @@
-## @class EnemyArrow
-## @brief Repülő nyíl projektil, amelyet az ArcherEnemy lő ki.
+## Projectile fired by [ArcherEnemy].
 ##
-## Area2D alapú lövedék; setup() hívással inicializálható.
-## Ütközéskor sebzi a player faction entitásokat, falnak ütközve
-## eltűnik. 4 másodperc után automatikusan megsemmisül.
+## [Area2D]-based flying arrow. Initialise with [method setup] before adding
+## to the scene. On collision it deals damage to [BasePlayer] entities and
+## disappears on contact with any [TileMapLayer] or [StaticBody2D].
+## Auto-destroys after 4 seconds if nothing is hit.
 class_name EnemyArrow
 extends Area2D
 
-## @var _velocity
-## @brief Aktuális sebességvektor (px/s), setup()-ban kerül beállításra.
+## Current velocity vector (pixels per second). Set by [method setup].
 var _velocity: Vector2 = Vector2.ZERO
 
-## @var _damage
-## @brief A nyíl által okozott sebzés mértéke.
+## Damage to deal on a successful hit with the player.
 var _damage: int = 10
 
-## @export use_gravity
-## @brief Ha igaz, a nyílra gyengített gravitáció hat (ívelt röppályát ad).
+## When [code]true[/code], a weak downward gravity is applied every frame,
+## giving the arrow a curved arc trajectory.
 @export var use_gravity: bool = false
 
-## @export gravity_scale
-## @brief Gravitációs szorzó (csak use_gravity = true esetén aktív).
+## Gravity scale applied when [member use_gravity] is [code]true[/code] (px/s²).
 @export var gravity_scale: float = 60.0
 
 
-## @brief Inicializálja a nyilat pozícióval, iránnyal, sebzéssel és sebességgel.
-## @param from Kiindulási globális pozíció (Vector2).
-## @param direction Normalizált irányvektor (Vector2).
-## @param dmg Okozandó sebzés (int).
-## @param speed Repülési sebesség px/s-ban (float, alapértelmezett 220.0).
+## Initialises position, velocity, damage, and rotation.
+## Must be called before [method Node._ready] adds the arrow to the scene,
+## or immediately after [method PackedScene.instantiate].
+## [param from] World-space spawn position.
+## [param direction] Normalised direction vector the arrow should travel.
+## [param dmg] Damage to apply on player hit.
+## [param speed] Travel speed in pixels per second (default 220).
 func setup(from: Vector2, direction: Vector2, dmg: int, speed: float = 220.0) -> void:
 	global_position = from
-	_velocity       = direction * speed
-	_damage         = dmg
-	rotation        = direction.angle()
+	_velocity = direction * speed
+	_damage = dmg
+	rotation = direction.angle()
 
 
-## @brief Csatlakoztatja az ütközés-jelzőket és beállít egy auto-destroy timert.
+## Connects collision signals and schedules an auto-destroy timer (4 seconds).
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)
@@ -45,8 +44,10 @@ func _ready() -> void:
 		queue_free()
 
 
-## @brief Frissíti a nyíl pozícióját és opcionálisan alkalmaz gravitációt.
-## @param delta Frame idő másodpercekben.
+## Moves the arrow every physics frame. If [member use_gravity] is enabled,
+## applies [member gravity_scale] to the vertical component and updates the
+## rotation to match the new flight angle.
+## [param delta] Frame time in seconds.
 func _physics_process(delta: float) -> void:
 	if use_gravity:
 		_velocity.y += gravity_scale * delta
@@ -54,8 +55,10 @@ func _physics_process(delta: float) -> void:
 	position += _velocity * delta
 
 
-## @brief Ütközés kezelése fizikai testekkel (player, falak, padló).
-## @param body Az ütköző Node.
+## Handles collisions with physics bodies.
+## Deals [member _damage] to a [BasePlayer] and then frees the arrow.
+## Also frees the arrow on contact with [TileMapLayer] or [StaticBody2D] (walls/floors).
+## [param body] The colliding [Node].
 func _on_body_entered(body: Node) -> void:
 	if body is BasePlayer:
 		body.take_damage(_damage, _velocity.normalized() * 100.0)
@@ -64,7 +67,8 @@ func _on_body_entered(body: Node) -> void:
 		queue_free()
 
 
-## @brief Ütközés kezelése más Area2D-kkel (pl. shield – kibővíthető).
-## @param _area Az ütköző Area2D.
+## Handles collisions with other [Area2D] nodes (e.g. a player shield).
+## Extend this method to implement shield or parry interactions.
+## [param _area] The colliding [Area2D].
 func _on_area_entered(_area: Area2D) -> void:
 	pass

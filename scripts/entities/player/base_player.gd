@@ -1,39 +1,75 @@
+## Base class for all playable characters.
+##
+## Inherits from [Entity] and implements a player-specific finite state machine
+## (IDLE, RUN, JUMP, FALL, ATTACK, HURT, DEAD), keyboard movement, coyote time,
+## dashing, melee attack, ability activation, interaction, and item use.
+##
+## Concrete character classes ([PlayerKnight], [PlayerArcher], [PlayerMage])
+## extend this and override animation names and attack behaviour as needed.
+## Stats are loaded from [CharacterResource] via [DataDb] on [method _ready].
 class_name BasePlayer
 extends Entity
 
+## Emitted when the player takes damage, carrying the final (post-block) amount.
 signal character_take_damage(amount)
-signal player_died()   ## FIX: entity param eltávolítva – emit paraméter nélkül hívódott
+## Emitted once when the player's health reaches zero. Listened to by the HUD and [LevelManager].
+signal player_died()
 
+## Possible animation and logic states for the player state machine.
 enum State { IDLE, RUN, JUMP, FALL, ATTACK, HURT, DEAD }
 
-var _state: State       = State.IDLE
+## Current active state.
+var _state: State = State.IDLE
+## True when the player sprite is flipped to face right.
 var _facing_right: bool = true
 
-var jump_force: float   = 300.0
-var _coyote_left: float  = 0.0
-var _was_on_floor: bool  = false
+## Upward impulse applied when the player jumps (pixels per second).
+var jump_force: float = 300.0
+## Remaining coyote-time window (seconds). Filled when the player walks off a ledge.
+var _coyote_left: float = 0.0
+## Whether the player was on the floor in the previous physics frame.
+var _was_on_floor: bool = false
+## Duration of the coyote-time grace window (seconds).
 @export var coyote_time: float = 0.12
 
-var _is_dashing: bool   = false
-var _dash_timer: float  = 0.0
+## True while a dash is active; blocks normal horizontal input.
+var _is_dashing: bool = false
+## Remaining dash time (seconds). Decremented in [method _handle_movement].
+var _dash_timer: float = 0.0
+## Total duration of a single dash (seconds).
 @export var dash_duration: float = 0.15
 
-var melee_range: float    = 50.0
+## Maximum distance from the player's origin at which melee hits register (pixels).
+var melee_range: float = 50.0
+## Minimum time between two consecutive melee attacks (seconds).
 var attack_cooldown: float = 0.6
+## Remaining melee cooldown (seconds). Decremented in [method _physics_process].
 var _attack_cd_timer: float = 0.0
 
+## True while the block ability is active; reduces incoming damage in [method take_damage].
 var is_blocking: bool = false
 
-@export var hurt_flash_count: int   = 4
+## Number of blinks during the hurt-flash visual effect.
+@export var hurt_flash_count: int = 4
+## Duration of each blink in the hurt-flash effect (seconds).
 @export var hurt_flash_speed: float = 0.07
 
+## [PackedScene] for the character's primary ranged projectile.
+## Must be assigned in the editor; used by [method spawn_projectile].
 @export var projectile_scene: PackedScene = null
 
+## Character configuration resource loaded from [DataDb] at runtime.
 var character_res: CharacterResource = null
+
+## Reference to the optional [AbilityComponent] child node.
 @onready var _ability: AbilityComponent = $AbilityComponent if has_node("AbilityComponent") else null
+## Animated sprite node for playing character animations.
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D if has_node("AnimatedSprite2D") else null
+## Primary collision shape. Disabled when the player dies.
 @onready var _hitbox: CollisionShape2D = $CollisionShape2D if has_node("CollisionShape2D") else null
 
+## Sets the faction to [code]"player"[/code], registers the node in the
+## [code]"player"[/code] group, and loads the character resource from [DataDb].
 func _ready() -> void:
 	super._ready()
 	if faction == "neutral":
@@ -41,19 +77,25 @@ func _ready() -> void:
 	register_groups_from_faction()
 	_load_character_resource()
 
+## Reads [constant GameManager.KEY_SELECTED_CHARACTER] from runtime data and
+## fetches the matching [CharacterResource] via [DataDb.get_character].
+## Reports a push_error if either autoload is unavailable or the resource is missing.
 func _load_character_resource() -> void:
 	if GameManager == null or DataDb == null:
-		push_error("BasePlayer: GameManager vagy DataDb nem elérhető!")
+		push_error("BasePlayer: GameManager or DataDb is not available!")
 		return
 	var selected_id: String = GameManager.runtime_data.get(
 		GameManager.KEY_SELECTED_CHARACTER, "knight"
 	)
 	var res: CharacterResource = DataDb.get_character(selected_id)
 	if res == null:
-		push_error("BasePlayer: CharacterResource nem található: " + selected_id)
+		push_error("BasePlayer: CharacterResource not found: " + selected_id)
 		return
 	set_character_resource(res)
 
+## Physics update: ticks the ability cooldown, advances coyote time, runs
+## movement and state logic, and refreshes the animation every frame.
+## [param delta] Frame time in seconds.
 func _physics_process(delta: float) -> void:
 	if not is_alive:
 		_state = State.DEAD
@@ -72,11 +114,15 @@ func _physics_process(delta: float) -> void:
 
 	_was_on_floor = is_on_floor()
 
+## Forwards unhandled input events to [method _handle_action_input] while alive.
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_alive:
 		return
 	_handle_action_input(event)
 
+## Applies stats from [param res] to this player, sets up the ability component,
+## syncs with [GameManager] runtime data, and emits [signal Entity.stats_changed].
+## [param res] The [CharacterResource] to configure the player from.
 func set_character_resource(res: CharacterResource) -> void:
 	character_res = res
 	if character_res == null:
@@ -84,9 +130,9 @@ func set_character_resource(res: CharacterResource) -> void:
 		return
 
 	entity_name = character_res.character_id
-	faction     = "player"
-	move_speed  = character_res.base_spd
-	jump_force  = -character_res.jump_velocity
+	faction = "player"
+	move_speed = character_res.base_spd
+	jump_force = -character_res.jump_velocity
 	melee_range = 50.0
 
 	if _ability != null:
@@ -99,6 +145,10 @@ func set_character_resource(res: CharacterResource) -> void:
 
 	emit_signal("stats_changed", self)
 
+## Reads horizontal input, applies gravity while airborne, handles jumping
+## (with coyote-time support), and calls [method CharacterBody2D.move_and_slide].
+## Skips all input and just slides during an active dash.
+## [param delta] Frame time in seconds.
 func _handle_movement(delta: float) -> void:
 	if _is_dashing:
 		_dash_timer -= delta
@@ -123,6 +173,10 @@ func _handle_movement(delta: float) -> void:
 
 	move_and_slide()
 
+## Manages the coyote-time window.
+## Starts the countdown when the player leaves the floor while moving downward,
+## and resets it on landing.
+## [param delta] Frame time in seconds.
 func _tick_coyote(delta: float) -> void:
 	if _was_on_floor and not is_on_floor() and velocity.y >= 0.0:
 		_coyote_left = coyote_time
@@ -131,6 +185,9 @@ func _tick_coyote(delta: float) -> void:
 	else:
 		_coyote_left = max(0.0, _coyote_left - delta)
 
+## Derives the logical state from current physics values.
+## ATTACK, HURT, and DEAD states are sticky — they are only left by the
+## code that entered them (timers or death), not by this method.
 func _update_state() -> void:
 	if not is_alive:
 		_state = State.DEAD
@@ -142,23 +199,30 @@ func _update_state() -> void:
 		return
 	_state = State.RUN if abs(velocity.x) > 0.1 else State.IDLE
 
+## Returns the animation clip name for the current state.
+## Subclasses override this to remap state names to character-specific clip names.
 func _get_animation_name() -> StringName:
 	match _state:
-		State.IDLE:   return &"idle"
-		State.RUN:    return &"run"
-		State.JUMP:   return &"jump"
-		State.FALL:   return &"fall"
+		State.IDLE: return &"idle"
+		State.RUN: return &"run"
+		State.JUMP: return &"jump"
+		State.FALL: return &"fall"
 		State.ATTACK: return &"attack"
-		State.HURT:   return &"hurt"
-		State.DEAD:   return &"death"
+		State.HURT: return &"hurt"
+		State.DEAD: return &"death"
 	return &"idle"
 
+## Plays the animation returned by [method _get_animation_name] and flips
+## the sprite horizontally when the player faces left.
 func _update_animation() -> void:
 	if _sprite == null:
 		return
 	_sprite.play(_get_animation_name())
 	_sprite.flip_h = not _facing_right
 
+## Dispatches action input events to the appropriate handler methods.
+## Called from [method _unhandled_input] while the player is alive.
+## [param event] The [InputEvent] to process.
 func _handle_action_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		_do_melee_attack()
@@ -169,6 +233,10 @@ func _handle_action_input(event: InputEvent) -> void:
 	if event.is_action_pressed("use_item"):
 		_use_selected_item()
 
+## Performs a melee attack: scans the [code]"enemies"[/code] group for nodes
+## within [member melee_range] and calls [method Entity.take_damage] on each hit.
+## A small forward nudge is applied to velocity when at least one enemy is hit.
+## Blocked by an active cooldown; sets the state to ATTACK for 0.5 seconds.
 func _do_melee_attack() -> void:
 	if not is_alive or _attack_cd_timer > 0.0:
 		return
@@ -187,19 +255,25 @@ func _do_melee_attack() -> void:
 	_attack_cd_timer = attack_cooldown
 
 	if hit_count > 0:
+		# Slight lunge in the attack direction for tactile feedback.
 		velocity.x += (1.0 if _facing_right else -1.0) * 40.0
 
 	await get_tree().create_timer(0.5).timeout
 	if _state == State.ATTACK:
 		_state = State.IDLE
 
+## Delegates to [method AbilityComponent.activate] if the component is present.
 func _do_ability() -> void:
 	if _ability != null:
 		_ability.activate()
 
+## Instantiates [member projectile_scene], calls its [code]setup()[/code] method
+## with position, facing direction, damage, and target group, then adds it to
+## the root scene. Logs a warning if [member projectile_scene] is not assigned.
+## [param power] Damage value forwarded to the projectile's setup method.
 func spawn_projectile(power: float) -> void:
 	if projectile_scene == null:
-		push_warning("BasePlayer: projectile_scene nincs beállítva (%s)" % entity_name)
+		push_warning("BasePlayer: projectile_scene is not set (%s)" % entity_name)
 		return
 	var proj: Node = projectile_scene.instantiate()
 	if proj.has_method("setup"):
@@ -211,6 +285,8 @@ func spawn_projectile(power: float) -> void:
 		)
 	get_tree().get_current_scene().add_child(proj)
 
+## Finds the nearest node in the [code]"interactable"[/code] group within
+## 48 pixels and calls its [code]interact(self)[/code] method if available.
 func _request_interaction() -> void:
 	var best_dist := 48.0
 	var nearest: Node2D = null
@@ -224,14 +300,23 @@ func _request_interaction() -> void:
 	if nearest and nearest.has_method("interact"):
 		nearest.interact(self)
 
+## Uses the currently selected inventory item. Override in subclasses
+## (e.g. [PlayerKnight]) that have an [code]Inventory[/code] child node.
 func _use_selected_item() -> void:
 	pass
 
+## Receives damage, optionally reduced by an active block, then applies
+## knockback, sets HURT state, and triggers the flash visual effect.
+## Delegates health reduction to [method Entity.take_damage].
+## Calls [method die] path is handled by the parent Entity signal chain.
+## [param amount] Raw incoming damage.
+## [param knockback] Optional knockback impulse vector.
 func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	if not is_alive:
 		return
 
 	var final_amount := amount
+	# If blocking, scale damage down by the block ratio stored in ability_power.
 	if is_blocking and _ability != null:
 		final_amount = int(amount * (1.0 - clampf(_ability.ability_power, 0.0, 1.0)))
 
@@ -248,10 +333,13 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 	else:
 		_state = State.DEAD
 
+## Logs damage to the console and triggers the hurt-flash sprite effect.
+## [param amount] The final damage amount that was applied.
 func _on_took_damage(amount: int) -> void:
-	print("[%s] Sebzés: -%d | HP: %d / %d" % [entity_name, amount, health, max_health])
+	print("[%s] Damage taken: -%d | HP: %d / %d" % [entity_name, amount, health, max_health])
 	_flash_sprite()
 
+## Blinks the sprite [member hurt_flash_count] times to confirm a hit visually.
 func _flash_sprite() -> void:
 	if _sprite == null:
 		return
@@ -261,18 +349,23 @@ func _flash_sprite() -> void:
 		_sprite.visible = true
 		await get_tree().create_timer(hurt_flash_speed).timeout
 
+## Marks the player as dead, emits [signal player_died], and calls [method _on_died].
+## Overrides [method Entity.die] to emit the player-specific signal used by the HUD.
 func die() -> void:
 	if not is_alive:
 		return
 	is_alive = false
-	emit_signal("player_died")   ## FIX: volt emit_signal("player_died", self) → param nélkül
+	emit_signal("player_died")
 	_on_died()
 
+## Handles the death sequence: disables the hitbox, increments the death counter
+## in [GameManager.runtime_data], saves the game, and notifies [LevelManager]
+## to trigger the game-over flow. Queues the node for deletion afterward.
 func _on_died() -> void:
-	print("[%s] Meghalt" % entity_name)
+	print("[%s] Died" % entity_name)
 
 	if _hitbox != null:
-		_hitbox.set_deferred("disabled",true)
+		_hitbox.set_deferred("disabled", true)
 
 	if GameManager != null:
 		var stats: Dictionary = GameManager.runtime_data.get(GameManager.KEY_STATISTICS, {})
@@ -281,7 +374,6 @@ func _on_died() -> void:
 		GameManager.save_game()
 
 	await get_tree().create_timer(0.7).timeout
-	## FIX: queue_free() előtt valid check, utána LevelManager hívás
 	if is_instance_valid(self) and LevelManager != null:
 		LevelManager.on_player_death()
 	queue_free()

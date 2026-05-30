@@ -1,13 +1,12 @@
-## @class KnightEnemy
-## @brief Concrete variant of BaseEnemy for the knight enemy.
+## Concrete [BaseEnemy] variant representing the knight enemy type.
 ##
-## This script does NOT load any resources on its own. All CharacterResource
-## handling is done by DataDb + EnemySpawner. KnightEnemy only customizes
-## behaviour/animations if needed.
+## All [CharacterResource] handling (stats, scene path) is performed by
+## [DataDb] and [EnemySpawner]. This script only exists as an anchor for
+## future knight-specific behaviour or animation overrides.
 extends BaseEnemy
 
-## @brief Called when the knight enemy enters the scene tree.
-## Currently just forwards to BaseEnemy._ready().
+## Forwards to [method BaseEnemy._ready].
+## Add any knight-specific initialisation here as the game grows.
 func _ready() -> void:
 	super._ready()
-	# Optional: additional per-knight setup can go here later
+	# Optional: additional knight-specific setup can go here.

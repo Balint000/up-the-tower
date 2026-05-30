@@ -6,13 +6,13 @@ extends BasePlayer
 
 func _get_animation_name() -> StringName:
 	match _state:
-		State.IDLE:   return &"idle"
-		State.RUN:    return &"walk"
-		State.JUMP:   return &"idle"
-		State.FALL:   return &"idle"
+		State.IDLE: return &"idle"
+		State.RUN: return &"walk"
+		State.JUMP: return &"idle"
+		State.FALL: return &"idle"
 		State.ATTACK: return &"attack"
-		State.HURT:   return &"hurt"
-		State.DEAD:   return &"death"
+		State.HURT: return &"hurt"
+		State.DEAD: return &"death"
 	return &"idle"
 
 func _use_selected_item() -> void:
@@ -20,8 +20,8 @@ func _use_selected_item() -> void:
 		_inventory.use_selected(self)
 		emit_signal("stats_changed", self)
 
-## @brief Felülírja a melee támadást: nyilat lő ki a néző irányába.
-## Ha projectile_scene nincs beállítva, push_warning-ot dob.
+## Overrides melee attack: shoot an arrow where player sees.
+## If projectile_scene not found -> push_warning
 func _do_melee_attack() -> void:
 	if not is_alive or _attack_cd_timer > 0.0:
 		return

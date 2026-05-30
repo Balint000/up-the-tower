@@ -13,5 +13,6 @@ base_hp = 60
 base_dmg = 25
 base_spd = 200.0
 ability_type = "dash"
+ability_power = 450.0
 scene_path = "uid://b8yyfd8jg4oyc"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"

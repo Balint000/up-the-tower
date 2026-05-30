@@ -3,19 +3,18 @@ extends BasePlayer
 @onready var _camera:    Camera2D = $Camera2D  if has_node("Camera2D")  else null
 @onready var _inventory: Node     = $Inventory if has_node("Inventory") else null
 
-## @export big_fireball_scene
-## @brief A nagy tűzgolyó PackedScene-je. Editorban kötelező beállítani!
+## Fireball ability scene (setup in editor)
 @export var big_fireball_scene: PackedScene = null
 
 func _get_animation_name() -> StringName:
 	match _state:
-		State.IDLE:   return &"idle"
-		State.RUN:    return &"walk"
-		State.JUMP:   return &"idle"
-		State.FALL:   return &"idle"
+		State.IDLE: return &"idle"
+		State.RUN: return &"walk"
+		State.JUMP: return &"idle"
+		State.FALL: return &"idle"
 		State.ATTACK: return &"attack"
-		State.HURT:   return &"hurt"
-		State.DEAD:   return &"death"
+		State.HURT: return &"hurt"
+		State.DEAD: return &"death"
 	return &"idle"
 
 func _use_selected_item() -> void:
@@ -24,7 +23,7 @@ func _use_selected_item() -> void:
 		emit_signal("stats_changed", self)
 
 
-## @brief Normál támadás: mini tűzgolyó kilövése a néző irányába.
+## Fireball attack
 func _do_melee_attack() -> void:
 	if not is_alive or _attack_cd_timer > 0.0:
 		return
@@ -43,9 +42,8 @@ func _do_melee_attack() -> void:
 		_state = State.IDLE
 
 
-## @brief Képesség: nagy tűzgolyó kilövése emelt sebzéssel.
-## A big_fireball_scene-t az editorban kell bekötni.
-## ability_power szorzóként hat a damage-re.
+## Fireball projectile ability
+## Spawns the fireball scene
 func _do_ability() -> void:
 	if _ability == null or not _ability.is_ready():
 		return
