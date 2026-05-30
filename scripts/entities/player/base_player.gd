@@ -19,7 +19,7 @@ var _dash_timer: float  = 0.0
 @export var dash_duration: float = 0.15
 
 var melee_range: float    = 50.0
-var attack_cooldown: float = 0.4
+var attack_cooldown: float = 0.6
 var _attack_cd_timer: float = 0.0
 
 var is_blocking: bool = false
@@ -272,7 +272,7 @@ func _on_died() -> void:
 	print("[%s] Meghalt" % entity_name)
 
 	if _hitbox != null:
-		_hitbox.disabled = true
+		_hitbox.set_deferred("disabled",true)
 
 	if GameManager != null:
 		var stats: Dictionary = GameManager.runtime_data.get(GameManager.KEY_STATISTICS, {})

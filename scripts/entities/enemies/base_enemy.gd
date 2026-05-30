@@ -34,7 +34,7 @@ var character_res: CharacterResource = null
 @export var lose_aggro_range: float   = 220.0
 ## @var attack_range
 ## @brief Distance at which the enemy starts a melee attack (pixels).
-@export var attack_range: float       = 35.0
+@export var attack_range: float       = 30.0
 ## @var attack_cooldown
 ## @brief Minimum time between two attacks (seconds).
 @export var attack_cooldown: float    = 1.4
@@ -232,7 +232,7 @@ func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
 func _on_took_damage(amount: int) -> void:
 	## Default: csak logol – konkrét karakter (PlayerKnight) teheti hozzá a flash effektet.
 	_flash_sprite()
-	print("[BaseCharacter] Took damage: -%d | HP: %d / %d" % [amount, health, max_health])
+	print("[Enemy] Took damage: -%d | HP: %d / %d" % [amount, health, max_health])
 
 func _flash_sprite() -> void:
 	if _sprite == null:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkn52ss4nrd0l"
-path="res://.godot/imported/mage.png-6a16e660052961eaace132a37188a4c1.ctex"
+uid="uid://dj3b8mvybydia"
+path="res://.godot/imported/Arrow01(32x32).png-4207d82bb63aa46768ff3ac51f037888.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/mage.png"
-dest_files=["res://.godot/imported/mage.png-6a16e660052961eaace132a37188a4c1.ctex"]
+source_file="res://assets/projectiles/Arrow01(32x32).png"
+dest_files=["res://.godot/imported/Arrow01(32x32).png-4207d82bb63aa46768ff3ac51f037888.ctex"]
 
 [params]
 

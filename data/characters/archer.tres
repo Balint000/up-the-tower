@@ -6,5 +6,7 @@
 script = ExtResource("1_7dqt3")
 character_id = "archer"
 character_name = "archer"
-ability_type = "dash"
+base_spd = 150.0
+ability_type = "double_jump"
+scene_path = "uid://beqg4ysu4g1c0"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"
