@@ -1,12 +1,12 @@
 extends Node
 
-@export var levels: Array = ["res://scenes/levels/Level0/Level0.tscn", "res://scenes/levels/Level1/Level1.tscn"]
+@export var levels: Array = ["res://scenes/levels/Level0/Level0.tscn", "res://scenes/levels/Level1/Level1.tscn", "res://scenes/levels/Level3/Level3.tscn"]
 @export var main_menu_scene: PackedScene = null
 @export var fade_duration: float = 0.4
 
 var current_level_index: int = -1
-## FIX: volt [0,1] → has_save_data() rögtön true-t adott vissza, teszt bukott
-var _unlocked_levels: Array[int] = [0,1]
+
+var _unlocked_levels: Array[int] = [0,1,2]
 
 var _fade_overlay: ColorRect = null
 var _fade_canvas: CanvasLayer = null
