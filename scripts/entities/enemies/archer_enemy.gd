@@ -1,47 +1,47 @@
-## @class ArcherEnemy
-## @brief Íjász ellenség, aki lövedékekkel (EnemyArrow) támad a játékosra.
+## Ranged enemy that attacks the player by firing [EnemyArrow] projectiles.
 ##
-## Preferált távolságot tart a playertől: ha a player közelít, hátrál;
-## ha túl messze van, közeledik. A megfelelő távolságon megáll és nyilat lő.
-## Az arrow_scene exportot az editorban kell beállítani; enélkül a karakter
-## nem támad (push_warning jelzi a hiányt, nincs beégetett fallback).
+## Maintains a preferred standoff distance from the player: backs away when
+## the player closes in and advances when too far. Once at the right distance
+## it stops and fires arrows on a cooldown.
+##
+## [member arrow_scene] must be assigned in the editor. Without it the enemy
+## logs a warning and skips firing but continues to patrol and chase normally.
 class_name ArcherEnemy
 extends BaseEnemy
 
-## @export preferred_distance
-## @brief Ideális tartózkodási távolság a playertől (pixelben).
+## Ideal distance to maintain from the player (pixels).
+## The enemy tolerates ±25 px deviation before repositioning.
 @export var preferred_distance: float = 130.0
 
-## @export arrow_damage
-## @brief A kilőtt nyíl sebzése (felülírja a CharacterResource.base_dmg-t).
+## Damage dealt by each fired arrow. Overrides the base [member Entity.damage].
 @export var arrow_damage: int = 12
 
-## @export shoot_cooldown
-## @brief Lövések közötti minimális várakozási idő (másodperc).
+## Minimum time between consecutive shots (seconds).
 @export var shoot_cooldown: float = 2.0
 
-## @export arrow_speed
-## @brief A nyíl repülési sebessége (px/s).
+## Travel speed of the fired arrow (pixels per second).
 @export var arrow_speed: float = 220.0
 
-## @export arrow_scene
-## @brief A kilőtt nyíl PackedScene-je. Editorban kötelező beállítani!
+## [PackedScene] of the [EnemyArrow] to instantiate on each shot.
+## Must be assigned in the editor; the enemy will not fire if this is null.
 @export var arrow_scene: PackedScene = null
 
-## @var _shoot_timer
-## @brief Lövési visszaszámláló; 0 alatt engedélyezett az újabb lövés.
+## Remaining time before the next shot is allowed (seconds).
 var _shoot_timer: float = 0.0
 
 
-## @brief Inicializálás: attack_range és aggro_range beállítása.
+## Sets archer-appropriate [member BaseEnemy.attack_range] and
+## [member BaseEnemy.aggro_range], then calls [method BaseEnemy._ready].
 func _ready() -> void:
 	super._ready()
 	attack_range = preferred_distance + 20.0
-	aggro_range  = 180.0
+	aggro_range = 180.0
 
 
-## @brief Fizikai frissítés: állapotgép vezérlése, mozgás, animáció.
-## @param delta Frame idő másodpercekben.
+## Physics update: runs the archer state machine, manages shoot and attack
+## timers, applies gravity, moves the body, and refreshes animations.
+## Overrides [method BaseEnemy._physics_process] to add the ranged-attack branch.
+## [param delta] Frame time in seconds.
 func _physics_process(delta: float) -> void:
 	if not is_alive:
 		_state = State.DEAD
@@ -58,10 +58,12 @@ func _physics_process(delta: float) -> void:
 		State.PATROL: _do_patrol()
 		State.AGGRO:  _do_archer_movement()
 		State.ATTACK:
+			# Decelerate while standing still to shoot.
 			velocity.x = move_toward(velocity.x, 0.0, chase_speed)
 			if _shoot_timer <= 0.0:
 				_shoot_arrow()
 				_shoot_timer = shoot_cooldown
+				# Short pause after firing before returning to AGGRO movement.
 				await get_tree().create_timer(0.5).timeout
 				if _state == State.ATTACK:
 					_set_state(State.AGGRO)
@@ -73,7 +75,10 @@ func _physics_process(delta: float) -> void:
 	_update_animation()
 
 
-## @brief Archer-specifikus mozgáslogika: preferált távolság tartása.
+## Archer-specific AGGRO movement: keeps the enemy at [member preferred_distance].
+## Retreats if the player is closer than [code]preferred_distance - 25[/code],
+## advances if farther than [code]preferred_distance + 25[/code], and
+## transitions to ATTACK when exactly in the sweet spot.
 func _do_archer_movement() -> void:
 	if _player == null:
 		_set_state(State.PATROL)
@@ -85,7 +90,7 @@ func _do_archer_movement() -> void:
 		_set_state(State.PATROL)
 		return
 
-	# Player túl közel → hátrálás
+	# Player too close — back away.
 	if dist < preferred_distance - 25.0:
 		var away = sign(global_position.x - _player.global_position.x)
 		velocity.x = away * chase_speed
@@ -93,7 +98,7 @@ func _do_archer_movement() -> void:
 			_sprite.flip_h = away < 0.0
 		return
 
-	# Player túl messze → közeledés lövőtávolságra
+	# Player too far — close in to shooting distance.
 	if dist > preferred_distance + 25.0:
 		var toward = sign(_player.global_position.x - global_position.x)
 		velocity.x = toward * patrol_speed
@@ -101,19 +106,20 @@ func _do_archer_movement() -> void:
 			_sprite.flip_h = toward < 0.0
 		return
 
-	# Megfelelő távolságon → megáll és lő
+	# Correct distance — stop and enter ATTACK to begin firing.
 	velocity.x = move_toward(velocity.x, 0.0, chase_speed)
 	_set_state(State.ATTACK)
 
 
-## @brief Nyíl kilövése a player irányába.
-## Ha arrow_scene nincs beállítva, push_warning jelzi és abbahagyja (nincs fallback).
+## Instantiates an [EnemyArrow] and launches it toward the player's position.
+## The arrow is added directly to the root scene so it survives if this
+## enemy is freed. Logs a warning and returns early if [member arrow_scene] is null.
 func _shoot_arrow() -> void:
 	if _player == null:
 		return
 
 	if arrow_scene == null:
-		push_warning("ArcherEnemy: arrow_scene nincs beállítva! Töltsd be az editorban.")
+		push_warning("ArcherEnemy: arrow_scene is not set! Assign it in the editor.")
 		return
 
 	var dir := (_player.global_position - global_position).normalized()

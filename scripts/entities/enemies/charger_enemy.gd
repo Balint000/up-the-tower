@@ -1,27 +1,46 @@
+## Melee enemy that telegraphs an attack with a visible wind-up, then
+## charges horizontally at high speed.
+##
+## The charge sequence: ATTACK state → [member windup_time] second pause
+## (telegraph) → dash at [member charge_speed] for [member charge_duration]
+## seconds → optional stun if a wall is hit.
+## During the charge the enemy deals double damage on contact with the player.
 extends BaseEnemy
 
-## Roham sebessége
+## Horizontal dash speed during a charge (pixels per second).
 @export var charge_speed: float = 450.0
-## Roham időtartama (mp)
+## Duration of the horizontal charge dash (seconds).
 @export var charge_duration: float = 0.45
-## Kiszeles ideje (mp) – a player látja, hogy jön a roham
+## Wind-up (telegraph) time before the charge starts (seconds).
+## Gives the player a visible warning that a charge is incoming.
 @export var windup_time: float = 0.7
-## Kábulás ideje roham után
+## Stun duration applied when the charge ends by hitting a wall (seconds).
 @export var stun_duration: float = 1.2
 
+## True while the enemy is actively dashing.
 var _is_charging: bool = false
-var _is_stunned:  bool = false
-var _charge_dir:  float = 1.0
+## True while the enemy is stunned after a wall collision.
+var _is_stunned: bool = false
+## Direction of the current charge: [code]1.0[/code] = right, [code]-1.0[/code] = left.
+var _charge_dir: float = 1.0
+## Remaining time for the active charge (seconds).
 var _charge_timer: float = 0.0
+## Remaining wind-up time before the charge begins (seconds).
 var _windup_timer: float = 0.0
-var _stun_timer:   float = 0.0
+## Remaining stun time after a wall collision (seconds).
+var _stun_timer: float = 0.0
 
+## Configures charger-appropriate ranges and overrides the attack cooldown
+## to account for the full charge sequence duration.
 func _ready() -> void:
 	super._ready()
-	attack_range    = 40.0
+	attack_range = 40.0
 	aggro_range = 170.0
 	attack_cooldown = charge_duration + windup_time + stun_duration + 0.3
 
+## Physics update: handles stun decay, active charge movement, wall-collision
+## stun, and the wind-up countdown before delegating to the parent state machine.
+## [param delta] Frame time in seconds.
 func _physics_process(delta: float) -> void:
 	if not is_alive:
 		_state = State.DEAD
@@ -33,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Kábulat kezelése
+	# Stun recovery
 	if _is_stunned:
 		_stun_timer -= delta
 		velocity.x = move_toward(velocity.x, 0.0, 300.0)
@@ -43,12 +62,12 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Roham kezelése
+	# Active charge
 	if _is_charging:
 		_charge_timer -= delta
 		velocity.x = _charge_dir * charge_speed
 
-		# Falnak csapódott? → elkábul
+		# Wall collision during charge → apply stun.
 		if get_slide_collision_count() > 0:
 			for i in get_slide_collision_count():
 				var col := get_slide_collision(i)
@@ -59,7 +78,7 @@ func _physics_process(delta: float) -> void:
 		if _charge_timer <= 0.0:
 			_end_charge(false)
 
-		# Sebzés ütközéskor
+		# Deal double damage while physically overlapping the player.
 		if _player and global_position.distance_to(_player.global_position) <= attack_range:
 			_player.take_damage(damage * 2, Vector2(_charge_dir * 350.0, -180.0))
 
@@ -70,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		State.PATROL:   _do_patrol()
 		State.AGGRO:    _do_chase()
 		State.ATTACK:
+			# Count down wind-up; begin charge once it expires.
 			if _windup_timer > 0.0:
 				_windup_timer -= delta
 				velocity.x = move_toward(velocity.x, 0.0, 350.0)
@@ -82,11 +102,13 @@ func _physics_process(delta: float) -> void:
 	_check_aggro()
 	_update_animation()
 
-## Felülírjuk a base attack-et: kiszeles → roham
+## Overrides the base melee attack to start the wind-up countdown instead
+## of applying immediate damage. The charge itself starts in [method _physics_process].
 func _do_attack() -> void:
 	_windup_timer = windup_time
-	# (az _physics_process ATTACK ágában indul a roham)
 
+## Locks in the charge direction toward the player and begins the dash.
+## Falls back to AGGRO if [member _player] is null.
 func _begin_charge() -> void:
 	if _player == null:
 		_set_state(State.AGGRO)
@@ -95,6 +117,9 @@ func _begin_charge() -> void:
 	_is_charging  = true
 	_charge_timer = charge_duration
 
+## Ends the charge, applying a stun if [param wall_hit] is true.
+## On a clean charge (no wall), simply resets the attack cooldown.
+## [param wall_hit] Whether the charge ended by hitting a wall.
 func _end_charge(wall_hit: bool) -> void:
 	_is_charging = false
 	velocity.x   = 0.0
@@ -106,15 +131,17 @@ func _end_charge(wall_hit: bool) -> void:
 		_attack_timer = attack_cooldown
 		_set_state(State.AGGRO)
 
+## Overrides [method BaseEnemy._update_animation] to use the [code]"idle"[/code]
+## clip during wind-up (a dedicated "windup" clip can replace it if available).
 func _update_animation() -> void:
 	if _sprite == null: return
 	match _state:
 		State.PATROL, State.AGGRO:
 			_sprite.play("walk" if abs(velocity.x) > 1.0 else "idle")
 		State.ATTACK:
-			# Kiszeles animáció – ha nincs "windup" frame, "idle" is megfelel
+			# Wind-up telegraph animation — substitute "windup" clip if available.
 			_sprite.play("idle")
 		State.HURT:
-			_sprite.play("hurt" if not _is_stunned else "hurt")
+			_sprite.play("hurt")
 		State.DEAD:
 			_sprite.play("death")
