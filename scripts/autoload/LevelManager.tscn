@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dbtyu3xihnhdu"]
+
+[ext_resource type="Script" uid="uid://de425r3pg717m" path="res://scripts/autoload/Level_Manager.gd" id="1_doktj"]
+[ext_resource type="PackedScene" uid="uid://wuqvpwg2yn6p" path="res://scenes/story/StoryOverlay.tscn" id="2_2nom4"]
+
+[node name="LevelManager" type="Node" unique_id=297387713]
+process_mode = 3
+script = ExtResource("1_doktj")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1184324462]
+layer = 128
+
+[node name="FadeOverlay" type="ColorRect" parent="UILayer" unique_id=1324703518]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="LoadingLabel" type="Label" parent="UILayer/FadeOverlay" unique_id=928296717]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -11.5
+offset_right = 37.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StoryOverlay" parent="UILayer" unique_id=1904525817 instance=ExtResource("2_2nom4")]
