@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bvgx51q8c6ew1" path="res://assets/textures/backgrounds/clouds.png" id="7_b0ar5"]
 [ext_resource type="Texture2D" uid="uid://cmvig8wl1kuxs" path="res://assets/textures/backgrounds/hill.png" id="8_6osqn"]
 [ext_resource type="Script" path="res://scripts/environment/camera.gd" id="11_231nj"]
+[ext_resource type="PackedScene" uid="uid://ccaorauqs2lo0" path="res://scenes/entities/environment/goal.tscn" id="12_pt5gy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6vkx"]
 texture = ExtResource("1_rrms0")
@@ -489,7 +490,6 @@ script = ExtResource("2_i6vkx")
 
 [node name="EnemySpawner" parent="." unique_id=1581689521 instance=ExtResource("3_wv11u")]
 position = Vector2(842, 512)
-enemy_id = "boss1"
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("4_162s8")]
 offset_left = -562.0
@@ -502,3 +502,6 @@ zoom = Vector2(4, 4)
 limit_left = 0
 limit_right = 1152
 script = ExtResource("11_231nj")
+
+[node name="Goal" parent="." unique_id=89516015 instance=ExtResource("12_pt5gy")]
+position = Vector2(1049, 543)
