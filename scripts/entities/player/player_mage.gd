@@ -29,7 +29,7 @@ func _do_melee_attack() -> void:
 		return
 
 	if projectile_scene == null:
-		push_warning("PlayerMage: projectile_scene (mini fireball) nincs beállítva!")
+		push_warning("PlayerMage: projectile_scene (fireball) not found")
 		return
 
 	_state = State.ATTACK
@@ -49,7 +49,7 @@ func _do_ability() -> void:
 		return
 
 	if big_fireball_scene == null:
-		push_warning("PlayerMage: big_fireball_scene nincs beállítva!")
+		push_warning("PlayerMage: fireball ability not setted up correctly")
 		return
 
 	_state = State.ATTACK

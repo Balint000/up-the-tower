@@ -37,6 +37,10 @@ func setup(from: Vector2, direction_sign: float, dmg: int, target_group: String 
 	_damage = dmg
 	_target_group = target_group
 	_velocity = Vector2(direction_sign * fireball_speed, 0.0)
+	
+	if _sprite:
+		_sprite.flip_h = _direction_sign < 0.0
+		_sprite.play("fly")
 
 func _ready() -> void:
 	_start_position = global_position

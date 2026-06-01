@@ -498,7 +498,7 @@ offset_right = -562.0
 offset_bottom = -469.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=525235749]
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 limit_left = 0
 limit_right = 1152
 script = ExtResource("11_231nj")
