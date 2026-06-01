@@ -357,6 +357,7 @@ func die() -> void:
 	is_alive = false
 	emit_signal("player_died")
 	_on_died()
+	super.die()
 
 ## Handles the death sequence: disables the hitbox, increments the death counter
 ## in [GameManager.runtime_data], saves the game, and notifies [LevelManager]

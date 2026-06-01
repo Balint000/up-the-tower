@@ -29,6 +29,8 @@ extends BaseEnemy
 ## Remaining time before the next shot is allowed (seconds).
 var _shoot_timer: float = 0.0
 
+var _post_shoot_timer: float = 0.0
+
 
 ## Sets archer-appropriate [member BaseEnemy.attack_range] and
 ## [member BaseEnemy.aggro_range], then calls [method BaseEnemy._ready].
@@ -59,13 +61,13 @@ func _physics_process(delta: float) -> void:
 		State.AGGRO:  _do_archer_movement()
 		State.ATTACK:
 			# Decelerate while standing still to shoot.
-			velocity.x = move_toward(velocity.x, 0.0, chase_speed)
-			if _shoot_timer <= 0.0:
+			if _shoot_timer <= 0.0 and _post_shoot_timer <= 0.0:
 				_shoot_arrow()
 				_shoot_timer = shoot_cooldown
-				# Short pause after firing before returning to AGGRO movement.
-				await get_tree().create_timer(0.5).timeout
-				if _state == State.ATTACK:
+				_post_shoot_timer = 0.5
+			if _post_shoot_timer > 0.0:
+				_post_shoot_timer -= delta
+				if _post_shoot_timer <= 0.0:
 					_set_state(State.AGGRO)
 		State.HURT: pass
 		State.DEAD: velocity = Vector2.ZERO

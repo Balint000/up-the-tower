@@ -489,8 +489,13 @@ script = ExtResource("2_i6vkx")
 
 [node name="EnemySpawner" parent="." unique_id=1581689521 instance=ExtResource("3_wv11u")]
 position = Vector2(842, 512)
+enemy_id = "boss1"
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("4_162s8")]
+offset_left = -562.0
+offset_top = -469.0
+offset_right = -562.0
+offset_bottom = -469.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=525235749]
 zoom = Vector2(3, 3)
