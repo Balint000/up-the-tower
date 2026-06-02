@@ -21,25 +21,30 @@ var _start_position: Vector2 = Vector2.ZERO
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D if has_node("AnimatedSprite2D") else null
 
+var _direction_sign: float = 1.0
+
 ## Initialize fireball
 ## @param from Start position (Vector2).
 ## @param direction_sign Direction: 1.0 = right, -1.0 = left.
 ## @param dmg Damage.
 ## @param target_group Target group name.
 func setup(from: Vector2, direction_sign: float, dmg: int, target_group: String = "enemies") -> void:
+	_direction_sign = direction_sign
 	global_position = from
-	_damage         = dmg
-	_target_group   = target_group
-	_velocity       = Vector2(direction_sign * fireball_speed, 0.0)
-
+	_damage = dmg
+	_target_group = target_group
+	_velocity = Vector2(direction_sign * fireball_speed, 0.0)
+	
 	if _sprite:
-		_sprite.flip_h = direction_sign < 0.0
+		_sprite.flip_h = _direction_sign < 0.0
+		_sprite.play("fly")
 
 func _ready() -> void:
 	_start_position = global_position
 	body_entered.connect(_on_body_entered)
 
 	if _sprite:
+		_sprite.flip_h = _direction_sign < 0.0
 		_sprite.play("attack")
 
 

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://ioej24to4by2"]
+
+[ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_klrlg"]
+
+[resource]
+script = ExtResource("1_klrlg")
+character_id = "boss1"
+character_name = "boss1"
+description = "boss1"
+base_hp = 300
+base_dmg = 10
+base_spd = 60.0
+scene_path = "uid://uhxrsp273dgj"
+metadata/_custom_type_script = "uid://xxkmfki5unb6"

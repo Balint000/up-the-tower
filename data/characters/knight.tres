@@ -11,6 +11,6 @@ portrait = ExtResource("1_0gch8")
 base_spd = 160.0
 ability_type = "block"
 ability_cooldown = 3.0
-ability_power = 500.0
+ability_power = 0.5
 scene_path = "uid://ceejs5kmyc1xr"
 metadata/_custom_type_script = "uid://xxkmfki5unb6"

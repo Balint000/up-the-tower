@@ -17,6 +17,7 @@ var items: Dictionary = {}
 	"res://data/enemies/enemy_flying.tres",
 	"res://data/enemies/enemy_archer.tres",
 	"res://data/enemies/enemy_charger.tres",
+	"res://data/enemies/boss1.tres",
 	# add others
 ]
 
