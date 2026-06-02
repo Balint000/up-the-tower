@@ -1,0 +1,15 @@
+[
+  { "text": "Egykor ez a világ élettel teli, varázslatos hely volt...",
+	"image": "res://assets/story/intro_landscape.png" },
+  { "text": "Aztán jött az eretnek háború. Városok dőltek romba, emberek ezrei vesztek oda. A túlélők elszigetelten, csendben próbáltak élni tovább." },
+  { "text": "Néhányan mégis próbálják újraépíteni a régi rendet de a sebek még frissek, és a sötétség nem vonult vissza teljesen.",
+	"image": "res://assets/story/intro_ruins.png" },
+  { "text": "Egy lovas vágtat az erdők és hóborított hegyek által körbezárt völgybe. Előtte magányos vár áll...",
+	"image": "res://assets/story/intro_rider.png" },
+  { "text": "Azt suttogják: itt egykor egy zsarnok uralkodott, aki minél halálosabb fegyvereket, mágiát akart létrehozni, hogy félelemmel tartsa fenn hatalmát." },
+  { "text": "Ki ez a rejtélyes alak? Ki küldte ide? Mi a végső feladat?" },
+  { "text": "A vár falai közül sikolyok szűrődnek ki. Törött ablakok, koromfekete falak.",
+	"image": "res://assets/story/intro_castle.png" },
+  { "text": "A hős leszáll lováról. Arcán ott van a felkészültség." },
+  { "text": "Most már csak rajta múlik, mi vár a sötét torony mélyén." }
+]

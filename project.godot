@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 DataDb="*uid://du6nuoi3jk1py"
 SaveManager="*uid://bovoldi38yawr"
 GameManager="*uid://51wnvw347dl1"
-LevelManager="*uid://de425r3pg717m"
+LevelManager="*uid://dbtyu3xihnhdu"
 
 [display]
 

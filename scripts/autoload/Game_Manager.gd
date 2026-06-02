@@ -30,6 +30,7 @@ const KEY_QUICK_SLOTS := "quick_slots"
 const KEY_BAG = "bag"
 const KEY_OPENED_BAGS = "opened_bags"
 const KEY_ABILITY = "ability"
+const KEY_UNLOCKED_LEVELS = "unlocked_levels"
 
 ## Signals
 signal state_changed(new_state: GameState)
@@ -42,8 +43,9 @@ signal inventory_updated()
 
 ## Runtime Data
 var runtime_data := {
-	KEY_LEVEL: 1,
+	KEY_LEVEL: 0,
 	KEY_XP: 10,
+	KEY_UNLOCKED_LEVELS: [0,1],
 	
 	KEY_INVENTORY: {
 		"helm": [],
