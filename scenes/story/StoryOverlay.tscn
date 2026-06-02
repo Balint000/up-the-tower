@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://wuqvpwg2yn6p"]
+
+[ext_resource type="Script" uid="uid://bvjp1lim3swq" path="res://scripts/story/StoryOverlay.gd" id="1_28oa5"]
+[ext_resource type="Texture2D" uid="uid://dtfmk7oarhiyf" path="res://assets/story/level1_corridor.png" id="2_66rvu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28oa5"]
+bg_color = Color(0.25524214, 0.25524214, 0.3623615, 0.41000003)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.1225877, 0.116778634, 0.25143638, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66rvu"]
+bg_color = Color(0.25490198, 0.25490198, 0.28627452, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12156863, 0.11764706, 0.2509804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynfvq"]
+bg_color = Color(0.35511875, 0.35514623, 0.39473197, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12156863, 0.11764706, 0.2509804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[node name="StoryOverlay" type="ColorRect" unique_id=1904525817]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.22091639, 0.22091639, 0.2716998, 0)
+script = ExtResource("1_28oa5")
+
+[node name="ImageBox" type="Control" parent="." unique_id=637808539]
+clip_contents = true
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = 40.0
+offset_right = -60.0
+offset_bottom = 10.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="StoryImage" type="TextureRect" parent="ImageBox" unique_id=1623348815]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.997452)
+mouse_filter = 2
+texture = ExtResource("2_66rvu")
+expand_mode = 1
+
+[node name="TextPanel" type="PanelContainer" parent="." unique_id=599489499]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.55
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 10.0
+offset_right = -40.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9951025, 1)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_28oa5")
+
+[node name="Margin" type="MarginContainer" parent="TextPanel" unique_id=968789636]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="TextPanel/Margin" unique_id=1713043705]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="StoryText" type="RichTextLabel" parent="TextPanel/Margin/VBox" unique_id=492392972]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.9452769, 0.935741, 0.91627353, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+scroll_following = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueHint" type="Label" parent="TextPanel/Margin/VBox" unique_id=117191968]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7190004, 0.6200529, 0, 0.7019608)
+theme_override_font_sizes/font_size = 14
+text = "▶ SPACE to continue"
+horizontal_alignment = 2
+
+[node name="SkipButton" type="Button" parent="." unique_id=1873588726]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 10.0
+offset_right = -30.0
+offset_bottom = 38.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.95468724, 0.9452769, 0.9309246, 0.6)
+theme_override_colors/font_hover_color = Color(0.95468724, 0.9309246, 0.9309246, 0.90000004)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_66rvu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ynfvq")
+text = "SKIP [ESC]"
