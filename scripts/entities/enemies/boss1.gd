@@ -1,191 +1,197 @@
-## boss.gd
+## boss1.gd
 ## ==========================================================================
-## Boss – kétfázisú főellenség, az aktuális enemy-architektúrára illesztve.
+## Two-phase boss enemy, integrated into the existing enemy architecture.
 ##
-## Öröklési lánc:  Boss → BaseEnemy → Entity → CharacterBody2D
+## Inheritance chain:  Boss → BaseEnemy → Entity → CharacterBody2D
 ##
 ## ── Phase 1 (HP > 50 %) ────────────────────────────────────────────────────
-##   Lassú, kitartó üldözés + közelharci támadás.
-##   Egyszerű AI: megtalálja a playert, követ, üt.
+##   Slow, persistent chase followed by a melee strike.
+##   Simple AI: locate the player, follow, hit.
 ##
 ## ── Phase 2 (HP ≤ 50 %) ────────────────────────────────────────────────────
-##   Gyorsabb mozgás. Két új speciális akció váltakozhat:
-##   • JUMP   – ugrik a játékos fölé, landoláskor sebez
-##   • CHARGE – rövid wind-up → zárolt irányú gyors dash → recovery
-##              (ChargerEnemy logikájára épül)
+##   Faster movement. Two special actions alternate:
+##   • JUMP   – leaps above the player and deals damage on landing
+##   • CHARGE – short wind-up → direction-locked dash → recovery
+##              (based on [ChargerEnemy] logic)
 ##
-## Szükséges scene-felépítés (a .tscn-t a fejlesztő készíti):
+## Required scene structure (the .tscn is created by the developer):
 ##   Boss (CharacterBody2D)
 ##   ├── AnimatedSprite2D
 ##   │     clips: idle, walk, attack, hurt, death
-##   │     opcionális: jump, charge, windup
+##   │     optional: jump, charge, windup
 ##   ├── CollisionShape2D
-##   ├── RayCastRight  (BaseEnemy patrol raycast – bossnak nem muszáj)
+##   ├── RayCastRight  (BaseEnemy patrol raycast – not strictly needed for the boss)
 ##   └── RayCastLeft
 ##
-## EnemySpawner-rel is használható: a class BaseEnemy leszármazott, így
-## scene.instantiate() as BaseEnemy működik rá.
+## Compatible with [EnemySpawner]: the class inherits [BaseEnemy], so
+## [code]scene.instantiate() as BaseEnemy[/code] works correctly.
 ## ==========================================================================
 class_name Boss
 extends BaseEnemy
 
-# ── Fázis nyilvántartás ─────────────────────────────────────────────────────
+# Phase tracking
 
-## Aktuális harci fázis (1 vagy 2).
+## Current combat phase (1 or 2).
 var _phase: int = 1
 
-## Megakadályozza, hogy a Phase 2 átmenet kétszer fusson le.
+## Guards against the Phase 2 transition running more than once.
 var _phase2_triggered: bool = false
 
-# ── Phase 1 beállítások ─────────────────────────────────────────────────────
+# Phase 1 settings
 
 @export_group("Phase 1")
 
-## Követési sebesség Phase 1-ben (px/s).
+## Chase speed in Phase 1 (px/s).
 @export var p1_speed: float = 60.0
 
-## Közelharci hatótáv Phase 1-ben (px).
+## Melee attack range in Phase 1 (px).
 @export var p1_attack_range: float = 40.0
 
-## Ütések közötti idő Phase 1-ben (s).
+## Minimum time between melee strikes in Phase 1 (s).
 @export var p1_attack_cooldown: float = 1.8
 
-# ── Phase 2 alap beállítások ────────────────────────────────────────────────
+# Phase 2 base settings
 
 @export_group("Phase 2")
 
-## Követési sebesség Phase 2-ben (px/s).
+## Chase speed in Phase 2 (px/s).
 @export var p2_speed: float = 110.0
 
-## Közelharci hatótáv Phase 2-ben (px).
+## Melee attack range in Phase 2 (px).
 @export var p2_attack_range: float = 45.0
 
-## Ütések közötti idő Phase 2-ben (s).
+## Minimum time between melee strikes in Phase 2 (s).
 @export var p2_attack_cooldown: float = 0.8
 
-# ── Ugrótámadás (Phase 2) ───────────────────────────────────────────────────
+# Jump attack (Phase 2)
 
 @export_group("Jump Attack (Phase 2)")
 
-## Ugróakciók közötti minimális idő (s).
+## Minimum time between consecutive jump attacks (s).
 @export var jump_interval: float = 4.0
 
-## Felfelé irányuló induló sebesség az ugrásnál (negatív = felfelé).
+## Initial upward velocity for the jump (negative = upward).
 @export var jump_up_velocity: float = -380.0
 
-## Vízszintes sebesség a player felé ugráskor (px/s).
+## Horizontal speed toward the player during the jump (px/s).
 @export var jump_h_speed: float = 270.0
 
-# ── Charge támadás (Phase 2) ────────────────────────────────────────────────
+# Charge attack (Phase 2)
 
 @export_group("Charge Attack (Phase 2)")
 
-## Charge-ok közötti minimális idő (s).
+## Minimum time between consecutive charge attacks (s).
 @export var charge_interval: float = 6.0
 
-## Wind-up (előkészítési) animáció időtartama (s).
+## Duration of the wind-up (telegraph) animation before the dash begins (s).
 @export var charge_windup_time: float = 0.9
 
-## Vízszintes dash sebesség (px/s).
+## Horizontal dash speed during the charge (px/s).
 @export var charge_speed: float = 490.0
 
-## Dash maximális időtartama (s).
+## Maximum duration of the charge dash (s).
 @export var charge_duration: float = 0.5
 
-## Sebzésszorzó a dash alatt (base damage * ez).
+## Damage multiplier applied during the charge (base damage × this value).
 @export var charge_dmg_multiplier: float = 2.0
 
-## Recovery (szünet) a sikeres charge után (s).
+## Recovery pause duration after a successful (clean) charge (s).
 @export var charge_recovery_time: float = 0.65
 
-## Stun időtartam, ha a charge falba ütközik (s).
+## Stun duration applied when the charge ends by hitting a wall (s).
 @export var charge_wall_stun: float = 2
 
-# ── Futásidejű állapotváltozók ──────────────────────────────────────────────
+# Runtime state variables
 
-## True, amíg a boss ugróívben van.
+## [code]true[/code] while the boss is airborne in the jump arc.
 var _is_jumping: bool = false
-## Rögzített vízszintes irány az ugráshoz (1 = jobb, -1 = bal).
+## Locked horizontal direction for the jump: [code]1.0[/code] = right, [code]-1.0[/code] = left.
 var _jump_dir: float = 1.0
-## Előző frame-ben padlón állt-e (landolás detektáláshoz).
+## Whether the boss was on the floor in the previous frame (used for landing detection).
 var _was_on_floor: bool = true
 
-## True a charge előtti wind-up alatt.
+## [code]true[/code] during the wind-up phase that precedes the charge.
 var _is_winding_up: bool = false
-## Hátralévő wind-up idő (s).
+## Remaining wind-up time before the charge dash begins (s).
 var _windup_timer: float = 0.0
 
-## True az aktív dash alatt.
+## [code]true[/code] while the charge dash is actively running.
 var _is_charging: bool = false
-## Rögzített irány a chargehoz – indítás után nem változhat.
+## Locked horizontal direction for the charge dash; cannot change after the dash starts.
 var _charge_dir: float = 1.0
-## Hátralévő charge idő (s).
+## Remaining time in the current charge dash (s).
 var _charge_timer: float = 0.0
-## True, ha a charge ebben a dashban már sebzett playert
-## (megakadályozza a frame-enkénti többszörös sebzést).
+## [code]true[/code] if the player has already been hit during this charge,
+## preventing multiple hits within a single dash.
 var _charge_hit_player: bool = false
 
-## True a charge utáni recovery szünet alatt.
+## [code]true[/code] during the post-charge recovery (or wall-stun) pause.
 var _is_recovering: bool = false
-## Hátralévő recovery / stun idő (s).
+## Remaining recovery or stun time (s).
 var _recovery_timer: float = 0.0
 
-## Cooldown az ugrótámadásig (s).
+## Cooldown until the next jump attack is allowed (s).
 var _jump_cd: float = 3.0
 
-## Cooldown a következő charge-ig (s).
-## Kezdeti eltolás, hogy az első jump és charge ne egyszerre activálódjon.
+## Cooldown until the next charge attack is allowed (s).
+## The initial offset prevents the first jump and charge from triggering simultaneously.
 var _charge_cd: float = 6.0
 
-# ── Signalok ────────────────────────────────────────────────────────────────
+# Signals
 
-## Kiadódik, amikor a boss fázist vált.
+## Emitted when the boss transitions to a new phase.
+## [param new_phase] The phase number that was just entered (always [code]2[/code] currently).
 signal phase_changed(new_phase: int)
 
-## Kiadódik, amikor a boss meghal (queue_free előtt).
+## Emitted when the boss dies, before [method Node.queue_free] is called.
 signal boss_died()
 
-# ── Ready ────────────────────────────────────────────────────────────────────
+# Ready
 
+## Applies Phase 1 stats and immediately enters AGGRO state (the boss never patrols).
 func _ready() -> void:
 	super._ready()
 
-	# Phase 1 statisztikák alkalmazása.
-	attack_range     = p1_attack_range
-	attack_cooldown  = p1_attack_cooldown
-	chase_speed      = p1_speed
-	aggro_range      = 230.0
+	# Apply Phase 1 statistics to the inherited BaseEnemy fields.
+	attack_range = p1_attack_range
+	attack_cooldown = p1_attack_cooldown
+	chase_speed = p1_speed
+	aggro_range = 230.0
 	lose_aggro_range = 550.0
 
-	# A boss rögtön üldözni kezd – nem patroloz.
+	# The boss starts chasing immediately — skip the PATROL state entirely.
 	_set_state(State.AGGRO)
 
-# ── Fő fizikai loop ──────────────────────────────────────────────────────────
+# Main physics loop
 
+## Physics update: ticks all cooldowns, checks the phase transition, handles
+## high-priority special states (recovery, charge, wind-up), then runs the
+## normal state machine, and finally detects jump landings.
+## [param delta] Frame time in seconds.
 func _physics_process(delta: float) -> void:
 	if not is_alive:
 		_state = State.DEAD
 		_update_animation()
 		return
 
-	# Cooldown tick.
+	# Decrement the melee attack cooldown.
 	_attack_timer = max(0.0, _attack_timer - delta)
 
-	# Gravitáció.
+	# Apply gravity while the boss is airborne.
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Fázisátmenet ellenőrzése minden frame-ben.
+	# Check for a phase transition on every frame.
 	_tick_phase_transition()
 
-	# Phase 2 speciális cooldownok.
+	# Advance Phase 2 special-action cooldowns.
 	if _phase == 2:
-		_jump_cd   = max(0.0, _jump_cd   - delta)
+		_jump_cd = max(0.0, _jump_cd - delta)
 		_charge_cd = max(0.0, _charge_cd - delta)
 
-	# ── Prioritásos speciális állapotok (legmagasabb prioritástól) ───────────
+	# ── Priority special states (highest priority first) ─────────────────────
 
-	# 1. Recovery / wall stun – boss nem tud mozogni.
+	# 1. Recovery / wall-stun – the boss cannot move.
 	if _is_recovering:
 		_recovery_timer -= delta
 		velocity.x = move_toward(velocity.x, 0.0, 700.0)
@@ -196,12 +202,12 @@ func _physics_process(delta: float) -> void:
 		_update_animation()
 		return
 
-	# 2. Aktív charge dash – irány zárolt.
+	# 2. Active charge dash – direction is locked for the duration.
 	if _is_charging:
 		_charge_timer -= delta
 		velocity.x = _charge_dir * charge_speed
 
-		# Fal ütközés → stun.
+		# Wall collision during the charge → apply stun via _end_charge.
 		for i in get_slide_collision_count():
 			var col := get_slide_collision(i)
 			if abs(col.get_normal().x) > 0.5:
@@ -210,7 +216,7 @@ func _physics_process(delta: float) -> void:
 				_update_animation()
 				return
 
-		# Player eltalálása – csak egyszer per charge.
+		# Hit the player – only once per charge to avoid per-frame damage.
 		if not _charge_hit_player and _player != null \
 				and global_position.distance_to(_player.global_position) <= attack_range + 20.0:
 			_charge_hit_player = true
@@ -231,7 +237,7 @@ func _physics_process(delta: float) -> void:
 		_update_animation()
 		return
 
-	# 3. Wind-up (charge előkészítése) – boss lassul, telegrafál.
+	# 3. Wind-up (charge preparation) – boss decelerates while telegraphing.
 	if _is_winding_up:
 		_windup_timer -= delta
 		velocity.x = move_toward(velocity.x, 0.0, 700.0)
@@ -242,11 +248,11 @@ func _physics_process(delta: float) -> void:
 		_update_animation()
 		return
 
-	# ── Normál állapotgép ────────────────────────────────────────────────────
+	# ── Normal state machine ─────────────────────────────────────────────────
 
 	match _state:
 		State.PATROL:
-			# Boss nem patroloz; amint megvan a player, üldöz.
+			# The boss does not patrol; transition to AGGRO as soon as the player is found.
 			if _player != null:
 				_set_state(State.AGGRO)
 			else:
@@ -256,11 +262,11 @@ func _physics_process(delta: float) -> void:
 			_do_boss_aggro()
 
 		State.ATTACK:
-			# Melee ütés közben lassulás.
+			# Decelerate horizontally while the melee strike animation plays.
 			velocity.x = move_toward(velocity.x, 0.0, chase_speed)
 
 		State.HURT:
-			# A knockback velocity-t a take_damage állítja be.
+			# Knockback velocity is set by take_damage; nothing extra to do here.
 			pass
 
 		State.DEAD:
@@ -268,7 +274,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# ── Landolás detektálása (jump attack vége) ──────────────────────────────
+	# ── Landing detection (end of jump attack) ───────────────────────────────
 	if _is_jumping and is_on_floor() and not _was_on_floor:
 		_on_jump_land()
 
@@ -276,9 +282,10 @@ func _physics_process(delta: float) -> void:
 	_check_aggro()
 	_update_animation()
 
-# ── Fázisátmenet ─────────────────────────────────────────────────────────────
+# ── Phase transition ──────────────────────────────────────────────────────────
 
-## Minden frame ellenőrzi, hogy le kell-e váltani Phase 2-re.
+## Checks every frame whether the HP threshold for Phase 2 has been crossed.
+## Does nothing if the transition already occurred or if max health is invalid.
 func _tick_phase_transition() -> void:
 	if _phase2_triggered or max_health <= 0:
 		return
@@ -286,25 +293,27 @@ func _tick_phase_transition() -> void:
 		_enter_phase_2()
 
 
-## Phase 2 aktiválása: statisztikák frissítése + signal kiadása.
+## Activates Phase 2: updates chase speed, attack range, and cooldown,
+## applies a short stagger, then emits [signal phase_changed].
 func _enter_phase_2() -> void:
 	_phase2_triggered = true
 	_phase = 2
 
-	chase_speed     = p2_speed
-	attack_range    = p2_attack_range
+	chase_speed = p2_speed
+	attack_range = p2_attack_range
 	attack_cooldown = p2_attack_cooldown
 
-	# Rövid stagger a fázisváltásnál.
+	# Brief stagger on phase transition to give the player a visual cue.
 	_set_state(State.HURT)
 	velocity = Vector2.ZERO
 
 	print("[Boss] PHASE 2")
 	phase_changed.emit(2)
 
-# ── Boss AGGRO mozgáslogika ──────────────────────────────────────────────────
+# ── Boss AGGRO movement logic ─────────────────────────────────────────────────
 
-## Üldöző viselkedés. Phase 2-ben speciális akciókat is indít.
+## Chase behaviour. In Phase 2, also triggers jump and charge attacks
+## when their respective cooldowns have elapsed.
 func _do_boss_aggro() -> void:
 	if _player == null:
 		_set_state(State.PATROL)
@@ -316,51 +325,54 @@ func _do_boss_aggro() -> void:
 		_set_state(State.PATROL)
 		return
 
-	# Közelharci támadás prioritással.
+	# Melee attack takes priority over all other actions.
 	if dist <= attack_range and _attack_timer <= 0.0:
 		_set_state(State.ATTACK)
 		_do_attack()
 		return
 
-	# Phase 2 speciális akciók.
+	# Phase 2 special actions.
 	if _phase == 2:
-		# Ugrótámadás: levegőben lévő boss nem ugorhat újra.
+		# Jump attack: the boss cannot jump again while already airborne.
 		if _jump_cd <= 0.0 and not _is_jumping and is_on_floor() \
 				and dist > attack_range + 15.0:
 			_begin_jump()
 			return
 
-		# Charge: csak ha a player távolabb van, és nem ugrik éppen.
+		# Charge: only when the player is far enough and the boss is not jumping.
 		if _charge_cd <= 0.0 and not _is_jumping \
 				and dist > attack_range + 55.0:
 			_begin_windup()
 			return
 
-	# Alapmozgás: egyenesen a player felé.
+	# Default movement: walk straight toward the player.
 	var move_dir = sign(_player.global_position.x - global_position.x)
 	velocity.x = move_dir * chase_speed
 	if _sprite:
 		_sprite.flip_h = move_dir < 0.0
 
-# ── Ugrótámadás ──────────────────────────────────────────────────────────────
+# ── Jump attack ───────────────────────────────────────────────────────────────
 
-## Elindítja a boss ugrótámadását a player irányába.
+## Launches the boss jump attack toward the player's current position.
+## Sets [member _is_jumping] and applies both horizontal and vertical velocity.
+## Resets [member _jump_cd] to enforce the cooldown interval.
 func _begin_jump() -> void:
 	if _player == null:
 		return
 
-	_is_jumping   = true
-	_jump_dir     = sign(_player.global_position.x - global_position.x)
-	velocity.x    = _jump_dir * jump_h_speed
-	velocity.y    = jump_up_velocity
-	_jump_cd      = jump_interval
+	_is_jumping = true
+	_jump_dir = sign(_player.global_position.x - global_position.x)
+	velocity.x = _jump_dir * jump_h_speed
+	velocity.y = jump_up_velocity
+	_jump_cd = jump_interval
 
 	if _sprite:
 		_sprite.flip_h = _jump_dir < 0.0
 
 
-## Meghívódik, amikor a boss az ugrótámadás után talajt ér.
-## Közelség esetén sebez egyet.
+## Called when the boss lands after a jump attack.
+## Deals [member Entity.damage] with a horizontal knockback if the player
+## is within [member BaseEnemy.attack_range] + 35 px of the landing position.
 func _on_jump_land() -> void:
 	_is_jumping = false
 	if _player != null \
@@ -368,57 +380,67 @@ func _on_jump_land() -> void:
 		if _player.has_method("take_damage"):
 			_player.take_damage(damage, Vector2(_jump_dir * 200.0, -160.0))
 
-# ── Charge támadás ────────────────────────────────────────────────────────────
+# ── Charge attack ─────────────────────────────────────────────────────────────
 
-## Elindítja a charge előkészítési fázisát (wind-up / telegraf).
+## Starts the charge wind-up phase (telegraph).
+## Enters ATTACK state, starts [member _windup_timer], and immediately resets
+## [member _charge_cd] to prevent the action from looping before the dash finishes.
 func _begin_windup() -> void:
 	_set_state(State.ATTACK)
 	_is_winding_up = true
-	_windup_timer  = charge_windup_time
-	_charge_cd     = charge_interval   # cooldown azonnal indul, hogy ne loop-oljon
+	_windup_timer = charge_windup_time
+	_charge_cd = charge_interval   # Reset cooldown immediately to prevent re-triggering.
 
 
-## Wind-up után elindítja az aktív dasht. Az irány itt zárolódik.
+## Locks in the charge direction and starts the active dash.
+## Called automatically when [member _windup_timer] expires in [method _physics_process].
+## Falls back to AGGRO if [member BaseEnemy._player] is null.
 func _begin_charge() -> void:
 	if _player == null:
 		_set_state(State.AGGRO)
 		return
 
 	attack_range = 25
-	_charge_dir        = sign(_player.global_position.x - global_position.x)
-	_is_charging       = true
-	_charge_timer      = charge_duration
+	_charge_dir = sign(_player.global_position.x - global_position.x)
+	_is_charging = true
+	_charge_timer = charge_duration
 	_charge_hit_player = false
 
 	if _sprite:
 		_sprite.flip_h = _charge_dir < 0.0
 
 
-## Lezárja a charge dasht.
-## [param wall_hit] true, ha fal ütközés állította meg.
+## Ends the charge dash and transitions to recovery or wall-stun.
+## [param wall_hit] Pass [code]true[/code] if the charge was stopped by a wall collision;
+## [code]false[/code] for a clean (timed-out or player-hit) charge end.
 func _end_charge(wall_hit: bool) -> void:
 	_is_charging = false
-	velocity.x   = 0.0
+	velocity.x = 0.0
 	attack_range = p2_attack_range
 
 	if wall_hit:
-		# Falba csapódás → hosszabb stun.
+		# Wall collision → longer stun penalty.
 		_set_state(State.HURT)
-		_is_recovering  = true
+		_is_recovering = true
 		_recovery_timer = charge_wall_stun
 	else:
-		# Tiszta charge vége → rövid recovery szünet.
-		_is_recovering  = true
+		# Clean charge end → short recovery pause before returning to AGGRO.
+		_is_recovering = true
 		_recovery_timer = charge_recovery_time
 		_set_state(State.AGGRO)
 
-# ── Animáció ──────────────────────────────────────────────────────────────────
+# Animation
 
+## Plays the appropriate animation clip for the current state and special flags.
+## Special states ([member _is_charging], [member _is_winding_up],
+## [member _is_jumping], [member _is_recovering]) take priority over the
+## base state-machine animations. Falls back to [code]"walk"[/code] or
+## [code]"idle"[/code] if optional clips are missing from the sprite sheet.
 func _update_animation() -> void:
 	if _sprite == null:
 		return
 
-	# A speciális állapotok felülírják a normál animációkat.
+	# Special states override normal state-machine animations.
 	if _is_charging:
 		var clip: StringName = &"charge" \
 			if _sprite.sprite_frames.has_animation("charge") else &"walk"
@@ -451,13 +473,15 @@ func _update_animation() -> void:
 		State.DEAD:
 			_sprite.play("death")
 
-# ── Halál ─────────────────────────────────────────────────────────────────────
+# Death
 
-## Felülírja a BaseEnemy._on_died()-t: hosszabb halálanimáció +
-## pályateljesítés jelzése a LevelManagernek.
+## Overrides [method BaseEnemy._on_died]: plays a longer death sequence and
+## notifies [LevelManager] to advance to the next level when finished.
+## Emits [signal boss_died] before the delay, then calls
+## [method LevelManager.on_level_complete] after 2 seconds.
 func _on_died() -> void:
 	boss_died.emit()
-	print("[Boss] Legyőzve!")
+	print("[Boss] Defeated!")
 
 	if GameManager != null:
 		var stats: Dictionary = GameManager.runtime_data.get(
@@ -471,7 +495,7 @@ func _on_died() -> void:
 	if not is_instance_valid(self):
 		return
 
-	# Pályateljesítés → LevelManager átlép a következő pályára.
+	# Level complete → LevelManager advances to the next level.
 	if LevelManager != null:
 		LevelManager.on_level_complete()
 	else:
