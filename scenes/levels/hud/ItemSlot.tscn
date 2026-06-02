@@ -32,7 +32,7 @@ offset_right = 60.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_c5a6u")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=791680062]
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=791680062]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="." unique_id=1417522478]
+[node name="Label" type="Label" parent="Panel" unique_id=1417522478]
 layout_mode = 1
 offset_left = 52.0
 offset_top = 45.0

@@ -2,8 +2,8 @@ extends Control
 
 signal used(item_id)
 
-@onready var icon: TextureRect = $TextureRect
-@onready var label: Label = $Label
+@onready var icon: TextureRect = $Panel/TextureRect
+@onready var label: Label = $Panel/Label
 
 var item_id: String = ""
 var amount: int = 0
