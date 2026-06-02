@@ -45,7 +45,7 @@ signal inventory_updated()
 var runtime_data := {
 	KEY_LEVEL: 0,
 	KEY_XP: 10,
-	KEY_UNLOCKED_LEVELS: [0,1],
+	KEY_UNLOCKED_LEVELS: [0],
 	
 	KEY_INVENTORY: {
 		"helm": [],

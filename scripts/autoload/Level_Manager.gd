@@ -27,6 +27,7 @@ signal wiring_finished
 @export var levels: Array = [
 	"res://scenes/levels/Level0/Level0.tscn",
 	"res://scenes/levels/Level1/Level1.tscn",
+	"res://scenes/levels/Level3/Level3.tscn",
 ]
 @export var main_menu_scene: PackedScene = null
 @export var fade_out_duration: float = 0.4
@@ -35,7 +36,7 @@ signal wiring_finished
 
 # ── State ────────────────────────────────────────────────
 var current_level_index: int = -1
-var _unlocked_levels: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+var _unlocked_levels: Array = []
 var _is_reloading: bool = false
 var current_player: BasePlayer = null
 var _transitioning: bool = false
@@ -271,3 +272,4 @@ func restore_unlocked_levels(saved: Array) -> void:
 
 func _ready() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
+	_unlocked_levels = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]

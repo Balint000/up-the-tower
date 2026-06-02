@@ -43,7 +43,8 @@ func verify_save_data_json(save_data: Dictionary) -> Error:
 		"inventory",
 		"selected_character",
 		"statistics",
-		"equipped_items"
+		"equipped_items",
+		"unlocked_levels"
 	]
 
 	for key in required_keys:
@@ -53,10 +54,14 @@ func verify_save_data_json(save_data: Dictionary) -> Error:
 	
 	convert_int_keys(save_data, ["level", "xp"])
 	convert_int_keys(save_data["statistics"], ["kills", "deaths"])
+	convert_int_keys(save_data, ["unlocked_levels"])
 
 	return OK
 
 func convert_int_keys(dict: Dictionary, keys: Array) -> void:
 	for key in keys:
 		if dict.has(key):
-			dict[key] = int(dict[key])
+			if typeof(dict[key]) == TYPE_ARRAY:
+				dict[key] = dict[key].map(func(element): return int(element))
+			else:
+				dict[key] = int(dict[key])
