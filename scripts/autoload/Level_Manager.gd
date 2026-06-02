@@ -35,7 +35,7 @@ signal wiring_finished
 
 # ── State ────────────────────────────────────────────────
 var current_level_index: int = -1
-var _unlocked_levels: Array[int] = [0, 1]
+var _unlocked_levels: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
 var _is_reloading: bool = false
 var current_player: BasePlayer = null
 var _transitioning: bool = false
@@ -148,10 +148,7 @@ func load_next_level() -> void:
 
 	if next_index < levels.size():
 		unlock_level(next_index)
-		GameManager.runtime_data[GameManager.KEY_LEVEL] = max(
-			GameManager.runtime_data.get(GameManager.KEY_LEVEL, 1),
-			next_index + 1
-		)
+		GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS] = _unlocked_levels
 		GameManager.save_game()
 
 		await load_level(next_index)
