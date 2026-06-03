@@ -1,20 +1,14 @@
+## @file test_game_manager_inventory.gd
+## @brief Unit tests for GameManager inventory management.
+##
+## Uses item IDs that exist in DataDb: "beer", "apple" (consumables)
+## and "basic_sword" (weapon). Using non-existent IDs causes inventory_add
+## to silently return without modifying the inventory.
 extends GutTest
-## test_game_manager_inventory.gd
-## Unit tesztek a GameManager inventory kezeléséhez.
-##
-## Lefedi: add, remove, has, get_count.
-##
-## A GameManager autoload szingleton, ezért before_each / after_each
-## segítségével minden teszt előtt visszaállítjuk a clean állapotot,
-## hogy a tesztek ne befolyásolják egymást.
 
-
-# Az eredeti runtime_data másolata – a teszt után visszaállítjuk
 var _saved_runtime_data: Dictionary = {}
 
-
-## Minden teszt előtt elmentjük az eredeti adatot,
-## és beállítunk egy tiszta, üres inventory-t
+## @brief Saves runtime_data and resets inventory to a clean state.
 func before_each() -> void:
 	_saved_runtime_data = GameManager.runtime_data.duplicate(true)
 	GameManager.runtime_data[GameManager.KEY_INVENTORY] = {
@@ -24,71 +18,62 @@ func before_each() -> void:
 		"cons":  {}
 	}
 
-
-## Minden teszt után visszaállítjuk az eredeti adatot
+## @brief Restores the original runtime_data after each test.
 func after_each() -> void:
 	GameManager.runtime_data = _saved_runtime_data
 
-
 # --- inventory_add ---
 
-## Fogyóeszköz hozzáadása után a számláló megfelelő értékű legyen
+## @brief Adding a consumable must set the count to the supplied amount.
 func test_add_consumable_increases_count() -> void:
-	GameManager.inventory_add("health_potion", 2)
-	assert_eq(GameManager.inventory_get_count("health_potion"), 2,
-		"Count should be 2 after adding 2 health potions")
+	GameManager.inventory_add("beer", 2)
+	assert_eq(GameManager.inventory_get_count("beer"), 2,
+		"Count should be 2 after adding 2 beers")
 
-
-## Kétszeri hozzáadás esetén a mennyiségek összeadódnak (stacking)
+## @brief Adding the same consumable twice must stack the quantities.
 func test_add_consumable_stacks() -> void:
-	GameManager.inventory_add("health_potion", 1)
-	GameManager.inventory_add("health_potion", 2)
-	assert_eq(GameManager.inventory_get_count("health_potion"), 3,
+	GameManager.inventory_add("apple", 1)
+	GameManager.inventory_add("apple", 2)
+	assert_eq(GameManager.inventory_get_count("apple"), 3,
 		"Consumables should stack: 1 + 2 = 3")
 
-
-## Felszerelés a megfelelő kategóriába kerüljön (weap)
+## @brief Equipment items must be placed in the correct category slot.
 func test_add_equipment_goes_to_correct_slot() -> void:
 	GameManager.inventory_add("basic_sword")
-	var inv = GameManager.runtime_data[GameManager.KEY_INVENTORY]
+	var inv: Dictionary = GameManager.runtime_data[GameManager.KEY_INVENTORY]
 	assert_true(inv["weap"].has("basic_sword"),
-		"basic_sword should be in the 'weap' category")
-
+		"basic_sword should be placed in the 'weap' category")
 
 # --- inventory_has ---
 
-## inventory_has true-t ad vissza, ha az elem megvan
+## @brief inventory_has must return true for an owned consumable.
 func test_has_returns_true_for_owned_item() -> void:
-	GameManager.inventory_add("health_potion", 1)
-	assert_true(GameManager.inventory_has("health_potion"),
+	GameManager.inventory_add("beer", 1)
+	assert_true(GameManager.inventory_has("beer"),
 		"inventory_has should return true for an owned item")
 
-
-## inventory_has false-t ad vissza, ha az elem hiányzik
+## @brief inventory_has must return false for a missing item.
 func test_has_returns_false_for_missing_item() -> void:
-	assert_false(GameManager.inventory_has("health_potion"),
-		"inventory_has should return false for a missing item")
-
+	assert_false(GameManager.inventory_has("beer"),
+		"inventory_has should return false when item was never added")
 
 # --- inventory_remove ---
 
-## Eltávolítás után a számláló csökken
+## @brief Removing one unit must decrement the count by one.
 func test_remove_decreases_count() -> void:
-	GameManager.inventory_add("health_potion", 2)
-	GameManager.inventory_remove("health_potion")
-	assert_eq(GameManager.inventory_get_count("health_potion"), 1,
-		"Count should decrease by 1 after remove")
+	GameManager.inventory_add("beer", 2)
+	GameManager.inventory_remove("beer")
+	assert_eq(GameManager.inventory_get_count("beer"), 1,
+		"Count should decrease by 1 after a single remove")
 
-
-## Nem létező elem eltávolítása false-t ad vissza
+## @brief Removing an absent item must return false.
 func test_remove_returns_false_when_not_owned() -> void:
-	var result = GameManager.inventory_remove("health_potion")
+	var result: bool = GameManager.inventory_remove("beer")
 	assert_false(result, "Removing an absent item should return false")
-
 
 # --- inventory_get_count ---
 
-## Hiányzó elemnél a számláló 0 legyen
+## @brief The count for an item that was never added must be zero.
 func test_count_is_zero_for_absent_item() -> void:
-	assert_eq(GameManager.inventory_get_count("health_potion"), 0,
-		"Count should be 0 for an item never added")
+	assert_eq(GameManager.inventory_get_count("beer"), 0,
+		"Count should be 0 for an item that was never added")
