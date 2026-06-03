@@ -25,6 +25,9 @@ var _is_stunned: bool = false
 var _charge_dir: float = 1.0
 ## Remaining time for the active charge (seconds).
 var _charge_timer: float = 0.0
+## [code]true[/code] if the player has already been hit during this charge,
+## preventing multiple hits within a single dash.
+var _charge_hit_player: bool = false
 ## Remaining wind-up time before the charge begins (seconds).
 var _windup_timer: float = 0.0
 ## Remaining stun time after a wall collision (seconds).
@@ -74,6 +77,19 @@ func _physics_process(delta: float) -> void:
 				if abs(col.get_normal().x) > 0.5:
 					_end_charge(true)
 					break
+					
+		if not _charge_hit_player and _player != null \
+				and global_position.distance_to(_player.global_position) <= attack_range + 20.0:
+			_charge_hit_player = true
+			if _player.has_method("take_damage"):
+				_player.take_damage(
+					int(damage),
+					Vector2(_charge_dir * 370.0, -210.0)
+				)
+			_end_charge(false)
+			move_and_slide()
+			_update_animation()
+			return
 
 		if _charge_timer <= 0.0:
 			_end_charge(false)
@@ -116,6 +132,7 @@ func _begin_charge() -> void:
 	_charge_dir   = sign(_player.global_position.x - global_position.x)
 	_is_charging  = true
 	_charge_timer = charge_duration
+	_charge_hit_player = false
 
 ## Ends the charge, applying a stun if [param wall_hit] is true.
 ## On a clean charge (no wall), simply resets the attack cooldown.
