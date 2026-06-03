@@ -12,6 +12,8 @@ signal menu_closed
 var is_open := false
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	button.pressed.connect(_on_button_pressed)
 	resume_btn.pressed.connect(_on_resume_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
@@ -38,3 +40,9 @@ func _toggle_menu():
 		emit_signal("menu_opened")
 	else:
 		emit_signal("menu_closed")
+
+func _input(event: InputEvent) -> void:
+	
+	if event.is_action_pressed("ui_cancel"):
+		_toggle_menu()
+		return

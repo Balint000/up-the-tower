@@ -47,7 +47,7 @@ func use():
 # --- INTERNAL --- #
 
 func _update_visual():
-	if amount > 1:
+	if amount >= 0:
 		label.text = str(amount)
 	else:
 		label.text = "" 
