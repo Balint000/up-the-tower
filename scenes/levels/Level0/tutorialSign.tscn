@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bo82jy7x6kupw"]
+
+[ext_resource type="Script" uid="uid://bksvsjpwwv8dh" path="res://scenes/levels/Level0/tutorial_sign.gd" id="1_oope8"]
+[ext_resource type="Texture2D" uid="uid://lcmtgv5t0ax5" path="res://assets/textures/environments/sign1.png" id="2_ln3qd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8s2oy"]
+radius = 9.0
+
+[node name="TutorialSign" type="Area2D" unique_id=754166232]
+script = ExtResource("1_oope8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=186391878]
+texture = ExtResource("2_ln3qd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=877770186]
+shape = SubResource("CircleShape2D_8s2oy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
