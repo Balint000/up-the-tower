@@ -4,6 +4,24 @@
 [ext_resource type="Texture2D" uid="uid://cgmnrn6qefwlq" path="res://assets/textures/menus/background_basic.png" id="2_k2fmo"]
 [ext_resource type="FontFile" uid="uid://7uwmfv5hh80v" path="res://assets/fonts/GomePixel-ARJd7.otf" id="3_l3cfh"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2fmo"]
+bg_color = Color(0.25882354, 0.36862746, 0.3137255, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3cfh"]
+bg_color = Color(0.3764706, 0.5137255, 0.44705883, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6q06x"]
+bg_color = Color(0.25882354, 0.36862746, 0.3137255, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ow5a4"]
+bg_color = Color(0.3764706, 0.5137255, 0.44705883, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hujxm"]
+bg_color = Color(0.25882354, 0.36862746, 0.3137255, 0.78431374)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyfjg"]
+bg_color = Color(0.3764706, 0.5137255, 0.44705883, 0.78431374)
+
 [node name="MainMenu" type="Control" unique_id=1797444588]
 layout_mode = 3
 anchors_preset = 15
@@ -58,12 +76,16 @@ theme_override_constants/separation = 16
 [node name="Btn_Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=2144802658]
 custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_k2fmo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l3cfh")
 action_mode = 0
 text = "Play"
 
 [node name="Btn_Inventory" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1817456627]
 custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_6q06x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ow5a4")
 action_mode = 0
 text = "Inventory"
 
@@ -76,6 +98,8 @@ text = "Settings"
 [node name="Btn_Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1119076543]
 custom_minimum_size = Vector2(240, 52)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_hujxm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yyfjg")
 action_mode = 0
 text = "Quit"
 
