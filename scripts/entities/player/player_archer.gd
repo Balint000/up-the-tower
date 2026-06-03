@@ -1,8 +1,8 @@
 class_name PlayerArcher
 extends BasePlayer
 
-@onready var _camera:    Camera2D = $Camera2D  if has_node("Camera2D")  else null
-@onready var _inventory: Node     = $Inventory if has_node("Inventory") else null
+@onready var _camera: Camera2D = $Camera2D if has_node("Camera2D")  else null
+@onready var _inventory: Node = $Inventory if has_node("Inventory") else null
 
 func _get_animation_name() -> StringName:
 	match _state:
@@ -15,10 +15,8 @@ func _get_animation_name() -> StringName:
 		State.DEAD: return &"death"
 	return &"idle"
 
-func _use_selected_item() -> void:
-	if _inventory != null and _inventory.has_method("use_selected"):
-		_inventory.use_selected(self)
-		emit_signal("stats_changed", self)
+func _use_selected_item(item_id: String) -> void:
+	super._use_selected_item(item_id)
 
 ## Overrides melee attack: shoot an arrow where player sees.
 ## If projectile_scene not found -> push_warning
