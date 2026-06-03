@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cjnk8ys0w3or8"]
+
+[ext_resource type="Script" uid="uid://bnccmd82rbk7w" path="res://scripts/autoload/notification_manager.gd" id="1_souyg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wb42k"]
+bg_color = Color(0.31431612, 0.31431612, 0.31431603, 0.42745098)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.5649619, 0.56496155, 0.56496173, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+shadow_color = Color(0.427493, 0.42749307, 0.42749307, 0.6)
+shadow_size = 20
+
+[node name="NotificationManager" type="CanvasLayer" unique_id=1781239789]
+process_mode = 3
+layer = 20
+script = ExtResource("1_souyg")
+slide_distance = null
+slide_speed = null
+fade_speed = null
+display_time = null
+
+[node name="NotificationPanel" type="PanelContainer" parent="." unique_id=693506221]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wb42k")
+
+[node name="MarginContainer" type="MarginContainer" parent="NotificationPanel" unique_id=1954354374]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NotificationPanel/MarginContainer" unique_id=1445876523]
+custom_minimum_size = Vector2(380, 90)
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="NotificationPanel/MarginContainer/HBoxContainer" unique_id=1544666406]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Message" type="Label" parent="NotificationPanel/MarginContainer/HBoxContainer" unique_id=1988673684]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_alignment = 1
+autowrap_mode = 3
