@@ -227,6 +227,7 @@ func _do_wiring(player: Node, hud: Node) -> void:
 	if player.has_signal("player_heal") and hud.has_method("_on_character_heal"):
 		if not player.player_heal.is_connected(hud._on_character_heal):
 			player.player_heal.connect(hud._on_character_heal)
+			print("heal összekötve")
 
 	if player.has_signal("player_died"):
 		if not player.player_died.is_connected(on_player_death):
