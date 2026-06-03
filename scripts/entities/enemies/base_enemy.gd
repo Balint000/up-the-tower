@@ -11,7 +11,7 @@ class_name BaseEnemy
 extends Entity
 
 ## Possible states for the internal finite state machine.
-enum State { IDLE, PATROL, AGGRO, ATTACK, HURT, DEAD }
+enum State { IDLE, PATROL, AGGRO, ATTACK, HURT, DEAD, JUMP }
 
 ## Currently active state of the enemy's state machine.
 var _state: State = State.PATROL
