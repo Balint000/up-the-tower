@@ -6,10 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://ehf8vcybbav0" path="res://scenes/inventory/StatsContainer.tscn" id="3_tvok8"]
 [ext_resource type="Texture2D" uid="uid://dnhfoq680as51" path="res://assets/textures/backgrounds/teszt.jpg" id="4_bxceu"]
 [ext_resource type="PackedScene" uid="uid://21l6q16tfdca" path="res://scenes/inventory/CharacterPreview.tscn" id="4_v8e04"]
+[ext_resource type="Texture2D" uid="uid://c67h23lgiordx" path="res://assets/textures/backgrounds/character_preview_background.png" id="4_x4j3l"]
 [ext_resource type="PackedScene" uid="uid://2ucxkuib610a" path="res://scenes/inventory/QuickSlots.tscn" id="7_kl7fi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kl7fi"]
 bg_color = Color(0.25490198, 0.45490196, 0.53333336, 0.39215687)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhe83"]
+bg_color = Color(0.23031491, 0.23031494, 0.23031488, 1)
+border_color = Color(0.18359044, 0.18359047, 0.1835903, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -290,10 +300,28 @@ theme_override_constants/separation = 12
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_hhe83")
 
-[node name="CharacterPreview" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=669123381 instance=ExtResource("4_v8e04")]
-position = Vector2(193, 452)
-scale = Vector2(2, 2)
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel" unique_id=1851780676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel/MarginContainer" unique_id=702895214]
+layout_mode = 2
+texture = ExtResource("4_x4j3l")
+expand_mode = 1
+
+[node name="CharacterPreview" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel/MarginContainer" unique_id=669123381 instance=ExtResource("4_v8e04")]
+position = Vector2(171, 416)
+scale = Vector2(5, 5)
 
 [node name="EquipmentSlots" type="VBoxContainer" parent="MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow" unique_id=795979234]
 layout_mode = 2

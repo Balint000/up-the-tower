@@ -1,73 +1,16 @@
 [gd_scene format=3 uid="uid://21l6q16tfdca"]
 
 [ext_resource type="Script" uid="uid://blhnoalns5ylc" path="res://scripts/inventory/character_preview.gd" id="1_jw5cf"]
-[ext_resource type="Texture2D" uid="uid://doaiijahlf6uk" path="res://assets/sprites/player/Tolvaj_2_waves.png" id="2_pxors"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k3j4e"]
-atlas = ExtResource("2_pxors")
-region = Rect2(50, 15, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ckvt3"]
-atlas = ExtResource("2_pxors")
-region = Rect2(66, 15, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4okly"]
-atlas = ExtResource("2_pxors")
-region = Rect2(82, 15, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y1vxx"]
-atlas = ExtResource("2_pxors")
-region = Rect2(98, 15, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2p01x"]
-atlas = ExtResource("2_pxors")
-region = Rect2(114, 15, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1lo0a"]
-atlas = ExtResource("2_pxors")
-region = Rect2(130, 15, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bfooj"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"thief_idle",
-"speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k3j4e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ckvt3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4okly")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y1vxx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2p01x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1lo0a")
-}],
-"loop": true,
-"name": &"thief_waves",
-"speed": 10.0
-}]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jw5cf"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
 
 [node name="CharacterPreview" type="Node2D" unique_id=669123381]
 script = ExtResource("1_jw5cf")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1132719995]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Panel" type="Panel" parent="." unique_id=2005764839]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jw5cf")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1651277296]
-sprite_frames = SubResource("SpriteFrames_bfooj")
-animation = &"thief_waves"
+[node name="CharacterContainer" type="Node2D" parent="Panel" unique_id=800199987]
