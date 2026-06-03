@@ -43,6 +43,7 @@ func _do_melee_attack() -> void:
 ## Fireball projectile ability
 ## Spawns the fireball scene
 func _do_ability() -> void:
+	super._do_ability()
 	if _ability == null or not _ability.is_ready():
 		return
 
