@@ -35,6 +35,11 @@ region = Rect2(384, 0, 64, 80)
 animations = [{
 "frames": [],
 "loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
 "name": &"hurt",
 "speed": 5.0
 }, {
@@ -75,7 +80,7 @@ script = ExtResource("1_i17n2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=104506277]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_lb4oj")
-animation = &"walk"
+animation = &"death"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1151813194]

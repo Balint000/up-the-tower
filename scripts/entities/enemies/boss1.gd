@@ -74,7 +74,7 @@ var _phase2_triggered: bool = false
 @export var jump_up_velocity: float = -380.0
 
 ## Horizontal speed toward the player during the jump (px/s).
-@export var jump_h_speed: float = 270.0
+@export var jump_h_speed: float = 210.0
 
 # Charge attack (Phase 2)
 
@@ -271,6 +271,8 @@ func _physics_process(delta: float) -> void:
 
 		State.DEAD:
 			velocity = Vector2.ZERO
+		State.JUMP:
+			pass
 
 	move_and_slide()
 
@@ -360,6 +362,9 @@ func _begin_jump() -> void:
 	if _player == null:
 		return
 
+	
+	_set_state(State.JUMP)
+
 	_is_jumping = true
 	_jump_dir = sign(_player.global_position.x - global_position.x)
 	velocity.x = _jump_dir * jump_h_speed
@@ -379,6 +384,7 @@ func _on_jump_land() -> void:
 			and global_position.distance_to(_player.global_position) <= attack_range + 35.0:
 		if _player.has_method("take_damage"):
 			_player.take_damage(damage, Vector2(_jump_dir * 200.0, -160.0))
+	_set_state(State.AGGRO)
 
 # ── Charge attack ─────────────────────────────────────────────────────────────
 
@@ -472,6 +478,8 @@ func _update_animation() -> void:
 			_sprite.play("hurt")
 		State.DEAD:
 			_sprite.play("death")
+		State.JUMP:
+			_sprite.play("jump")
 
 # Death
 
