@@ -119,7 +119,6 @@ func _do_archer_movement() -> void:
 func _shoot_arrow() -> void:
 	if _player == null:
 		return
-
 	if arrow_scene == null:
 		push_warning("ArcherEnemy: arrow_scene is not set! Assign it in the editor.")
 		return
@@ -127,5 +126,5 @@ func _shoot_arrow() -> void:
 	var dir := (_player.global_position - global_position).normalized()
 	var arrow := arrow_scene.instantiate()
 	if arrow.has_method("setup"):
-		arrow.setup(global_position, dir, arrow_damage, arrow_speed)
+		arrow.setup(global_position, dir, arrow_damage, arrow_speed)  # Vector2, tökéletes
 	get_tree().get_current_scene().add_child(arrow)
