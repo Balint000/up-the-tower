@@ -4,16 +4,18 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wb42k"]
 bg_color = Color(0.31431612, 0.31431612, 0.31431603, 0.42745098)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 border_color = Color(0.5649619, 0.56496155, 0.56496173, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 corner_detail = 20
+shadow_color = Color(0.427493, 0.42749307, 0.42749307, 0.6)
+shadow_size = 20
 
 [node name="NotificationManager" type="CanvasLayer" unique_id=1781239789]
 process_mode = 3
@@ -23,9 +25,6 @@ slide_distance = null
 slide_speed = null
 fade_speed = null
 display_time = null
-panel_path = null
-label_path = null
-icon_path = null
 
 [node name="NotificationPanel" type="PanelContainer" parent="." unique_id=693506221]
 anchors_preset = 1
