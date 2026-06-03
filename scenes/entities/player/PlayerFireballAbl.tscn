@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dickjd5sbw5be" path="res://scripts/entities/player/player_fireball_abl.gd" id="1_sa6a4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n1qjp"]
-radius = 11.0
+radius = 15.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfvgd"]
 atlas = ExtResource("1_4vumf")
@@ -42,6 +42,6 @@ script = ExtResource("1_sa6a4")
 shape = SubResource("CircleShape2D_n1qjp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1729590394]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.105, 2.105)
 sprite_frames = SubResource("SpriteFrames_nmweo")
 animation = &"fly"

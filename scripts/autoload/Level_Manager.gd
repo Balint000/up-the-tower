@@ -165,6 +165,8 @@ func reload_current_level() -> void:
 
 func return_to_main_menu() -> void:
 	await _fade_out()
+	NotificationManager.show_message("VICTORY")
+	NotificationManager.show_message("You completed the alpha game", preload("res://icon.svg"))
 	GameManager.go_to_mainmenu()
 	await _fade_in()
 
