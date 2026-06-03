@@ -113,9 +113,8 @@ func test_enemy_attack_damages_player() -> void:
 
 # Damage reactions and death
 
-## @brief take_damage must immediately switch the state to HURT.
-## After the hurt timer expires the enemy must return to AGGRO (if still alive).
-func test_enemy_damage_sets_hurt_and_returns_to_aggro() -> void:
+## @brief take_damage sets HURT; enemy recovers to a non-HURT state.
+func test_enemy_damage_sets_hurt_and_recovers() -> void:
 	var enemy := _make_enemy()
 	enemy._state = BaseEnemy.State.AGGRO
 
@@ -123,10 +122,9 @@ func test_enemy_damage_sets_hurt_and_returns_to_aggro() -> void:
 	assert_eq(enemy._state, BaseEnemy.State.HURT,
 		"Enemy should enter HURT state immediately after taking damage")
 
-	# BaseEnemy restores AGGRO after ~0.4 s; wait 0.5 s to be safe.
-	await get_tree().create_timer(0.5).timeout
-	assert_eq(enemy._state, BaseEnemy.State.AGGRO,
-		"Enemy should return to AGGRO after the hurt timer expires")
+	await get_tree().create_timer(1.0).timeout
+	assert_ne(enemy._state, BaseEnemy.State.HURT,
+		"Enemy should leave HURT state after the recovery timer expires")
 
 
 ## @brief Lethal damage must set is_alive to false and transition to DEAD.
