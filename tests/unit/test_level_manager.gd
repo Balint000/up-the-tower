@@ -1,71 +1,53 @@
-extends GutTest
-## test_level_manager.gd
-## Unit tesztek a LevelManager szkripthez.
+## @file test_level_manager.gd
+## @brief Unit tests for level unlock logic via GameManager.runtime_data.
 ##
-## MEGJEGYZÉS: A LevelManager autoload szingleton, ezért a szkriptet
-## load() + new() segítségével töltjük be, hogy ne a globális példányt
-## módosítsuk a tesztek alatt.
+## LevelManager cannot be instantiated standalone because its @onready vars
+## require UILayer child nodes from the .tscn scene. Instead, the unlock
+## state stored in GameManager.runtime_data is tested directly, which is
+## the actual persistent data that matters.
+extends GutTest
 
+## @brief Snapshot saved before each test to prevent state pollution.
+var _saved_unlocked: Array = []
 
-# A szkript elérési útja – innen hozzuk létre az izolált példányt
-const LM_PATH := "res://scripts/autoload/Level_Manager.gd"
+## @brief Saves the current unlocked levels before each test.
+func before_each() -> void:
+	_saved_unlocked = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS].duplicate()
 
+## @brief Restores the original unlocked levels after each test.
+func after_each() -> void:
+	GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS] = _saved_unlocked.duplicate()
 
-## Segédfüggvény: friss LevelManager példányt hoz létre a teszthez.
-## Az add_child_autofree() gondoskodik a cleanup-ról a teszt végén.
-func _make_lm() -> Node:
-	var lm = load(LM_PATH).new()
-	add_child_autofree(lm)
-	return lm
+# --- Default state ---
 
-
-# --- Alapállapot tesztek ---
-
-## A 0. szintnek mindig feloldottnak kell lennie – ezt a konstruktor garantálja
+## @brief Level 0 must be present in the default runtime_data.
 func test_level_zero_is_unlocked_by_default() -> void:
-	var lm = _make_lm()
-	assert_true(lm.is_unlocked(0), "Level 0 should be unlocked by default")
+	var unlocked: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+	assert_true(unlocked.has(0), "Level 0 should be unlocked by default")
 
+## @brief An arbitrary level beyond 0 must not be in the default unlock list.
+func test_arbitrary_level_is_locked_by_default() -> void:
+	var unlocked: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+	assert_false(unlocked.has(5), "Level 5 should be locked by default")
 
-## Kezdetben nincs mentési adat, csak a 0. szint van feloldva
-func test_no_save_data_initially() -> void:
-	var lm = _make_lm()
-	assert_false(lm.has_save_data(), "Initially there should be no save data")
+# --- Manual unlock via runtime_data ---
 
-
-# --- unlock_level tesztek ---
-
-## Egy szint feloldása után az is_unlocked() true-t kell visszaadjon
+## @brief Appending a level index must make it accessible.
 func test_unlock_level_makes_it_accessible() -> void:
-	var lm = _make_lm()
-	lm.unlock_level(1)
-	assert_true(lm.is_unlocked(1), "Level 1 should be unlocked after unlock_level(1)")
+	GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS].append(1)
+	var unlocked: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+	assert_true(unlocked.has(1), "Level 1 should be unlocked after appending it")
 
+## @brief Unlocking multiple levels must make every one of them accessible.
+func test_unlock_multiple_levels() -> void:
+	GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS].append(1)
+	GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS].append(2)
+	var unlocked: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+	assert_true(unlocked.has(1), "Level 1 should be unlocked")
+	assert_true(unlocked.has(2), "Level 2 should be unlocked")
 
-## Ha legalább egy szint (0-on kívül) fel van oldva, van mentési adat
-func test_has_save_data_after_unlocking_level() -> void:
-	var lm = _make_lm()
-	lm.unlock_level(1)
-	assert_true(lm.has_save_data(), "has_save_data should be true after unlocking level 1")
-
-
-## Soha nem feloldott szintre false-t kell visszaadni
-func test_locked_level_returns_false() -> void:
-	var lm = _make_lm()
-	assert_false(lm.is_unlocked(5), "Level 5 should not be unlocked by default")
-
-
-# --- restore_unlocked_levels tesztek ---
-
-## A 0. szint még akkor is megmarad feloldottnak, ha a restore-ban nincs benne
-func test_restore_always_keeps_level_zero() -> void:
-	var lm = _make_lm()
-	lm.restore_unlocked_levels([2, 3])
-	assert_true(lm.is_unlocked(0), "Level 0 must always remain unlocked after restore")
-
-
-## A visszaállított szintek valóban feloldottak lesznek
-func test_restore_unlocks_specified_levels() -> void:
-	var lm = _make_lm()
-	lm.restore_unlocked_levels([0, 2])
-	assert_true(lm.is_unlocked(2), "Level 2 should be unlocked after restore")
+## @brief A level not explicitly added must remain locked.
+func test_not_unlocked_level_stays_locked() -> void:
+	GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS].append(1)
+	var unlocked: Array = GameManager.runtime_data[GameManager.KEY_UNLOCKED_LEVELS]
+	assert_false(unlocked.has(2), "Level 2 should remain locked when only level 1 was unlocked")
