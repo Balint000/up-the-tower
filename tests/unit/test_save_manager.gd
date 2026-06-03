@@ -36,8 +36,6 @@ func _valid_save_data() -> Dictionary:
 		"unlocked_levels": [0, 1],
 	}
 
-# --- Happy path ---
-
 ## @brief verify_save_data_json must return OK when all required keys are present.
 func test_verify_returns_ok_for_valid_data() -> void:
 	var sm := _create_save_manager()

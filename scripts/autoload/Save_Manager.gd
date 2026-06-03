@@ -49,7 +49,7 @@ func verify_save_data_json(save_data: Dictionary) -> Error:
 
 	for key in required_keys:
 		if not save_data.has(key):
-			push_error("Hiányzó kulcs a mentésben: " + key)
+			# push_error("Hiányzó kulcs a mentésben: " + key)
 			return ERR_DOES_NOT_EXIST
 	
 	convert_int_keys(save_data, ["level", "xp"])
