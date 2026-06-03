@@ -35,13 +35,15 @@ grow_vertical = 2
 script = ExtResource("1_kts3w")
 
 [node name="Button" type="Button" parent="." unique_id=1458339241]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -30.0
-offset_top = 10.0
-offset_bottom = 40.0
+offset_left = -22.0
+offset_top = 4.0
+offset_right = -12.0
+offset_bottom = 24.0
 grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_kts3w")
 icon = ExtResource("2_ix0fg")

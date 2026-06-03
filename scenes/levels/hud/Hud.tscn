@@ -29,19 +29,23 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer" unique_id=629891347]
+custom_minimum_size = Vector2(30, 30)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -20.0
+offset_left = -30.0
+offset_top = 20.0
+offset_right = -20.0
 offset_bottom = 20.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 theme_override_constants/separation = 5
 
 [node name="MenuButton" parent="CanvasLayer/VBoxContainer2" unique_id=69966390 instance=ExtResource("4_r87kl")]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 6
 
 [node name="ItemSlots" type="Control" parent="CanvasLayer" unique_id=1128133994]
 layout_mode = 3

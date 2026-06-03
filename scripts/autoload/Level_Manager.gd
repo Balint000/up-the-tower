@@ -140,6 +140,8 @@ func load_level(index: int) -> void:
 func load_next_level() -> void:
 	var next_index: int = current_level_index + 1
 	
+	await _fade_out()
+	
 	# ── Play current level's outro before loading next ──
 	var stories: Dictionary = StoryDataLoader.load_level_stories(current_level_index)
 	if stories["outro"].size() > 0:
