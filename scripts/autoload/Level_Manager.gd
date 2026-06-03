@@ -212,16 +212,18 @@ func _handle_all_levels_completed() -> void:
 func _wait_and_setup_connections() -> void:
 	var player: Node = get_tree().get_first_node_in_group("player")
 	var hud: Node = get_tree().get_first_node_in_group("hud")
+	var ability: Node = get_tree().get_first_node_in_group("ability")
 
 	while player == null or hud == null:
 		await get_tree().create_timer(0.1).timeout
 		player = get_tree().get_first_node_in_group("player")
 		hud = get_tree().get_first_node_in_group("hud")
+		ability = get_tree().get_first_node_in_group("ability")
 
-	_do_wiring(player, hud)
+	_do_wiring(player, hud, ability)
 
 
-func _do_wiring(player: Node, hud: Node) -> void:
+func _do_wiring(player: Node, hud: Node, ability: Node) -> void:
 	if player.has_signal("character_take_damage") and hud.has_method("_on_character_take_damage"):
 		if not player.character_take_damage.is_connected(hud._on_character_take_damage):
 			player.character_take_damage.connect(hud._on_character_take_damage)
@@ -235,9 +237,10 @@ func _do_wiring(player: Node, hud: Node) -> void:
 		if not player.player_died.is_connected(on_player_death):
 			player.player_died.connect(on_player_death)
 
-	#if player.has_signal("ability_used") and hud.has_method("_on_character_ability_used"):
-	#	if not player.ability_used.is_connected(hud._on_character_ability_used):
-	#		player.ability_used.connect(hud._on_character_ability_used)
+	if ability.has_signal("ability_used") and hud.has_method("_on_character_ability_used"):
+		if not ability.ability_used.is_connected(hud._on_character_ability_used):
+			ability.ability_used.connect(hud._on_character_ability_used)
+			print("ability összekötve")
 
 	print("✅ LevelManager: Töltés kész, signalok összekötve.")
 	wiring_finished.emit()

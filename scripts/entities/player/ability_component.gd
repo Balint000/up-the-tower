@@ -30,7 +30,7 @@ var _cd_timer: float = 0.0
 
 ## Emitted when an ability is successfully activated.
 ## [param type] The [member ability_type] string of the activated ability.
-signal ability_used(type: String)
+signal ability_used(type: String, cd)
 ## Emitted when the cooldown timer reaches zero and the ability becomes usable again.
 signal ability_ready()
 
@@ -44,6 +44,7 @@ func setup(player: BasePlayer, res: CharacterResource) -> void:
 	ability_type = res.ability_type
 	ability_cooldown = res.ability_cooldown
 	ability_power = res.ability_power
+	add_to_group("ability")
 
 
 ## Advances the cooldown timer by [param delta] seconds.
@@ -71,7 +72,7 @@ func activate() -> void:
 		"block": _do_block()
 		"fireball": _do_fireball()
 	_cd_timer = ability_cooldown
-	emit_signal("ability_used", ability_type)
+	emit_signal("ability_used", ability_type, ability_cooldown)
 
 
 ## Applies a horizontal velocity impulse in the player's facing direction.
