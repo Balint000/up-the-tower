@@ -69,7 +69,6 @@ func _process(delta: float) -> void:
 
 
 func _fade_out() -> void:
-	_loading_label.visible = true
 	_current_fade_time = fade_out_duration
 	_fade_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_fade_target = 1.0
@@ -108,8 +107,14 @@ func load_level(index: int) -> void:
 
 	await _fade_out()
 	
+	# ── Play intro story (if any) ──
+	var stories: Dictionary = StoryDataLoader.load_level_stories(index)
+	if stories["intro"].size() > 0:
+		_story_overlay.play(stories["intro"])
+		await _story_overlay.finished
+	
+	_loading_label.visible = true
 	var loading_start := Time.get_ticks_msec()
-
 	var error: int = get_tree().change_scene_to_file(levels[index])
 	if error != OK:
 		push_error("Sikertelen scene betöltés!")
@@ -127,12 +132,6 @@ func load_level(index: int) -> void:
 	GameManager.set_state(GameManager.GameState.IN_GAME)
 	
 	_loading_label.visible = false
-
-		# ── Play intro story (if any) ──
-	var stories: Dictionary = StoryDataLoader.load_level_stories(index)
-	if stories["intro"].size() > 0:
-		_story_overlay.play(stories["intro"])
-		await _story_overlay.finished
 
 	await _fade_in()
 
@@ -224,6 +223,11 @@ func _do_wiring(player: Node, hud: Node) -> void:
 	if player.has_signal("character_take_damage") and hud.has_method("_on_character_take_damage"):
 		if not player.character_take_damage.is_connected(hud._on_character_take_damage):
 			player.character_take_damage.connect(hud._on_character_take_damage)
+
+	if player.has_signal("player_heal") and hud.has_method("_on_character_heal"):
+		if not player.player_heal.is_connected(hud._on_character_heal):
+			player.player_heal.connect(hud._on_character_heal)
+			print("heal összekötve")
 
 	if player.has_signal("player_died"):
 		if not player.player_died.is_connected(on_player_death):

@@ -14,6 +14,8 @@ extends Entity
 signal character_take_damage(amount)
 ## Emitted once when the player's health reaches zero. Listened to by the HUD and [LevelManager].
 signal player_died()
+## Emitted when the player uses an item.
+signal player_heal(amount, item_id)
 
 ## Possible animation and logic states for the player state machine.
 enum State { IDLE, RUN, JUMP, FALL, ATTACK, HURT, DEAD }
@@ -230,8 +232,10 @@ func _handle_action_input(event: InputEvent) -> void:
 		_do_ability()
 	if event.is_action_pressed("interact"):
 		_request_interaction()
-	if event.is_action_pressed("use_item"):
-		_use_selected_item()
+	if event.is_action_pressed("use_item"): # number 1
+		_use_selected_item("apple")
+	if event.is_action_pressed("use_item_2"): # number 2
+		_use_selected_item("beer")
 
 ## Performs a melee attack: scans the [code]"enemies"[/code] group for nodes
 ## within [member melee_range] and calls [method Entity.take_damage] on each hit.
@@ -300,10 +304,34 @@ func _request_interaction() -> void:
 	if nearest and nearest.has_method("interact"):
 		nearest.interact(self)
 
-## Uses the currently selected inventory item. Override in subclasses
-## (e.g. [PlayerKnight]) that have an [code]Inventory[/code] child node.
-func _use_selected_item() -> void:
-	pass
+## @brief Attempts to consume a heal item from the player's inventory.
+##
+## Looks up the item's [code]effect_hp[/code] field via [DataDb], removes one
+## unit from [GameManager]'s consumable inventory, and applies the heal to this
+## [Entity] if the player owns at least one copy of the item and is currently alive.
+## Does nothing when the player is dead or the inventory is empty.
+##
+## @param item_id  The string identifier of the consumable to use
+##                 (e.g. [code]"apple"[/code] or [code]"beer"[/code]).
+func _use_selected_item(item_id: String) -> void:
+	# Ignore item use while the player is dead.
+	if not is_alive:
+		return
+	# Fetch the item data from the database.
+	var item_res: ItemResource = DataDb.get_item(item_id) as ItemResource
+	if item_res == null:
+		push_warning("BasePlayer._use_selected_item: unknown item id '%s'" % item_id)
+		return
+	# Verify the player has at least one copy in their inventory.
+	if not GameManager.inventory_has(item_id, 1):
+		return
+	# Consume one unit from the inventory.
+	GameManager.inventory_remove(item_id, 1)
+	# Apply the HP restoration from the item's effect_hp field.
+	var amount = item_res.effect_hp
+	if amount > 0:
+		heal(item_res.effect_hp)
+	emit_signal("player_heal", amount, item_id)
 
 ## Receives damage, optionally reduced by an active block, then applies
 ## knockback, sets HURT state, and triggers the flash visual effect.

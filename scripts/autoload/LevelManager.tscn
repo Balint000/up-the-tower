@@ -20,6 +20,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="LoadingLabel" type="Label" parent="UILayer/FadeOverlay" unique_id=928296717]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8

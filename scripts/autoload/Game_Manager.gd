@@ -182,8 +182,8 @@ func inventory_remove(item_id: String, amount: int = 1) -> bool:
 		"cons":
 			if inv.get("cons", {}).get(item_id, 0) > 0:
 				inv["cons"][item_id] -= amount
-				if inv["cons"][item_id] <= 0:
-					inv["cons"].erase(item_id)
+				if inv["cons"][item_id] < 0:
+					inv["cons"][item_id] = 0
 				runtime_data[KEY_INVENTORY] = inv
 				inventory_updated.emit()
 				return true

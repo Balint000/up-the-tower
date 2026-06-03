@@ -2,8 +2,8 @@ extends Control
 
 signal used(item_id)
 
-@onready var icon: TextureRect = $TextureRect
-@onready var label: Label = $Label
+@onready var icon: TextureRect = $Panel/TextureRect
+@onready var label: Label = $Panel/Label
 
 var item_id: String = ""
 var amount: int = 0
@@ -22,10 +22,8 @@ func set_item(id: String, texture: Texture2D, count: int = 1):
 	_update_visual()
 
 func clear():
-	item_id = ""
-	icon.texture = null
 	amount = 0
-	visible = false
+	visible = true
 
 func use():
 	if not usable:
@@ -37,7 +35,7 @@ func use():
 	amount -= 1
 	emit_signal("used", item_id)
 
-	if amount <= 0:
+	if amount < 0:
 		clear()
 	else:
 		_update_visual()
@@ -47,7 +45,7 @@ func use():
 # --- INTERNAL --- #
 
 func _update_visual():
-	if amount > 1:
+	if amount >= 0:
 		label.text = str(amount)
 	else:
 		label.text = "" 
