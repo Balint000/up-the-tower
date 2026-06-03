@@ -442,6 +442,7 @@ tile_set = SubResource("TileSet_bogw8")
 
 [node name="EnemySpawner" parent="." unique_id=1581689521 instance=ExtResource("3_wv11u")]
 position = Vector2(842, 512)
+enemy_id = "enemy_archer"
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("4_162s8")]
 unique_name_in_owner = true
