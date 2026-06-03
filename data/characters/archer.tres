@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://dvnmjh8jsrmlv"]
 
 [ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_7dqt3"]
+[ext_resource type="Texture2D" uid="uid://qqnsccn8tskr" path="res://assets/sprites/player/portraits/archerPortrait.png" id="1_ps0dn"]
 
 [resource]
 script = ExtResource("1_7dqt3")
 character_id = "archer"
 character_name = "archer"
+portrait = ExtResource("1_ps0dn")
 base_spd = 150.0
 ability_type = "double_jump"
 scene_path = "uid://beqg4ysu4g1c0"

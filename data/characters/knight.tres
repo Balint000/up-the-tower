@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterResource" format=3 uid="uid://dj8phhes0kvt6"]
 
-[ext_resource type="Texture2D" uid="uid://b51snksro6ihg" path="res://assets/placeholder assets/Legacy Collection/Assets/Characters/death/Sprites/walk/death-lamp-walk1.png" id="1_0gch8"]
+[ext_resource type="Texture2D" uid="uid://c46uchdnxq78" path="res://assets/sprites/player/portraits/knightPortait.png" id="1_0gch8"]
 [ext_resource type="Script" uid="uid://xxkmfki5unb6" path="res://scripts/classes/character_resource.gd" id="1_5owmk"]
 
 [resource]
