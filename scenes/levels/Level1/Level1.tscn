@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ckmdx3lc11jjy" path="res://assets/textures/tilesets/tileset1.png" id="1_7w3lq"]
 [ext_resource type="Script" uid="uid://be3jf5vby7htm" path="res://scripts/entities/player/player_spawner.gd" id="2_607xp"]
 [ext_resource type="PackedScene" uid="uid://dkj8qq64qb8qi" path="res://scenes/entities/environment/spike_trap.tscn" id="2_mtxap"]
-[ext_resource type="Script" path="res://scripts/environment/camera.gd" id="3_et5g2"]
+[ext_resource type="Script" uid="uid://48u1ljr4wwom" path="res://scripts/environment/camera.gd" id="3_et5g2"]
 [ext_resource type="PackedScene" uid="uid://b5v6oym2rf7y5" path="res://scenes/entities/enemies/EnemySpawner.tscn" id="4_tqoff"]
 [ext_resource type="PackedScene" uid="uid://bhbesdeaa4xp0" path="res://scenes/entities/environment/lever.tscn" id="6_p8gt5"]
 [ext_resource type="Script" uid="uid://bale1c3qebs4e" path="res://scripts/levels/level1_lever_puzzle_controller.gd" id="7_avroq"]
@@ -298,6 +298,14 @@ enemy_id = "enemy_flying"
 position = Vector2(331, 273)
 enemy_id = "enemy_charger"
 
+[node name="EnemyArcher1" parent="Enemies" unique_id=1337870270 instance=ExtResource("4_tqoff")]
+position = Vector2(-16, 195)
+enemy_id = "enemy_archer"
+
+[node name="EnemyArcher2" parent="Enemies" unique_id=1363161912 instance=ExtResource("4_tqoff")]
+position = Vector2(65, -338)
+enemy_id = "enemy_archer"
+
 [node name="Traps" type="Node" parent="." unique_id=1397943161]
 
 [node name="SpikeTrap_w_lever" parent="Traps" unique_id=1909333191 instance=ExtResource("2_mtxap")]
@@ -370,10 +378,10 @@ trap_paths = Array[NodePath]([NodePath("../Traps/SpikeTrap_w_lever"), NodePath("
 target_pattern = Array[bool]([false, true, false])
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("8_ygbf3")]
-offset_left = -1.0
-offset_top = 1.0
-offset_right = -1.0
-offset_bottom = 1.0
+offset_left = -16.0
+offset_top = 194.0
+offset_right = -16.0
+offset_bottom = 194.0
 
 [node name="Goal" parent="." unique_id=89516015 instance=ExtResource("9_63pat")]
 position = Vector2(755, -464)

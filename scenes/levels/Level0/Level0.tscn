@@ -441,14 +441,17 @@ tile_map_data = PackedByteArray("AABGABoAAAABAAMAAABGABcAAAABAAIAAABGABYAAAABAAI
 tile_set = SubResource("TileSet_bogw8")
 
 [node name="EnemySpawner" parent="." unique_id=1581689521 instance=ExtResource("3_wv11u")]
-position = Vector2(842, 512)
+position = Vector2(900.695, 512)
 enemy_id = "enemy_archer"
+
+[node name="EnemySpawner2" parent="." unique_id=1595684852 instance=ExtResource("3_wv11u")]
+position = Vector2(816.77, 512)
 
 [node name="Hud" parent="." unique_id=1897493702 instance=ExtResource("4_162s8")]
 unique_name_in_owner = true
-offset_left = -602.0
+offset_left = -635.0
 offset_top = -392.0
-offset_right = -602.0
+offset_right = -635.0
 offset_bottom = -392.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=525235749]

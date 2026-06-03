@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c16aclc7w5tjk"]
+[gd_scene format=3 uid="uid://bkdxkkd3johel"]
 
 [ext_resource type="Script" uid="uid://jivh40qddpll" path="res://scripts/entities/enemies/enemy_arrow.gd" id="1_aa2la"]
 [ext_resource type="Texture2D" uid="uid://dj3b8mvybydia" path="res://assets/projectiles/Arrow01(32x32).png" id="2_dukm4"]
