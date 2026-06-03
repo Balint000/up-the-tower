@@ -53,17 +53,16 @@ func _on_character_heal(amount, id) -> void:
 
 func _on_character_ability_used(type, cd) -> void:
 	cd = float(cd)
-	if timer_bar.running:
-		return
 
 	match type:
 		"fireball", "dash", "double_jump":
-			timer_bar.start_cooldown(cd)
-			print("többi")
+			if not timer_bar.state == timer_bar.State.CHARGING:
+				timer_bar.start_cooldown(cd)
+
 		"block":
-			timer_bar.trigger_block_ability(6.0,cd)
+			timer_bar.trigger_knight_block(6.0, cd)
 			print("block")
+
 		_:
-			push_error("invalid player ability ")
-	
+			push_error("invalid player ability: " + str(type))
 	
