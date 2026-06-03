@@ -23,6 +23,8 @@ extends Control
 
 @onready var back_btn = $MainMargin/MainHBox/BackButton
 
+@onready var character_preview = $MainMargin/MainHBox/CharInfoPanel/InfoVBox/DisplayRow/CharacterGraphicPanel/MarginContainer/CharacterPreview
+
 var bag_overlay: Control = null
 
 var selected_char := "knight"
@@ -266,6 +268,7 @@ func _refresh_character_ui():
 	_refresh_character_name()
 	_refresh_equipment()
 	_refresh_stats()
+	_refresh_character_preview()
 
 func _refresh_equipment():
 
@@ -302,6 +305,12 @@ func _refresh_stats():
 
 	var stats_data = _calc_stats()
 	stats.set_stats(stats_data)
+
+func _refresh_character_preview():
+
+	var char_data = DataDb.get_character(selected_char)
+
+	character_preview.show_character(char_data)
 
 func _calc_stats() -> Dictionary:
 
