@@ -47,7 +47,7 @@ custom_minimum_size = Vector2(150, 10)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_rh00h")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o5wba")
-max_value = 10.0
-step = 1.0
-value = 10.0
+value = 100.0
 show_percentage = false
+
+[node name="Timer" type="Timer" parent="MarginContainer" unique_id=1788696650]

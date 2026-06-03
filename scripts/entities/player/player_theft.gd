@@ -16,3 +16,6 @@ func _get_animation_name() -> StringName:
 
 func _use_selected_item(item_id: String) -> void:
 	super._use_selected_item(item_id)
+
+func _do_ability() -> void:
+	super._do_ability()

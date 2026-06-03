@@ -50,3 +50,19 @@ func _on_character_heal(amount, id) -> void:
 			slot2.use()
 		_:
 			push_error("Invalid SLot")
+
+func _on_character_ability_used(type, cd) -> void:
+	cd = float(cd)
+
+	match type:
+		"fireball", "dash", "double_jump":
+			if not timer_bar.state == timer_bar.State.CHARGING:
+				timer_bar.start_cooldown(cd)
+
+		"block":
+			timer_bar.trigger_knight_block(6.0, cd)
+			print("block")
+
+		_:
+			push_error("invalid player ability: " + str(type))
+	

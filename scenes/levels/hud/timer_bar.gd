@@ -1,53 +1,65 @@
 extends Control
 
-signal finished  # amikor FULL-on van
+signal finished
 
 @onready var bar: ProgressBar = $MarginContainer/ProgressBar
+@onready var timer: Timer = $MarginContainer/Timer
 
-var max_time: float = 5.0
-var current_time: float = 0.0
-var running: bool = false
+enum State {
+	IDLE,
+	CHARGING
+}
 
-# --- START CHARGE (ugyanaz mint cooldown, csak töltés) ---
+var state := State.IDLE
+
+var max_time := 1.0
+var current := 0.0
+var step := 0.05
+
+
+func _ready():
+	timer.wait_time = step
+	timer.one_shot = false
+	timer.autostart = false
+	timer.timeout.connect(_tick)
+
 func start_cooldown(time: float):
 	max_time = max(time, 0.1)
-	current_time = 0.0
-	running = true
+
+	current = 0.0
+	state = State.CHARGING
 
 	bar.max_value = max_time
+	bar.value = current
+
+	timer.start()
+
+	await finished
+
+
+func trigger_knight_block(x_time: float, y_time: float):
+	
+	bar.fill_mode = 1 
+	await start_cooldown(x_time)
+	
 	bar.value = 0.0
+	bar.fill_mode = 0 
+	await start_cooldown(y_time)
 
-func reset():
-	running = false
-	current_time = 0
-	bar.value = 0
+func _tick():
 
-func _process(delta):
-	if not running:
-		return
+	match state:
+		State.CHARGING:
+			current += step
 
-	# FELFELÉ SZÁMOL
-	current_time += delta
-	current_time = min(current_time, max_time)
-	
-	bar.value = lerp(bar.value, current_time, 0.2)
-	
-	if current_time >= max_time:
-		bar.modulate = Color(1.2, 1.2, 1.2)
-	else:
-		bar.modulate = Color(1, 1, 1)
+	# clamp
+	current = clamp(current, 0.0, max_time)
 
-	bar.value = current_time
+	# UI UPDATE
+	bar.value = current
 
-	if current_time >= max_time:
-		running = false
+	# FINISH
+	if current >= max_time:
+		state = State.IDLE
+		timer.stop()
 		emit_signal("finished")
-
-## hasznalat:
-#@onready var timer_bar = $HUD/TimerBar
-
-#func use_ability():
-#	if timer_bar.running:
-#		return
-
-#	timer_bar.start_cooldown(5.0)

@@ -43,6 +43,7 @@ func _do_melee_attack() -> void:
 ## Fireball projectile ability
 ## Spawns the fireball scene
 func _do_ability() -> void:
+	super._do_ability()
 	if _ability == null or not _ability.is_ready():
 		return
 
@@ -64,7 +65,7 @@ func _do_ability() -> void:
 	get_tree().get_current_scene().add_child(proj)
 
 	_ability._cd_timer = _ability.ability_cooldown
-	_ability.emit_signal("ability_used", "big_fireball")
+	_ability.emit_signal("ability_used", "fireball",_ability.ability_cooldown)
 
 	await get_tree().create_timer(0.5).timeout
 	if _state == State.ATTACK:
