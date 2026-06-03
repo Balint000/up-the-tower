@@ -187,8 +187,11 @@ func on_player_death() -> void:
 
 	emit_signal("player_died")
 	GameManager.set_state(GameManager.GameState.GAME_OVER)
-	await get_tree().create_timer(1.2).timeout
-	LevelManager.reload_current_level()
+	await _fade_out()
+	await get_tree().create_timer(1).timeout
+	GameManager.go_to_levelmenu()
+	NotificationManager.show_message("GAME OVER")
+	await _fade_in()
 
 	_is_reloading = false
 

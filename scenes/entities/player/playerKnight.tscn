@@ -132,7 +132,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -162,9 +162,9 @@ script = ExtResource("1_hgmf5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1719260629]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_pxuga")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.7174288
+frame_progress = 0.55243236
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188657541]
 shape = SubResource("CapsuleShape2D_wf3kh")
