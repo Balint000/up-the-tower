@@ -201,7 +201,7 @@ func on_player_death() -> void:
 
 func on_level_complete() -> void:
 	level_completed.emit()
-	NotificationManager.show_message("You got a reward: bag")
+	NotificationManager.show_message("You got a reward: 1x bag 🎒")
 	GameManager.set_state(GameManager.GameState.IN_GAME)
 	GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"][GameManager.KEY_BAG] += 1
 	await LevelManager.load_next_level()
