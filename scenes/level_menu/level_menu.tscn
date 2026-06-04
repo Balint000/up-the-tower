@@ -228,26 +228,26 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_jw3qw")
 text = "The Tower"
 horizontal_alignment = 1
 
-[node name="LevelCard_04_LOCKED" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=339708883]
+[node name="LevelCard_04" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=339708883]
 custom_minimum_size = Vector2(280, 200)
 layout_mode = 2
 
-[node name="CardBG_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=623212996]
+[node name="CardBG_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04" unique_id=623212996]
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
 
-[node name="DimOverlay_04" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=1001749520]
+[node name="DimOverlay_04" type="ColorRect" parent="ScrollContainer/LevelsGrid/LevelCard_04" unique_id=1001749520]
 layout_mode = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.68)
 
-[node name="LockedOverlay_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=823452960]
+[node name="LockedOverlay_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04" unique_id=823452960]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="LockedCenterBox" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04" unique_id=1116640615]
+[node name="LockedCenterBox" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04/LockedOverlay_04" unique_id=1116640615]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -264,7 +264,7 @@ mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="LockIcon_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04/LockedCenterBox" unique_id=1875951819]
+[node name="LockIcon_04" type="TextureRect" parent="ScrollContainer/LevelsGrid/LevelCard_04/LockedOverlay_04/LockedCenterBox" unique_id=1875951819]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -272,33 +272,42 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LockLabel_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/LockedOverlay_04/LockedCenterBox" unique_id=1664599402]
+[node name="LockLabel_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04/LockedOverlay_04/LockedCenterBox" unique_id=1664599402]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "LOCKED"
 horizontal_alignment = 1
 
-[node name="CardContent_04" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED" unique_id=1926322030]
+[node name="TextureButton" type="TextureButton" parent="ScrollContainer/LevelsGrid/LevelCard_04" unique_id=617101223]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("4_5gure")
+texture_disabled = ExtResource("5_jw3qw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CardContent_04" type="VBoxContainer" parent="ScrollContainer/LevelsGrid/LevelCard_04" unique_id=1926322030]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="LevelNumber_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=135046804]
+[node name="LevelNumber_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04/CardContent_04" unique_id=135046804]
 modulate = Color(1, 1, 1, 0.35)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "04"
 
-[node name="CardSpacer_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=815306588]
+[node name="CardSpacer_04" type="Control" parent="ScrollContainer/LevelsGrid/LevelCard_04/CardContent_04" unique_id=815306588]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="LevelName_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04_LOCKED/CardContent_04" unique_id=1308390894]
+[node name="LevelName_04" type="Label" parent="ScrollContainer/LevelsGrid/LevelCard_04/CardContent_04" unique_id=1308390894]
 modulate = Color(1, 1, 1, 0.35)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "???"
+text = "The Boss"
 
 [node name="LevelCard_05_LOCKED" type="PanelContainer" parent="ScrollContainer/LevelsGrid" unique_id=249964637]
 custom_minimum_size = Vector2(280, 200)

@@ -27,6 +27,7 @@ signal wiring_finished
 @export var levels: Array = [
 	"res://scenes/levels/Level0/Level0.tscn",
 	"res://scenes/levels/Level1/Level1.tscn",
+	"res://scenes/levels/Level2/Level2.tscn",
 	"res://scenes/levels/Level3/Level3.tscn",
 ]
 @export var main_menu_scene: PackedScene = null
@@ -200,7 +201,9 @@ func on_player_death() -> void:
 
 func on_level_complete() -> void:
 	level_completed.emit()
+	NotificationManager.show_message("You got a reward: bag")
 	GameManager.set_state(GameManager.GameState.IN_GAME)
+	GameManager.runtime_data[GameManager.KEY_INVENTORY]["cons"][GameManager.KEY_BAG] += 1
 	await LevelManager.load_next_level()
 
 

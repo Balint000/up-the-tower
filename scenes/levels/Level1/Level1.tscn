@@ -276,6 +276,10 @@ script = ExtResource("2_607xp")
 position = Vector2(3, 0)
 offset = Vector2(0, -5)
 zoom = Vector2(5, 5)
+limit_left = -50
+limit_top = -500
+limit_right = 817
+limit_bottom = 387
 script = ExtResource("3_et5g2")
 
 [node name="Enemies" type="Node" parent="." unique_id=1449040667]
